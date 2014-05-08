@@ -11,17 +11,35 @@
 |
 */
 
+
+Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
+	Route::get('/', function() {
+		return View::make('admin.dashboard');
+	});
+
+});
+
 Route::get('/', function()
 {
-	// $posts = Post::where('published' , '=', '1')->paginate(5);
-	$posts = Post::wherePublished('1')->paginate(5);
-	// dd($posts->first()->getAttributes());
-	return View::make('home', compact('posts'));
+	$page = Input::get('page') ? (string)Input::get('page') : '1';
+
+	return Cache::rememberForever('home_'.$page, function() use ($page) {
+		Log::info('Mise en cache : Accueil : '. $page );
+		$posts = Post::wherePublished('1')->paginate(5);
+		return View::make('home', compact('posts'))->render();
+	});	
 });
 
 Route::get('/{slug}', function($slug)
 {
-	// $posts = Post::where('published' , '=', '1')->paginate(5);
-	$post = Post::whereSlug($slug)->firstOrFail();
-	return View::make('post', compact('post'));
+	return Cache::rememberForever('post_'.$slug, function() use ($slug) {
+		// $slug = Input::get('slug');
+		$post = Post::whereSlug($slug)->first();
+		if($post) {
+			Log::info('Mise en cache : Post : '. $slug );
+			return View::make('post', compact('post'))->render();	
+		}
+		app::abort(404);
+	});	
 });
+
