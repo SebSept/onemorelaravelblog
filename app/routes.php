@@ -14,8 +14,31 @@
 
 Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 	Route::get('/', function() {
-		return View::make('admin.dashboard');
+		$posts = Post::orderBy('created_at')->paginate(25);
+		return View::make('admin.dashboard', compact('posts'))->render();
 	});
+
+	// edit/post
+	Route::get('/edit/{id}', ['as' => 'admin.edit', function($id) {
+		$post = Post::find($id)->first();
+		return View::make('admin.edit', compact('post'))->render();
+	}]);
+	Route::post('/edit', ['as' => 'admin.post', function() {
+		return 'post edit';
+		// $post = Post::find($id)->first();
+		// return View::make('admin.edit', compact('post'))->render();
+	}]);
+
+
+	Route::get('/togglePublished/{id}', ['as' => 'admin.togglePublished', function($id) {
+		$post = Post::find($id)->first();
+		return View::make('admin.togglePublished', compact('post'))->render();
+	}]);
+
+	Route::get('/delete/{id}', ['as' => 'admin.delete', function($id) {
+		$post = Post::find($id)->first();
+		return View::make('admin.delete', compact('post'))->render();
+	}]);
 
 });
 
@@ -25,7 +48,7 @@ Route::get('/', function()
 
 	return Cache::rememberForever('home_'.$page, function() use ($page) {
 		Log::info('Mise en cache : Accueil : '. $page );
-		$posts = Post::wherePublished('1')->paginate(5);
+		$posts = Post::wherePublished('1')->orderBy('created_at')->paginate(5);
 		return View::make('home', compact('posts'))->render();
 	});	
 });
