@@ -34,7 +34,7 @@ Route::get('/{slug}', function($slug)
 {
 	return Cache::rememberForever('post_'.$slug, function() use ($slug) {
 		// $slug = Input::get('slug');
-		$post = Post::whereSlug($slug)->first();
+		$post = Post::whereSlug($slug)->wherePublished('1')->first();
 		if($post) {
 			Log::info('Mise en cache : Post : '. $slug );
 			return View::make('post', compact('post'))->render();	
