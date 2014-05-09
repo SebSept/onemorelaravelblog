@@ -67,6 +67,15 @@ App::down(function()
 	return Response::make("Be right back!", 503);
 });
 
+
+/**
+* My simple Auth driver
+*/
+
+Auth::extend('simple', function() {
+	return new SimpleAuth;
+});
+
 /*
 |--------------------------------------------------------------------------
 | Require The Filters File
@@ -79,3 +88,4 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
