@@ -1,24 +1,6 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
-	<style>
-		body {
-			margin:0;
-			font-family:sans-serif;
-			text-align:center;
-			color: #999;
-		}
+@extends('layout')
 
-
-		h1 {
-			font-size: 32px;
-			margin: 16px 0 0 0;
-		}
-	</style>
-</head>
-<body>
+@section('content')
 	@foreach($posts AS $post)
 		<h2>{{{ $post->title }}}</h2>
 		<p>{{{ $post->teaser }}}</p>
@@ -27,6 +9,4 @@
 	@endforeach
 
 	<?php echo $posts->links(); ?>
-
-</body>
-</html>
+@stop

@@ -1,3 +1,7 @@
-<h1>{{{ $post->title }}}</h1>
+@extends('layout')
 
-<p>{{{ $post->content }}}</p>
+@section('content')
+	<h1>{{{ $post->title }}}</h1>
+
+	<p>{{{ $post->content }}}</p>
+@stop
