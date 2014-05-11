@@ -25,8 +25,8 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 		return View::make('admin.edit', compact('post'))->render();
 	}]);
 
-	Route::post('/edit', ['as' => 'admin.post', function() {
-		$post = Post::find(Input::get('id'))->first();
+	Route::post('/edit/{id}', ['as' => 'admin.post', function($id) {
+		$post = Post::find($id)->first();
 		$inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
 		if( $post->update($inputs) ) {
 			return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');

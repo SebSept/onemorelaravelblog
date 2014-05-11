@@ -3,9 +3,8 @@
 @section('content')
 	<h1>{{{ $post->title }}}</h1>
 
-	{{ Form::model($post, ['route'=>'admin.post'], ['id'=> $post->id]) }}
+	{{ Form::model($post, ['route'=> [ 'admin.post', 'id'=> $post->id ], 'class' => 'form-horizontal' ]) }}
 
-		{{ Form::hidden('id') }}
 		{{ Form::text('title') }}
 		{{ Form::text('slug') }}
 		
