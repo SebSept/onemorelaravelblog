@@ -3,19 +3,17 @@
 @section('content')
 	<h1>{{{ $post->title }}}</h1>
 
-	{{ Form::model($post, ['route'=> [ 'admin.post', 'id'=> $post->id ], 'class' => 'form-horizontal' ]) }}
+	{{ Form::model($post, ['route'=> [ 'admin.post', 'id'=> $post->id ], 'class' => 'form-horizontal', 'role' => 'form' ]) }}
 
-		{{ Form::text('title') }}
-		{{ Form::text('slug') }}
+		{{ Form::myInput('title', 'text', 'Titre') }}
+		{{ Form::myInput('slug', 'text', 'URL') }}
+		{{ Form::myInput('teaser', 'textarea', 'Résumé') }}
+		{{ Form::myInput('content', 'textarea', 'Contenu') }}
+		{{ Form::myInput('published', 'checkbox', 'Publié') }}
 		
-		{{ Form::textarea('teaser') }}
-
-		{{ Form::textarea('content') }}
-
-		{{ Form::textarea('published') }}
-
 		{{ Form::submit() }}
 
 	{{ Form::close() }}
 	
 @stop
+

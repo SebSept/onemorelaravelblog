@@ -89,3 +89,19 @@ Auth::extend('simple', function() {
 
 require app_path().'/filters.php';
 
+
+
+
+Form::macro('myInput', function($attribute, $type, $label)
+{
+	$return = '';
+
+	$return .= '<div class="form-group">';
+	$return .= Form::label($attribute, $label, ['class' => 'col-sm-2 control-label', 'for' => $attribute]);
+	$return .= '<div class="col-sm-10">';
+	$return .= Form::$type($attribute);
+	$return .= '</div>';
+	$return .= '</div>';
+
+	return  $return;
+});
