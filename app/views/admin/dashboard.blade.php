@@ -7,6 +7,7 @@
 	<table class="table">
 	<thead>
 		<tr>
+			<th>id</th>
 			<th>Title</th>
 			<th>Slug</th>
 			<th>Published</th>
@@ -18,6 +19,7 @@
 	<tbody>
 	@foreach($posts AS $post)
 		<tr>
+			<td>{{{ $post->id }}}</td>
 			<td>{{{ $post->title }}}</td>
 			<td>{{{ $post->slug }}}</td>
 			<td>{{{ $post->published }}}</td>

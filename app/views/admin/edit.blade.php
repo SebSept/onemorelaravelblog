@@ -7,10 +7,13 @@
 
 		{{ Form::hidden('id') }}
 		{{ Form::text('title') }}
+		{{ Form::text('slug') }}
 		
 		{{ Form::textarea('teaser') }}
 
 		{{ Form::textarea('content') }}
+
+		{{ Form::textarea('published') }}
 
 		{{ Form::submit() }}
 

@@ -12,5 +12,10 @@
  * @author seb
  */
 class Post extends \Eloquent {
+
+	/**
+	* Properties that must not be mass-assigned
+	**/
+	protected $guarded = array('id');
     
 }

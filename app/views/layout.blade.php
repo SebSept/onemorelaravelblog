@@ -20,7 +20,17 @@
     <header>
       <h1>Blog</h1>
     </header>
+
     <div class="container">
+
+    @if(Session::has('message'))
+      <div class="bg-success">
+        {{ Session::get('message') }}
+      </div>
+    @endif
+
+      
+
       @yield('content')
     </div>
 

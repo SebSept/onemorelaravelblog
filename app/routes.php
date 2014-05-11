@@ -13,18 +13,25 @@
 
 
 Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
-	Route::get('/', function() {
+
+	Route::get('/', ['as' => 'admin.dashboard', function() {
 		$posts = Post::orderBy('created_at')->paginate(25);
 		return View::make('admin.dashboard', compact('posts'))->render();
-	});
+	}]);
 
 	// edit/post
 	Route::get('/edit/{id}', ['as' => 'admin.edit', function($id) {
 		$post = Post::find($id)->first();
 		return View::make('admin.edit', compact('post'))->render();
 	}]);
+
 	Route::post('/edit', ['as' => 'admin.post', function() {
-		return 'post edit';
+		$post = Post::find(Input::get('id'))->first();
+		$inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
+		if( $post->update($inputs) ) {
+			return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
+		}
+		return Redirect::back()->withInput();
 		// $post = Post::find($id)->first();
 		// return View::make('admin.edit', compact('post'))->render();
 	}]);
