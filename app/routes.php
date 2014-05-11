@@ -20,30 +20,34 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 	}]);
 
 	// edit/post
+	// edit
 	Route::get('/edit/{id}', ['as' => 'admin.edit', function($id) {
-		$post = Post::find($id)->first();
+		$post = Post::whereId($id)->first();
 		return View::make('admin.edit', compact('post'))->render();
 	}]);
-
+	// post
 	Route::post('/edit/{id}', ['as' => 'admin.post', function($id) {
-		$post = Post::find($id)->first();
+		$post = Post::whereId($id)->first();
+		// $_POST['published'] = Input::get('published') ? 1 : 0;
+		// var_dump($_POST);
 		$inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
+		$inputs['published'] = is_null($inputs['published']) ? 0 : 1;
+		// $inputs = Input::all();
+// dd($inputs);
 		if( $post->update($inputs) ) {
 			return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
 		}
 		return Redirect::back()->withInput();
-		// $post = Post::find($id)->first();
-		// return View::make('admin.edit', compact('post'))->render();
 	}]);
 
 
 	Route::get('/togglePublished/{id}', ['as' => 'admin.togglePublished', function($id) {
-		$post = Post::find($id)->first();
+		$post = Post::whereId($id)->first();
 		return View::make('admin.togglePublished', compact('post'))->render();
 	}]);
 
 	Route::get('/delete/{id}', ['as' => 'admin.delete', function($id) {
-		$post = Post::find($id)->first();
+		$post = Post::whereId($id)->first();
 		return View::make('admin.delete', compact('post'))->render();
 	}]);
 
