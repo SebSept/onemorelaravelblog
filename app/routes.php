@@ -43,7 +43,9 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 
 	Route::get('/togglePublished/{id}', ['as' => 'admin.togglePublished', function($id) {
 		$post = Post::whereId($id)->first();
-		return View::make('admin.togglePublished', compact('post'))->render();
+		$post->published = abs($post->published - 1);
+		$post->save();
+		return Redirect::back()->with('message', $post->published ? 'published' : 'unpublished');
 	}]);
 
 	Route::get('/delete/{id}', ['as' => 'admin.delete', function($id) {
