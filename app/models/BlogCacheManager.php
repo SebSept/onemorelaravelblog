@@ -10,6 +10,11 @@
  */
 class BlogCacheManager {
 
+	/**
+	* Delete caches when page saved
+	* 
+	* Called because event registred in app/start/global.php
+	**/
 	public static function postSaving(Post $post)
 	{
 		// delete post cache
