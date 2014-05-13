@@ -89,9 +89,9 @@ Auth::extend('simple', function() {
 
 require app_path().'/filters.php';
 
-
-
-
+/**
+* custom input for forms
+*/ 
 Form::macro('myInput', function($attribute, $type, $label)
 {
 	$return = '';
@@ -104,4 +104,11 @@ Form::macro('myInput', function($attribute, $type, $label)
 	$return .= '</div>';
 
 	return  $return;
+});
+
+/*
+* Events before saving post
+**/
+Post::saving( function($post) {
+	BlogCacheManager::postSaving($post);
 });
