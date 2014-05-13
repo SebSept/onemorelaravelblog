@@ -12,6 +12,9 @@
 */
 
 
+/**
+* Backoffice routes
+**/
 Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 
 	Route::get('/', ['as' => 'admin.dashboard', function() {
@@ -55,13 +58,17 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 
 });
 
+
+/**
+* Front office routes
+**/
 Route::get('/', function()
 {
 	$page = Input::get('page') ? (string)Input::get('page') : '1';
 
 	return Cache::rememberForever('home_'.$page, function() use ($page) {
 		Log::info('Mise en cache : Accueil : '. $page );
-		$posts = Post::wherePublished('1')->orderBy('created_at')->paginate(5);
+		$posts = Post::wherePublished('1')->orderBy('created_at')->paginate( Config::get('app.posts_per_page') );
 		return View::make('home', compact('posts'))->render();
 	});	
 });

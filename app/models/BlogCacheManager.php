@@ -14,9 +14,14 @@ class BlogCacheManager {
 	{
 		// delete post cache
 		Cache::forget('post_'.$post->getOriginal('slug'));
-		Log::info('cache manager : delete post cache : '.$post->getOriginal('slug'));
+		Log::info('cache manager : delete post : '.$post->getOriginal('slug'));
 
-		// @todo delete list cache
+		// delete list cache
+		$nb_pages = ceil( Post::wherePublished('1')->count() / Config::get('app.posts_per_page') )+1;
+		while($nb_pages--) {
+			Cache::forget('home_'.$nb_pages);
+			Log::info('cache manager : delete home : page'.$nb_pages);
+		}
 	}
 
 }
