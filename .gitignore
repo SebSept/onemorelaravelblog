@@ -6,6 +6,6 @@ composer.lock
 .env.php
 .DS_Store
 Thumbs.db
-/nbproject/private/
+/nbproject/
 app/database/production.sqlite
-
+app/database/production.sqlite~

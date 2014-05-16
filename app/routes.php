@@ -73,16 +73,29 @@ Route::get('/', function()
 	});	
 });
 
-Route::get('/{slug}', function($slug)
+
+Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) 
 {
-	return Cache::rememberForever('post_'.$slug, function() use ($slug) {
-		// $slug = Input::get('slug');
-		$post = Post::whereSlug($slug)->wherePublished('1')->first();
-		if($post) {
-			Log::info('Mise en cache : Post : '. $slug );
-			return View::make('post', compact('post'))->render();	
+	$page = Input::get('page') ? (string)Input::get('page') : '1';
+
+	Log::info('Check cache : taglist_'.$tag.$page);
+
+	return Cache::rememberForever('taglist_'.$tag.$page, function() use ($tag, $page) {
+		$tag = Tag::whereTitle($tag)->first();
+		if($tag) {
+			$posts = Post::wherePublished('1')
+					->with(['tags' => function($query) use ($tag) {
+				$query->whereId($tag->id);
+			}])
+					->paginate( Config::get('app.posts_per_page') );
+			$list_title = 'Posts with tag <em>'.$tag->title.'</em>';
+			Log::info('Mise en cache : TagList : '. 'taglist_'.$tag->title.$page );
+			return View::make('home', compact('posts', 'list_title'))->render();
 		}
 		app::abort(404);
+	});
+}]);
+
 	});	
 });
 

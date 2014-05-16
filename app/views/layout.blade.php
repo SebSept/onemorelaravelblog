@@ -17,8 +17,8 @@
     <![endif]-->
   </head>
   <body>
-    <header>
-      <h1>Blog</h1>
+    <header class="container">
+      <h1>{{ link_to_route('home', 'Blog') }}</h1>
     </header>
 
     <div class="container">
@@ -34,7 +34,7 @@
       @yield('content')
     </div>
 
-    <footer>
+    <footer class="container">
       <p>Footer</p>
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

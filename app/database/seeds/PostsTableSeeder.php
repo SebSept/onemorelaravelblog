@@ -11,7 +11,7 @@ class PostsTableSeeder extends Seeder {
 		while($count++ < 20) {
 			$title = $faker->sentence(rand(3,7));
 			$posts[] = [
-				'slug' => preg_replace('([^a-z0-9])','-',$title),
+				'slug' => preg_replace('([^a-z0-9])','-',strtolower($title)),
 				'title' => $title,
             	'teaser' => $faker->text(250),
             	'content' => $faker->text(1000),

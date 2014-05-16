@@ -112,3 +112,16 @@ Form::macro('myInput', function($attribute, $type, $label)
 Post::saving( function($post) {
 	BlogCacheManager::postSaving($post);
 });
+
+/*
+* Extends blade
+* - @tag($tag)
+*/
+Blade::extend(function($view, $compiler)
+{
+    $pattern = $compiler->createMatcher('tag');
+
+    return preg_replace($pattern, '$1<?php 
+    	$_tag = $2;
+    	echo link_to_route("tag.view", $_tag->title, ["tag" => $_tag->title]) ; ?>', $view);
+});
