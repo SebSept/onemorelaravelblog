@@ -62,16 +62,17 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 /**
 * Front office routes
 **/
-Route::get('/', function()
+Route::get('/', ['as' => 'home' , function()
 {
 	$page = Input::get('page') ? (string)Input::get('page') : '1';
 
-	return Cache::rememberForever('home_'.$page, function() use ($page) {
+	return Cache::rememberForever('homelist_'.$page, function() use ($page) {
 		Log::info('Mise en cache : Accueil : '. $page );
 		$posts = Post::wherePublished('1')->orderBy('created_at')->paginate( Config::get('app.posts_per_page') );
 		return View::make('home', compact('posts'))->render();
 	});	
-});
+}
+]);
 
 
 Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) 
@@ -96,6 +97,20 @@ Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag)
 	});
 }]);
 
-	});	
-});
+Route::get('/{slug}', ['as' => 'post.view', function($slug)
+	{
+		return Cache::rememberForever('post_'.$slug, function() use ($slug) {
+			// $slug = Input::get('slug');
+			$post = Post::whereSlug($slug)->wherePublished('1')->first();
+			if($post) {
+				Log::info('Mise en cache : Post : '. 'post_'.$slug );
+				return View::make('post', compact('post'))->render();	
+			}
+			app::abort(404);
+		});	
+	}
+	]
+);
+
+
 

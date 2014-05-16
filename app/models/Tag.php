@@ -11,15 +11,16 @@
  *
  * @author seb
  */
-class Post extends \Eloquent {
+class Tag extends \Eloquent {
 
 	/**
 	* Properties that must not be mass-assigned
 	**/
 	protected $guarded = array('id');
 
-	public function tags() {
-		return $this->belongsToMany('Tag');
-	}
+	/**
+	* No created_at nor updated_at columns
+	**/
+	public $timestamps = false;
     
 }
