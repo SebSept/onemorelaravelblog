@@ -4,6 +4,10 @@
 <div class="row">
 	<h1>Dashboard</h1>
 
+	@if($unpublished_comments_count)
+			<p>{{ $unpublished_comments_count }} comments to moderate : {{ link_to_route('admin.comment.moderate', 'Moderate') }}</p>
+	@endif
+
 	<table class="table">
 	<thead>
 		<tr>

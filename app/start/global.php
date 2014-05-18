@@ -113,6 +113,11 @@ Post::saving( function($post) {
 	BlogCacheManager::postSaving($post);
 });
 
+/**
+* Comment added to post
+**/
+Event::listen('comment.approved', 'BlogCacheManager@commentApproved');
+
 /*
 * Extends blade
 * - @tag($tag)
@@ -123,5 +128,5 @@ Blade::extend(function($view, $compiler)
 
     return preg_replace($pattern, '$1<?php 
     	$_tag = $2;
-    	echo link_to_route("tag.view", $_tag->title, ["tag" => $_tag->title]) ; ?>', $view);
+    	echo link_to_route("tag.view", $_tag->title, ["tag" => $_tag->title], ["class" => "btn btn-default btn-xs"]) ; ?>', $view);
 });

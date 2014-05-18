@@ -21,5 +21,9 @@ class Post extends \Eloquent {
 	public function tags() {
 		return $this->belongsToMany('Tag');
 	}
+
+	public function comments() {
+		return $this->hasMany('Comment');
+	}
     
 }
