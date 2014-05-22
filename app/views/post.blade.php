@@ -3,7 +3,7 @@
 @section('content')
 	<h1>{{{ $post->title }}}</h1>
 
-	<p>{{{ $post->content }}}</p>
+	<p><?php echo Markdown::render($post->content); ?></p>
 
 	@if(count($post->tags))
 		<h2>Tags</h2>
