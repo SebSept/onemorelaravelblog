@@ -7,6 +7,7 @@ return array(
     'comments.header' => 'Commentaires',
     'comment.header' => 'Un commentaire ? ',
     'comment.title' => 'Titre',
+    'comment.name' => 'Nom',
     'comment.url' => 'Ton site',
     'comment.content' => 'Commentaire',
     'comment.submit' =>  'Envoyer',
