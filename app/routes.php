@@ -69,12 +69,27 @@ Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
 }]);
 
     Route::get('/comment/delete/{comment_id}', ['as' => 'admin.comment.delete', function($comment_id) {
-    $comment = Comment::whereId($comment_id)->first();
-    if ($comment->delete())
-    {
-        return Redirect::back()->with('message', 'Commentaire supprimé.');
-    }
-}]);
+        $comment = Comment::whereId($comment_id)->first();
+        if ($comment->delete())
+        {
+            return Redirect::back()->with('message', 'Commentaire supprimé.');
+        }
+    }]);
+
+
+    Route::get('/post/preview/{slug}', ['as' => 'admin.post.preview',  'before' => '', function($slug) {
+        $post = Post::whereSlug($slug)
+//                ->wherePublished('1')
+                ->with(['comments' => function($query) {
+                $query->wherePublished('1');
+            }, 'tags'])
+                ->first();
+        if ($post)
+        {
+            return View::make('post', compact('post'))->render();
+        }
+        app::abort(404);
+    }]);
 });
 
 

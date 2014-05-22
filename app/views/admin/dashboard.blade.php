@@ -17,7 +17,7 @@
 			<th>Published</th>
 			<th>Created</th>
 			<th>Updated</th>
-			<th colspan="3">Action</th>
+			<th colspan="4">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,7 +29,9 @@
 			<td>{{{ $post->published }}}</td>
 			<td>{{{ $post->created_at }}}</td>
 			<td>{{{ $post->updated_at }}}</td>
+                        {{-- edit --}}
 			<td><a href="{{ route('admin.edit', ['id' => $post->id]) }}" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        {{-- toogle published --}}
 			<td><a href="{{ route('admin.togglePublished', ['id' => $post->id]) }}" title="{{ $post->published ? 'Dépublier' : 'Publier' }}">
 				@if($post->published) 
 					<span class="glyphicon glyphicon-remove-sign"></span>
@@ -37,6 +39,19 @@
 					<span class="glyphicon glyphicon-ok-sign"></span>
 				@endif	
 			</a></td>
+                        
+                        {{-- preview post --}}
+                        <td>
+                        <a href="{{ route('admin.post.preview', ['slug' => $post->slug]) }}" title="Preview">
+				@if($post->published) 
+					<span class="glyphicon glyphicon-edit"></span>
+				@else
+					<span class="glyphicon glyphicon-edit"></span>
+				@endif	
+			</a>
+                        </td>
+                        
+                        {{-- delete --}}
 			<td><a href="{{ route('admin.delete', ['id' => $post->id]) }}" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a></td>
 		</tr>
 	@endforeach
