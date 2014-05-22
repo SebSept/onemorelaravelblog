@@ -25,9 +25,7 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(array(
-
-	'local' => array('portable-home'),
-
+	'local' => array('portable-home', 'big-home'),
 ));
 
 /*
