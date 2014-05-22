@@ -8,6 +8,7 @@
 
         <!-- Bootstrap -->
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/mine.css')}}" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,15 +36,17 @@
             @yield('content')
         </div>
 
-        <footer class="container">
-            @section('layout.footer')
-                <p>This is the default Footer. You can override it</p>
-            @stop
-            
-            @includesafe('override.layout.footer')
-            
-            @yield('layout.footer')
-        </footer>
+        <div id="footer-wrapper">
+        @section('layout.footer')
+            <footer class="container">
+                    <p>Powered by OneMoreLaravelBlog</p>
+            </footer>
+        @stop
+        @includesafe('override.layout.footer')
+        @yield('layout.footer')
+        </div>
+        
+        
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
