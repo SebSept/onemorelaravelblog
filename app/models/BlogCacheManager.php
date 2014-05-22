@@ -12,13 +12,15 @@
  * @author seb
  */
 class BlogCacheManager {
+    
+        public static $allowed_identifier_parameters = ['slug'];
 
 	public static function get() {
-		$identifier = static::getIdentifier();
+		$identifier = static::getIdentifierFromCurrentRoute();
 		$exists = Cache::has($identifier);
 		Log::info('get : check cache : '. $identifier .' : '. ($exists ? 'existe' : 'existe pas'));
 
-		$cache = Cache::get(static::getIdentifier(), null);
+		$cache = Cache::get(static::getIdentifierFromCurrentRoute(), null);
 		// dd($cache);
 		if(!is_null($cache)) {
 			// add new header to response to evaluate if content needs to be cached by cache filter
@@ -27,30 +29,47 @@ class BlogCacheManager {
 			$response->header('X-BlogCacheManager', 'cached', false);
 			return $response;
 		}
-
-		
 	}
 
 	public static function put($response) {
 		$cached = (bool)$response->headers->get('X-BlogCacheManager', false);
 		if(!$cached) {
-			$identifier = static::getIdentifier();
-			Cache::forever(static::getIdentifier(), $response->original);
+			$identifier = static::getIdentifierFromCurrentRoute();
+			Cache::forever(static::getIdentifierFromCurrentRoute(), $response->original);
 			Log::info('put : '. $identifier .' - '.$response->headers->get('X-BlogCacheManager', 'not defined'));
 		}
 	}
 
-	protected static function getIdentifier() {
+	protected static function getIdentifierFromCurrentRoute() {
 		$route = Route::getCurrentRoute();
 		$request = Route::getCurrentRequest();
 		$page = $request->input('page', '0');
 
-		$identifier = $route->getName().'_'.
-					  // serialize($route->parameters()).'_'.
-					  $page
-					  ;
-	  	return $identifier;
+	  	return static::getIdentifier($route->getName(), $route->parameters(), $page);
 	}
+        
+        /**
+         * 
+         * @param type $route_name
+         * @param type $parameters
+         * @param type $page
+         * @return string
+         */
+        protected static function getIdentifier($route_name, $parameters, $page = '0')
+        {
+            // filter params
+//            $parameters = array_filter($parameters, function($element) {
+//                return in_array($element, BlogCacheManager::$allowed_identifier_parameters ) ;
+//            });
+            $parameters = array_only($parameters, BlogCacheManager::$allowed_identifier_parameters);
+            $parameters_flatten = '';
+            foreach($parameters AS $key => $value) {
+                $parameters_flatten = $key.':'.$value.'_';
+            }
+            $parameters_flatten = substr($parameters_flatten,0, -1);
+            
+            return $route_name.'_'.$parameters_flatten.'_'.$page;
+        }
 
 	/**
 	* Delete caches when page saved
@@ -60,17 +79,20 @@ class BlogCacheManager {
 	public static function postSaving(Post $post)
 	{
 		// forget post cache
-		$this->forgetPost($comment->post);
+		static::forgetPost($post);
 
 		// delete cache of posts list on home
-		trigger_error(('implement me'));
+		
 		$nb_pages = ceil( Post::wherePublished('1')->count() / Config::get('app.posts_per_page') )+1;
 		while($nb_pages--) {
-			Cache::forget('homelist_'.$nb_pages);
-			Log::info('cache manager : delete posts : page'.$nb_pages);
+                        $identifier = static::getIdentifier('home', [], $nb_pages);
+			Cache::forget($identifier);
+			Log::info('cache manager : delete posts : '.$identifier);
 		}
 
+//                return;
 		// delete cache of posts list filter by tag
+                trigger_error(('implement me'));
 		foreach($post->tags AS $tag)
 		{ 
 			$nb_pages = ceil( 
@@ -94,7 +116,7 @@ class BlogCacheManager {
 	**/
 	public function commentApproved(Comment $comment)
 	{
-		$this->forgetPost($comment->post);
+		static::forgetPost($comment->post);
 	}
 
 	/**
@@ -103,11 +125,9 @@ class BlogCacheManager {
 	* @param Post $post
 	* @return void
 	**/
-	protected function forgetPost(Post $post) {
-		trigger_error(('implement me'));
-		$cache_id = 'post_'.$post->getOriginal('slug');
-		Cache::forget($cache_id);
-		Log::info('cache manager : delete Post : '.$cache_id);
+	protected static function forgetPost(Post $post) {
+		Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
+		Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
 	}
 
 }
