@@ -118,9 +118,10 @@ Post::saving( function($post) {
 **/
 Event::listen('comment.approved', 'BlogCacheManager@commentApproved');
 
-/*
-* Extends blade
-* - @tag($tag)
+/**
+ * Extends blade
+ * - @tag($tag)
+ * - @includesafe
 */
 Blade::extend(function($view, $compiler)
 {
@@ -129,4 +130,13 @@ Blade::extend(function($view, $compiler)
     return preg_replace($pattern, '$1<?php 
     	$_tag = $2;
     	echo link_to_route("tag.view", $_tag->title, ["tag" => $_tag->title], ["class" => "btn btn-default btn-xs"]) ; ?>', $view);
+});
+
+// modified copy of native @include
+Blade::extend(function($view, $compiler)
+{
+    $pattern = $compiler->createOpenMatcher('includesafe');
+    $replace = '$1<?php try{ echo $__env->make$2, array_except(get_defined_vars(), array(\'__data\', \'__path\')))->render(); }catch(Exception $e) {} ?>';
+
+return preg_replace($pattern, $replace, $view);
 });

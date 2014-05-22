@@ -17,23 +17,32 @@
         <![endif]-->
     </head>
     <body>
-        <header class="container">
-            <h1>{{ link_to_route('home', Config::get('blog.title')) }}</h1>
-        </header>
+        <div id="header-wrapper">
+            <header class="container">
+                <h1>{{ link_to_route('home', Config::get('blog.title')) }}</h1>
+            </header>
+        </div>
 
-        <div class="container">
-
-            @if(Session::has('message'))
-            <div class="bg-success">
+        @if(Session::has('message'))
+        <div id="message-wrapper">
+            <div class="container bg-success message">
                 {{ Session::get('message') }}
             </div>
-            @endif
-
+        </div>
+        @endif
+        
+        <div id="main-wrapper">
             @yield('content')
         </div>
 
         <footer class="container">
-            <p>Footer</p>
+            @section('layout.footer')
+                <p>This is the default Footer. You can override it</p>
+            @stop
+            
+            @includesafe('override.layout.footer')
+            
+            @yield('layout.footer')
         </footer>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
