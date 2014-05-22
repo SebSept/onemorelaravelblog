@@ -78,3 +78,19 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+$tps = microtime();
+
+/**
+* Cache filters
+**/
+Route::filter('cache_retrieve', function() {
+	return BlogCacheManager::get();
+});
+
+Route::filter('cache_create', function($route, $request, $response) {
+	BlogCacheManager::put($response);
+	// global $tps;
+	// Log::info(microtime()-$tps);
+	// Cache::flush();
+});

@@ -79,26 +79,18 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 /**
 * Front office routes
 **/
-Route::get('/', ['as' => 'home' , function()
-{
-	$page = Input::get('page') ? (string)Input::get('page') : '1';
 
-	return Cache::rememberForever('homelist_'.$page, function() use ($page) {
-		Log::info('Mise en cache : Accueil : '. $page );
+Route::group(['before' => 'cache_retrieve' , 'after' => 'cache_create'], function() { 
+	Route::get('/home', ['as' => 'home' , function()
+	{
 		$posts = Post::wherePublished('1')->orderBy('created_at')->paginate( Config::get('app.posts_per_page') );
 		return View::make('home', compact('posts'))->render();
-	});	
-}
-]);
+	}
+	]);
 
 
-Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) 
-{
-	$page = Input::get('page') ? (string)Input::get('page') : '1';
-
-	Log::info('Check cache : taglist_'.$tag.$page);
-
-	return Cache::rememberForever('taglist_'.$tag.$page, function() use ($tag, $page) {
+	Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) 
+	{
 		$tag = Tag::whereTitle($tag)->first();
 		if($tag) {
 			$posts = Post::wherePublished('1')
@@ -111,13 +103,10 @@ Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag)
 			return View::make('home', compact('posts', 'list_title'))->render();
 		}
 		app::abort(404);
-	});
-}]);
+	}]);
 
-Route::get('/{slug}', ['as' => 'post.view', function($slug)
-	{
-		return Cache::rememberForever('post_'.$slug, function() use ($slug) {
-			// $slug = Input::get('slug');
+	Route::get('/{slug}', ['as' => 'post.view', function($slug)
+		{
 			$post = Post::whereSlug($slug)
 						->wherePublished('1')
 						->with(['comments' => function($query) {
@@ -129,10 +118,10 @@ Route::get('/{slug}', ['as' => 'post.view', function($slug)
 				return View::make('post', compact('post'))->render();	
 			}
 			app::abort(404);
-		});	
-	}
-	]
-);
+		}
+		]
+	);
+});
 
 Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id) {
 	$comment = new Comment(Input::only(['title', 'author_name', 'author_site', 'content']));

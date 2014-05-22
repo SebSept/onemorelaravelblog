@@ -16,5 +16,4 @@ return array(
 	*/
 
 	'driver' => 'apc',
-
 );
