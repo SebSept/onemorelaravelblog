@@ -103,7 +103,6 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
 }
     ]);
 
-
     Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) {
     $tag = Tag::whereTitle($tag)->first();
     if ($tag)
@@ -113,7 +112,7 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
                 $query->whereId($tag->id);
             }])
                 ->paginate(Config::get('app.posts_per_page'));
-        $list_title = 'Posts with tag <em>' . $tag->title . '</em>';
+        $list_title = Lang::get('front.list.header.posts tagged' , ['title' => $tag->title]);
         return View::make('home', compact('posts', 'list_title'))->render();
     }
     app::abort(404);
