@@ -13,8 +13,16 @@
  */
 class BlogCacheManager {
     
-        public static $allowed_identifier_parameters = ['slug'];
+        /**
+         * Parameters allowed to create a cache identifier
+         */
+        public static $allowed_identifier_parameters = ['slug','tag'];
 
+        /**
+         * get a content from cache
+         * 
+         * @return mixed \Illuminate\Http\Response | null
+         */
 	public static function get() {
 		$identifier = static::getIdentifierFromCurrentRoute();
 		$exists = Cache::has($identifier);
@@ -31,6 +39,11 @@ class BlogCacheManager {
 		}
 	}
 
+        /**
+         * Put proceeded route response in cache
+         * 
+         * @param \Illuminate\Http\Response $response Response rendered by route
+         */
 	public static function put($response) {
 		$cached = (bool)$response->headers->get('X-BlogCacheManager', false);
 		if(!$cached) {
@@ -40,6 +53,11 @@ class BlogCacheManager {
 		}
 	}
 
+        /**
+         * Get a cache identifier based on current route
+         * 
+         * @return string
+         */
 	protected static function getIdentifierFromCurrentRoute() {
 		$route = Route::getCurrentRoute();
 		$request = Route::getCurrentRequest();
@@ -90,9 +108,7 @@ class BlogCacheManager {
 			Log::info('cache manager : delete posts : '.$identifier);
 		}
 
-//                return;
 		// delete cache of posts list filter by tag
-                trigger_error(('implement me'));
 		foreach($post->tags AS $tag)
 		{ 
 			$nb_pages = ceil( 
@@ -101,8 +117,8 @@ class BlogCacheManager {
 					->count() / Config::get('app.posts_per_page') )+1;
 
 			while($nb_pages--) {
-				Cache::forget('taglist_'.$tag->title.$nb_pages);
-				Log::info('cache manager : delete posts : taglist_'.$tag->title.$nb_pages);
+				Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+				Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
 			}
 		}
 	}
@@ -129,5 +145,4 @@ class BlogCacheManager {
 		Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
 		Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
 	}
-
 }

@@ -90,7 +90,4 @@ Route::filter('cache_retrieve', function() {
 
 Route::filter('cache_create', function($route, $request, $response) {
 	BlogCacheManager::put($response);
-	// global $tps;
-	// Log::info(microtime()-$tps);
-	// Cache::flush();
 });
