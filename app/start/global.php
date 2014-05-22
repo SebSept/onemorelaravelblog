@@ -89,9 +89,9 @@ Auth::extend('simple', function() {
 
 require app_path().'/filters.php';
 
-
-
-
+/**
+* custom input for forms
+*/ 
 Form::macro('myInput', function($attribute, $type, $label)
 {
 	$return = '';
@@ -104,4 +104,29 @@ Form::macro('myInput', function($attribute, $type, $label)
 	$return .= '</div>';
 
 	return  $return;
+});
+
+/*
+* Events before saving post
+**/
+Post::saving( function($post) {
+	BlogCacheManager::postSaving($post);
+});
+
+/**
+* Comment added to post
+**/
+Event::listen('comment.approved', 'BlogCacheManager@commentApproved');
+
+/*
+* Extends blade
+* - @tag($tag)
+*/
+Blade::extend(function($view, $compiler)
+{
+    $pattern = $compiler->createMatcher('tag');
+
+    return preg_replace($pattern, '$1<?php 
+    	$_tag = $2;
+    	echo link_to_route("tag.view", $_tag->title, ["tag" => $_tag->title], ["class" => "btn btn-default btn-xs"]) ; ?>', $view);
 });

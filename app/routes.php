@@ -12,11 +12,15 @@
 */
 
 
+/**
+* Backoffice routes
+**/
 Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 
 	Route::get('/', ['as' => 'admin.dashboard', function() {
 		$posts = Post::orderBy('created_at')->paginate(25);
-		return View::make('admin.dashboard', compact('posts'))->render();
+		$unpublished_comments_count = Comment::wherePublished('0')->count();
+		return View::make('admin.dashboard', compact('posts','unpublished_comments_count'))->render();
 	}]);
 
 	// edit/post
@@ -28,18 +32,13 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 	// post
 	Route::post('/edit/{id}', ['as' => 'admin.post', function($id) {
 		$post = Post::whereId($id)->first();
-		// $_POST['published'] = Input::get('published') ? 1 : 0;
-		// var_dump($_POST);
 		$inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
 		$inputs['published'] = is_null($inputs['published']) ? 0 : 1;
-		// $inputs = Input::all();
-// dd($inputs);
 		if( $post->update($inputs) ) {
 			return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
 		}
 		return Redirect::back()->withInput();
 	}]);
-
 
 	Route::get('/togglePublished/{id}', ['as' => 'admin.togglePublished', function($id) {
 		$post = Post::whereId($id)->first();
@@ -49,33 +48,106 @@ Route::group(['prefix'=> 'admin', 'before'=> 'auth.basic'], function() {
 	}]);
 
 	Route::get('/delete/{id}', ['as' => 'admin.delete', function($id) {
+		trigger_error('implement me (as POST)');
 		$post = Post::whereId($id)->first();
 		return View::make('admin.delete', compact('post'))->render();
 	}]);
 
+	Route::get('/comment/moderate', ['as' => 'admin.comment.moderate', function() {
+		$unpublished_comments = Comment::wherePublished('0')->paginate( Config::get('app.comments_per_page_admin', 20) );
+		return View::make('admin.comment_moderate', compact('unpublished_comments'));
+	}]);
+
+	Route::get('/comment/approuve/{comment_id}', ['as' => 'admin.comment.approuve', function($comment_id) {
+		$comment = Comment::whereId($comment_id)->first();	
+		if($comment->approve()) {
+			return Redirect::back()->with('message', 'Commentaire approuvé');
+		}
+		return Redirect::back()->with('error', 'Echec approbation commentaire !');
+	}]);
+
+	Route::get('/comment/delete/{comment_id}', ['as' => 'admin.comment.delete', function($comment_id) {
+		$comment = Comment::whereId($comment_id)->first();	
+		if($comment->delete()) {
+			return Redirect::back()->with('message', 'Commentaire supprimé.');
+		}
+	}]);
+	
 });
 
-Route::get('/', function()
+
+/**
+* Front office routes
+**/
+Route::get('/', ['as' => 'home' , function()
 {
 	$page = Input::get('page') ? (string)Input::get('page') : '1';
 
-	return Cache::rememberForever('home_'.$page, function() use ($page) {
+	return Cache::rememberForever('homelist_'.$page, function() use ($page) {
 		Log::info('Mise en cache : Accueil : '. $page );
-		$posts = Post::wherePublished('1')->orderBy('created_at')->paginate(5);
+		$posts = Post::wherePublished('1')->orderBy('created_at')->paginate( Config::get('app.posts_per_page') );
 		return View::make('home', compact('posts'))->render();
 	});	
-});
+}
+]);
 
-Route::get('/{slug}', function($slug)
+
+Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) 
 {
-	return Cache::rememberForever('post_'.$slug, function() use ($slug) {
-		// $slug = Input::get('slug');
-		$post = Post::whereSlug($slug)->wherePublished('1')->first();
-		if($post) {
-			Log::info('Mise en cache : Post : '. $slug );
-			return View::make('post', compact('post'))->render();	
+	$page = Input::get('page') ? (string)Input::get('page') : '1';
+
+	Log::info('Check cache : taglist_'.$tag.$page);
+
+	return Cache::rememberForever('taglist_'.$tag.$page, function() use ($tag, $page) {
+		$tag = Tag::whereTitle($tag)->first();
+		if($tag) {
+			$posts = Post::wherePublished('1')
+					->with(['tags' => function($query) use ($tag) {
+				$query->whereId($tag->id);
+			}])
+					->paginate( Config::get('app.posts_per_page') );
+			$list_title = 'Posts with tag <em>'.$tag->title.'</em>';
+			Log::info('Mise en cache : TagList : '. 'taglist_'.$tag->title.$page );
+			return View::make('home', compact('posts', 'list_title'))->render();
 		}
 		app::abort(404);
-	});	
-});
+	});
+}]);
+
+Route::get('/{slug}', ['as' => 'post.view', function($slug)
+	{
+		return Cache::rememberForever('post_'.$slug, function() use ($slug) {
+			// $slug = Input::get('slug');
+			$post = Post::whereSlug($slug)
+						->wherePublished('1')
+						->with(['comments' => function($query) {
+							$query->wherePublished('1');
+						}])
+						->first();
+			if($post) {
+				Log::info('Mise en cache : Post : '. 'post_'.$slug );
+				return View::make('post', compact('post'))->render();	
+			}
+			app::abort(404);
+		});	
+	}
+	]
+);
+
+Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id) {
+	$comment = new Comment(Input::only(['title', 'author_name', 'author_site', 'content']));
+	$comment->post_id = (int) $post_id;
+	$comment->published = 0;
+	if($comment->save()) {
+		return Redirect::back()
+			->with('message', 'Commentaire envoyé, validation en attente.');
+	}
+	else {
+		return Redirect::back()
+			->with('error', 'Information manquante')
+			->withInput();
+	}
+}]);
+
+
 

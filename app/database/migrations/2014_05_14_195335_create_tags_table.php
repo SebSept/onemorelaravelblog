@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTitleToPostsTable extends Migration {
+class CreateTagsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,8 +12,9 @@ class AddTitleToPostsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('posts', function (Blueprint $table) {
-            $table->string('title', 150)->default('title');
+		Schema::create('tags', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 45);
         });
 	}
 
@@ -24,9 +25,6 @@ class AddTitleToPostsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('title');
-        });
+		Schema::dropIfExists('tags');
 	}
-
 }

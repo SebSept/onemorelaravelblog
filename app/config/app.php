@@ -189,4 +189,9 @@ return array(
 
 	),
 
+	/**
+	* Posts per page on home
+	**/
+	'posts_per_page' => 3,
+
 );
