@@ -13,8 +13,8 @@ class CreateTagsPostsPivotTable extends Migration {
 	public function up()
 	{
 		Schema::create('post_tag', function (Blueprint $table) {
-            $table->integer('post_id')->references('id')->on('posts');
-            $table->integer('tag_id')->references('id')->on('tags');
+            $table->integer('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->integer('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
 	}
 
