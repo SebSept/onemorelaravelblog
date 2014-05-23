@@ -2,10 +2,21 @@
 /vendor
 composer.phar
 composer.lock
+
+; ignore system files
 .env.*.php
 .env.php
 .DS_Store
 Thumbs.db
+
+; ignore ide files
 /nbproject/
+
+; ignore custom deployement files
+; you have to remove that line in your personnal branch
+
 app/database/production.sqlite
-app/database/production.sqlite~
+app/config/local/
+public/css/mine.css
+
+
