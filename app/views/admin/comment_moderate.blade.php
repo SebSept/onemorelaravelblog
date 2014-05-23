@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-
+        <div class="container" id="post-content">
 	{{ link_to_route('admin.dashboard', 'Retour Admin') }}
 	<h1>Moderate unpublished comments</h1>
 
@@ -32,4 +32,5 @@
 	</table>
 
 	<?php echo $unpublished_comments->links(); ?>
+        </div>
 @stop

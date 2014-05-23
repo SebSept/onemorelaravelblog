@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<div class="container" id="post-content">
 	<h1>{{{ $post->title }}}</h1>
 
 	{{ Form::model($post, ['route'=> [ 'admin.post', 'id'=> $post->id ], 'class' => 'form-horizontal', 'role' => 'form' ]) }}
@@ -14,6 +15,6 @@
 		{{ Form::submit() }}
 
 	{{ Form::close() }}
-	
+</div>
 @stop
 

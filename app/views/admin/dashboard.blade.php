@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<div class="row">
+<div class="container">
 	<h1>Dashboard</h1>
 
 	@if($unpublished_comments_count)
