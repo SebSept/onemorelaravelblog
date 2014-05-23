@@ -1,10 +1,9 @@
-
 div#header-wrapper,
 div#footer-wrapper{
     background:#000;
 }
 div#header-wrapper h1 { 
-    padding-top: 0.77em;
+padding-top: 0.77em;
 }
 
 div#header-wrapper h1 a {
