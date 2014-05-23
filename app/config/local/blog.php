@@ -5,5 +5,5 @@
  */
 return [
     'title' => 'Seb7 DevBlog',
-    'subtitle' => 'Billets à propos mes aventures de developper web.'
+    'subtitle' => 'Billets à propos mes aventures de developpeur web.'
 ];

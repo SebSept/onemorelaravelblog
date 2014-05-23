@@ -1,4 +1,7 @@
-body {font-size:1.7em;}
+body {
+    font-size:1.7em;
+    font-family: 'Arimo', sans-serif;
+}
 
 div#header-wrapper,
 div#footer-wrapper{
@@ -16,3 +19,4 @@ div#footer-wrapper footer p  {
 header p {
     color:#969696;
 }
+
