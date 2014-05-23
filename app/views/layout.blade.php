@@ -38,13 +38,14 @@
         </div>
 
         <div id="footer-wrapper">
-        @section('layout.footer')
+            @includesafe('override.layout.footer')
+            @section('layout.footer')
+                <p>Powered by OneMoreLaravelBlog</p>
+            @stop
+
             <footer class="container">
-                    <p>Powered by OneMoreLaravelBlog</p>
+                @yield('layout.footer')
             </footer>
-        @stop
-        @includesafe('override.layout.footer')
-        @yield('layout.footer')
         </div>
         
         
