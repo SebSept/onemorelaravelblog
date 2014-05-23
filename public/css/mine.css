@@ -1,12 +1,18 @@
+body {font-size:1.7em;}
+
 div#header-wrapper,
 div#footer-wrapper{
     background:#000;
 }
 div#header-wrapper h1 { 
-line-height: 2em;
+padding-top: 0.77em;
 }
 
 div#footer-wrapper footer p  {
     line-height: 3em;
     min-height: 3em;
+}
+
+header p {
+    color:#969696;
 }
