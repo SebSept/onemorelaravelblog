@@ -98,7 +98,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
  * Front office routes
  * */
 Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function() {
-    Route::get('/home', ['as' => 'home', function() {
+    Route::get('/', ['as' => 'home', function() {
     $posts = Post::wherePublished('1')->orderBy('created_at')->paginate(Config::get('app.posts_per_page'));
     return View::make('home', compact('posts'))->render();
 }
@@ -137,20 +137,17 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
 });
 
 Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id) {
-$comment = new Comment(Input::only(['title', 'author_name', 'author_site', 'content']));
-$comment->post_id = (int) $post_id;
-$comment->published = 0;
-if ($comment->save())
-{
-    return Redirect::back()
-                    ->with('message', 'Commentaire envoyé, validation en attente.');
-} else
-{
-    return Redirect::back()
-                    ->with('error', 'Information manquante')
-                    ->withInput();
-}
+	$comment = new Comment(Input::only(['title', 'author_name', 'author_site', 'content']));
+	$comment->post_id = (int) $post_id;
+	$comment->published = 0;
+	if ($comment->save())
+	{
+	    return Redirect::back()
+	                    ->with('message', 'Commentaire envoyé, validation en attente.');
+	} else
+	{
+	    return Redirect::back()
+	                    ->with('error', 'Information manquante')
+	                    ->withInput();
+	}
 }]);
-
-
-
