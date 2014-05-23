@@ -36,15 +36,19 @@
     @endif
 
     <div class="container" id="post-form">
-	<h3>{{ trans('front.comment.header') }}</h3>
-	{{ Form::open(['route' => ['comment.add', 'post_id' => $post->id], 'class' => 'form-horizontal', 'role' => 'form'  ]) }}
+        @includesafe('override.post.commentform')
+        @section('override.post.commentform')
+            <h3>{{ trans('front.comment.header') }}</h3>
+            {{ Form::open(['route' => ['comment.add', 'post_id' => $post->id], 'class' => 'form-horizontal', 'role' => 'form'  ]) }}
 
-		{{ Form::myInput('title', 'text', trans('front.comment.title')) }}
-		{{ Form::myInput('author_name', 'text', trans('front.comment.name')) }}
-		{{ Form::myInput('author_site', 'text', trans('front.comment.url')) }}
-		{{ Form::myInput('content', 'textarea', trans('front.comment.content')) }}
+                    {{ Form::myInput('title', 'text', trans('front.comment.title')) }}
+                    {{ Form::myInput('author_name', 'text', trans('front.comment.name')) }}
+                    {{ Form::myInput('author_site', 'text', trans('front.comment.url')) }}
+                    {{ Form::myInput('content', 'textarea', trans('front.comment.content')) }}
 
-		{{ Form::submit(trans('front.comment.submit'), ['class' => 'col-md-offset-2']) }}
-	{{ Form::close() }}
+                    {{ Form::submit(trans('front.comment.submit'), ['class' => 'col-md-offset-2']) }}
+            {{ Form::close() }}
+        @stop
+        @yield('override.post.commentform')
     </div>
 @stop
