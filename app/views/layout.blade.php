@@ -21,6 +21,7 @@
         <div id="header-wrapper">
             <header class="container">
                 <h1>{{ link_to_route('home', Config::get('blog.title')) }}</h1>
+                <p>{{ Config::get('blog.subtitle') }}</p>
             </header>
         </div>
 
