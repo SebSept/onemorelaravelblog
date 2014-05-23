@@ -8,7 +8,11 @@ div#footer-wrapper{
     background:#000;
 }
 div#header-wrapper h1 { 
-padding-top: 0.77em;
+    padding-top: 0.77em;
+}
+
+div#header-wrapper h1 a {
+    color:#428bca;
 }
 
 div#footer-wrapper footer p  {
@@ -17,6 +21,17 @@ div#footer-wrapper footer p  {
 }
 
 header p {
-    color:#969696;
+    color:#ff7;
 }
 
+footer p  {
+    color:#777;
+}
+
+
+/* post */
+
+#post-form h3 {
+    text-decoration: underline;
+    cursor: pointer;
+}
