@@ -1,8 +1,8 @@
 
 
-@section('layout.footer')
+{{-- @section('layout.footer')
     <p>This My custom footer</p>
-    @parent
+    @parent --}}
 {{--@overwrite--}}
-@stop
+{{-- @stop --}}
 {{-- @-overwrite --}}
