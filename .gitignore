@@ -18,5 +18,4 @@ Thumbs.db
 app/database/production.sqlite
 app/config/local/
 public/css/mine.css
-
-
+/app/views/override/layout/head.blade.php
