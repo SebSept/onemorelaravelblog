@@ -52,7 +52,11 @@
                         </td>
                         
                         {{-- delete --}}
-			<td><a href="{{ route('admin.delete', ['id' => $post->id]) }}" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a></td>
+			<td>{{ Form::open([ 'route' => ['admin.delete', 'id' => $post->id ], 'id' => 'delete_btn_'.$post->id ]) }}
+                            {{ Form::close() }}
+                            <span class="glyphicon glyphicon-trash" title="Supprimer" 
+                                  onclick="document.getElementById('delete_btn_{{$post->id}}').submit(); return false;"></span>
+                        </td>
 		</tr>
 	@endforeach
 	</tbody>

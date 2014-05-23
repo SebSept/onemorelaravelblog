@@ -48,10 +48,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
     return Redirect::back()->with('message', $post->published ? 'published' : 'unpublished');
 }]);
 
-    Route::get('/delete/{id}', ['as' => 'admin.delete', function($id) {
-    trigger_error('implement me (as POST)');
-    $post = Post::whereId($id)->first();
-    return View::make('admin.delete', compact('post'))->render();
+    Route::post('/delete/{id}', ['as' => 'admin.delete', function($id) {
+    if(Post::whereId($id)->first()->delete())    {
+        return Redirect::back()->with('message', 'Suppression réussie');
+    }
+    return Redirect::back()->with('message', 'Suppression ratée');
 }]);
 
     Route::get('/comment/moderate', ['as' => 'admin.comment.moderate', function() {
