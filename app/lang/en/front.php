@@ -1,7 +1,10 @@
 <?php
 
 return [
-   'tags.header' => 'Tags',
+    'tags.header' => 'Tags',
+
+    // comments
+    'comment.on' => 'on',
     
     // post view comment form
     'comments.header' => 'Comments',

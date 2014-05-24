@@ -1,8 +1,11 @@
 <?php
 
-return array(
+return [
     'tags.header' => 'Etiquettes',
     
+    // comments
+    'comment.on' => 'le',
+
     // post view comment form
     'comments.header' => 'Commentaires',
     'comment.header' => 'Un commentaire ? ',
@@ -15,5 +18,5 @@ return array(
     // lists of posts filtered by tag
     // home.blade.php + route.php
     'list.header.posts tagged' => 'Billets avec le tag <em>:title</em>',
-    
-);
+
+];

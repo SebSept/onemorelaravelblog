@@ -29,6 +29,14 @@
                 <li>
                         <h3>{{ $comment->title }}</h3>
                         <p>{{ $comment->content }}</p>
+                        <p class="author">
+                            @if($comment->author_site && $comment->author_name)
+                                {{ link_to($comment->author_site, $comment->author_name, ['rel' => 'nofollow']) }}
+                            @elseif($comment->author_name)
+                                {{ $comment->author_name }}
+                            @endif
+                            {{ trans('front.comment.on') }} {{ $comment->created_at->formatLocalized( Config::get('blog.dateformat') ); }}
+                        </p>
                 </li>
         @endforeach
         </ul>

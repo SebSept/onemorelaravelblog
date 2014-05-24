@@ -140,3 +140,6 @@ Blade::extend(function($view, $compiler)
 
 return preg_replace($pattern, $replace, $view);
 });
+
+// set locale for dates
+setlocale(LC_TIME, Config::get('blog.locale'));
