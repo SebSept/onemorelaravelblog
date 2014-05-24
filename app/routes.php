@@ -18,7 +18,7 @@
 Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
 
     Route::get('/', ['as' => 'admin.dashboard', function() {
-    $posts = Post::orderBy('created_at')->paginate(25);
+    $posts = Post::orderBy('created_at')->paginate('blog.posts_per_page_admin');
     $unpublished_comments_count = Comment::wherePublished('0')->count();
     return View::make('admin.dashboard', compact('posts', 'unpublished_comments_count'))->render();
 }]);
@@ -56,7 +56,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
 }]);
 
     Route::get('/comment/moderate', ['as' => 'admin.comment.moderate', function() {
-    $unpublished_comments = Comment::wherePublished('0')->paginate(Config::get('app.comments_per_page_admin', 20));
+    $unpublished_comments = Comment::wherePublished('0')->paginate(Config::get('blog.comments_per_page_admin', 20));
     return View::make('admin.comment_moderate', compact('unpublished_comments'));
 }]);
 
@@ -99,7 +99,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
  * */
 Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function() {
     Route::get('/', ['as' => 'home', function() {
-    $posts = Post::wherePublished('1')->orderBy('created_at')->paginate(Config::get('app.posts_per_page'));
+    $posts = Post::wherePublished('1')->orderBy('created_at')->paginate(Config::get('blog.posts_per_page'));
     return View::make('home', compact('posts'))->render();
 }
     ]);
@@ -112,7 +112,7 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
                 ->with(['tags' => function($query) use ($tag) {
                 $query->whereId($tag->id);
             }])
-                ->paginate(Config::get('app.posts_per_page'));
+                ->paginate(Config::get('blog.posts_per_page'));
         $list_title = Lang::get('front.list.header.posts tagged' , ['title' => $tag->title]);
         return View::make('home', compact('posts', 'list_title'))->render();
     }

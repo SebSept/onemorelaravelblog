@@ -9,5 +9,13 @@
 
 return [
     'title' => 'My blog name',
-    'subtitle' => 'My blog subtitle'
+    'subtitle' => 'My blog subtitle',
+
+	// Posts per page on home
+	'posts_per_page' => 3,
+	'comments_per_page_admin' => 25,
+	'posts_per_page_admin' => 25,
+	// locale for dates	
+	'locale' => 'en_US',
+    'dateformat' => '%B %d, %Y'
 ];
