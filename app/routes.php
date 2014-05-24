@@ -151,3 +151,9 @@ Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id)
 	                    ->withInput();
 	}
 }]);
+
+// 404
+App::missing(function($exception)
+{
+    return Response::view('404', array(), 404);
+});
