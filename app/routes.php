@@ -18,19 +18,19 @@
 Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
 
     Route::get('/', ['as' => 'admin.dashboard', function() {
-    $posts = Post::orderBy('created_at')->paginate('blog.posts_per_page_admin');
+    $posts = Post::orderBy('created_at')->paginate( Config::get('blog.posts_per_page_admin'));
     $unpublished_comments_count = Comment::wherePublished('0')->count();
     return View::make('admin.dashboard', compact('posts', 'unpublished_comments_count'))->render();
 }]);
 
     // edit/post
     // edit
-    Route::get('/edit/{id}', ['as' => 'admin.edit', function($id) {
+    Route::get('/post/edit/{id}', ['as' => 'admin.edit', function($id) {
     $post = Post::whereId($id)->first();
     return View::make('admin.edit', compact('post'))->render();
 }]);
     // post
-    Route::post('/edit/{id}', ['as' => 'admin.post', function($id) {
+    Route::post('/post/edit/{id}', ['as' => 'admin.post', function($id) {
     $post = Post::whereId($id)->first();
     $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
     $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
@@ -41,20 +41,34 @@ Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
     return Redirect::back()->withInput();
 }]);
 
-    Route::get('/togglePublished/{id}', ['as' => 'admin.togglePublished', function($id) {
+    Route::get('/post/togglePublished/{id}', ['as' => 'admin.togglePublished', function($id) {
     $post = Post::whereId($id)->first();
     $post->published = abs($post->published - 1);
     $post->save();
     return Redirect::back()->with('message', $post->published ? 'published' : 'unpublished');
 }]);
 
-    Route::post('/delete/{id}', ['as' => 'admin.delete', function($id) {
+    Route::post('/post/delete/{id}', ['as' => 'admin.delete', function($id) {
     if(Post::whereId($id)->first()->delete())    {
         return Redirect::back()->with('message', 'Suppression réussie');
     }
     return Redirect::back()->with('message', 'Suppression ratée');
 }]);
 
+    Route::get('/post/preview/{slug}', ['as' => 'admin.post.preview',  'before' => '', function($slug) {
+        $post = Post::whereSlug($slug)
+//                ->wherePublished('1')
+                ->with(['comments' => function($query) {
+                $query->wherePublished('1');
+            }, 'tags'])
+                ->first();
+        if ($post)
+        {
+            return View::make('post', compact('post'))->render();
+        }
+        app::abort(404);
+    }]);
+    
     Route::get('/comment/moderate', ['as' => 'admin.comment.moderate', function() {
     $unpublished_comments = Comment::wherePublished('0')->paginate(Config::get('blog.comments_per_page_admin', 20));
     return View::make('admin.comment_moderate', compact('unpublished_comments'));
@@ -77,20 +91,6 @@ Route::group(['prefix' => 'admin', 'before' => 'auth.basic'], function() {
         }
     }]);
 
-
-    Route::get('/post/preview/{slug}', ['as' => 'admin.post.preview',  'before' => '', function($slug) {
-        $post = Post::whereSlug($slug)
-//                ->wherePublished('1')
-                ->with(['comments' => function($query) {
-                $query->wherePublished('1');
-            }, 'tags'])
-                ->first();
-        if ($post)
-        {
-            return View::make('post', compact('post'))->render();
-        }
-        app::abort(404);
-    }]);
 });
 
 

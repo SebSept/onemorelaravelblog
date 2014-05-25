@@ -101,7 +101,7 @@ class BlogCacheManager {
 
 		// delete cache of posts list on home
 		
-		$nb_pages = ceil( Post::wherePublished('1')->count() / Config::get('app.posts_per_page') )+1;
+		$nb_pages = ceil( Post::wherePublished('1')->count() / Config::get('blog.posts_per_page') )+1;
 		while($nb_pages--) {
                         $identifier = static::getIdentifier('home', [], $nb_pages);
 			Cache::forget($identifier);
@@ -114,7 +114,7 @@ class BlogCacheManager {
 			$nb_pages = ceil( 
 				Post::with(['tags' => function($query) use ($tag) {
 					$query->whereId($tag->id);}])
-					->count() / Config::get('app.posts_per_page') )+1;
+					->count() / Config::get('blog.posts_per_page') )+1;
 
 			while($nb_pages--) {
 				Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
