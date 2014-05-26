@@ -30,9 +30,9 @@
 			<td>{{{ $post->created_at }}}</td>
 			<td>{{{ $post->updated_at }}}</td>
                         {{-- edit --}}
-			<td><a href="{{ route('admin.edit', ['id' => $post->id]) }}" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></a></td>
+			<td><a href="{{ route('admin.post.edit', ['id' => $post->id]) }}" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></a></td>
                         {{-- toogle published --}}
-			<td><a href="{{ route('admin.togglePublished', ['id' => $post->id]) }}" title="{{ $post->published ? 'Dépublier' : 'Publier' }}">
+			<td><a href="{{ route('admin.post.togglePublished', ['id' => $post->id]) }}" title="{{ $post->published ? 'Dépublier' : 'Publier' }}">
 				@if($post->published) 
 					<span class="glyphicon glyphicon-remove-sign"></span>
 				@else
@@ -52,7 +52,7 @@
                         </td>
                         
                         {{-- delete --}}
-			<td>{{ Form::open([ 'route' => ['admin.delete', 'id' => $post->id ], 'id' => 'delete_btn_'.$post->id ]) }}
+			<td>{{ Form::open([ 'route' => ['admin.post.delete', 'id' => $post->id ], 'id' => 'delete_btn_'.$post->id ]) }}
                             {{ Form::close() }}
                             <span class="glyphicon glyphicon-trash" title="Supprimer" 
                                   onclick="document.getElementById('delete_btn_{{$post->id}}').submit(); return false;"></span>
