@@ -11,6 +11,8 @@
 		{{ Form::myInput('teaser', 'textarea', 'Résumé') }}
 		{{ Form::myInput('content', 'textarea', 'Contenu') }}
 		{{ Form::myInput('published', 'checkbox', 'Publié') }}
+
+		{{ Form::tagsSelector() }}
 		
 		{{ Form::submit() }}
 
