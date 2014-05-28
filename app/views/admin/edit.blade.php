@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 
 @section('content')
 <div class="container" id="post-content">
@@ -12,7 +12,7 @@
 		{{ Form::myInput('content', 'textarea', 'Contenu') }}
 		{{ Form::myInput('published', 'checkbox', 'Publié') }}
 
-		{{ Form::tagsSelector() }}
+		{{ Form::tagsSelector('tags', 'Tags') }}
 		
 		{{ Form::submit() }}
 

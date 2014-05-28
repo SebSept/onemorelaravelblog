@@ -41,5 +41,32 @@ class Post extends \Eloquent {
 	public function comments() {
 		return $this->hasMany('Comment');
 	}
+
+	/**
+	* Set Post tags from a commat separated list of tags
+	* @return void
+	**/
+	public function setTagsFromString($tags_string) {
+		// create array from string, delimiter is ','. empty and non unique values removed 
+		$input_tags_string_array = array_unique( array_filter( explode(',', $tags_string) ) );
+		$search_query = DB::table('tags')
+			->select('id','title')
+			->whereIn('title', $input_tags_string_array);
+
+		// store existing tags ids => $found_tags_ids_array
+		$tags_ids_array = $found_tags_ids_array = $search_query->lists('id');
+		$found_tags_title_array = $search_query->lists('title');
+
+		// create new tags
+		$not_found_tags_title_array = array_diff($input_tags_string_array, $found_tags_title_array);
+		foreach($not_found_tags_title_array AS $tag) {
+			$tags_ids_array[] = Tag::create(['title' => $tag])->id;
+		}
+
+		// dd($tags_ids_array);
+
+		// updated pivot table
+		return $this->tags()->sync($tags_ids_array);
+	}
     
 }

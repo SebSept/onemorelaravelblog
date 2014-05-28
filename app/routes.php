@@ -32,15 +32,17 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	}]);
 	    // post
 	    Route::post('/edit/{id}', ['as' => 'admin.post.submit', function($id) {
-	    $post = Post::whereId($id)->first();
-	    $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
-	    $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
-	    if ($post->update($inputs))
-	    {
-	        return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
-	    }
-	    return Redirect::back()->withInput();
-	}]);
+		    $post = Post::whereId($id)->first();
+		    $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
+		    $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
+		    $post->setTagsFromString(Input::get('hidden-tags'));
+		    // dd( $post->setTagsFromString(Input::get('hidden-tags')) );
+		    if($post->update($inputs))
+		    {
+		        return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
+		    }
+		    return Redirect::back()->withInput();
+		}]);
 
 	    Route::get('/togglePublished/{id}', ['as' => 'admin.post.togglePublished', function($id) {
 	    $post = Post::whereId($id)->first();
