@@ -26,7 +26,8 @@
 
         <ul>
         @foreach($post->comments AS $comment)
-                <li>
+                <li {{ $comment->is_admin ? ' class="admin_post" ' : '' }} >
+                    
                         <h3>{{ $comment->title }}</h3>
                         <p>{{ $comment->content }}</p>
                         <p class="author">

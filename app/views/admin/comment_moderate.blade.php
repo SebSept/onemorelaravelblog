@@ -24,8 +24,8 @@
 							{{{ $value }}}
 						</td>
 					@endforeach
-					<td>{{ link_to_route('admin.comment.delete', 'Delete', ['comment_id' => $comment->id]) }}</td>
-					<td>{{ link_to_route('admin.comment.approuve', 'Approuve', ['comment_id' => $comment->id]) }}</td>
+					<td>{{ link_to_route('admin.comment.delete', 'Delete', ['comment_id' => $comment->id], ['class' => 'btn btn-warning']) }}</td>
+					<td>{{ link_to_route('admin.comment.approuve', 'Approuve', ['comment_id' => $comment->id], ['class' => 'btn btn-success']) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
