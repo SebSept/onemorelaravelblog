@@ -8,6 +8,7 @@
 			<p>{{ $unpublished_comments_count }} comments to moderate : {{ link_to_route('admin.comment.moderate', 'Moderate') }}</p>
 	@endif
 
+        <p class="actions">{{ link_to_route('admin.post.edit', trans('admin.post.new'), [], ['class' => 'btn btn-primary']) }}</p>
 	<table class="table">
 	<thead>
 		<tr>
