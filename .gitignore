@@ -18,4 +18,6 @@ Thumbs.db
 ;app/database/production.sqlite
 ;app/config/local/
 
+;/app/views/override/layout/head.blade.php
+;/app/views/override/post/commentform.blade.php
 
