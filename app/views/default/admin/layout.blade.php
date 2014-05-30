@@ -8,16 +8,10 @@
 
         <!-- Bootstrap -->
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-        <!-- <link href="{{asset('css/mine.css')}}" rel="stylesheet"> -->
         <link href="{{asset('css/tagmanager.css')}}" rel="stylesheet">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script type="text/javaScript" src="{{ asset('js/tagmanager.js') }}" ></script>
-        
-        @includesafe('override.layout.head')
-        @section('override.layout.head')
-        @stop
-        @yield('override.layout.head')
+        <script type="text/javascript" src="{{ asset('js/tagmanager.js') }}" ></script>
         
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,13 +41,8 @@
         </div>
 
         <div id="footer-wrapper">
-            @includesafe('override.layout.footer')
-            @section('layout.footer')
-                <p>Powered by OneMoreLaravelBlog</p>
-            @stop
-
             <footer class="container">
-                @yield('layout.footer')
+                <p>Powered by OneMoreLaravelBlog</p>
             </footer>
         </div>
         

@@ -132,15 +132,6 @@ Blade::extend(function($view, $compiler)
     	echo link_to_route("tag.view", $_tag->title, ["tag" => $_tag->title], ["class" => "btn btn-default btn-xs"]) ; ?>', $view);
 });
 
-// modified copy of native @include
-Blade::extend(function($view, $compiler)
-{
-    $pattern = $compiler->createOpenMatcher('includesafe');
-    $replace = '$1<?php try{ echo $__env->make$2, array_except(get_defined_vars(), array(\'__data\', \'__path\')))->render(); }catch(Exception $e) {} ?>';
-
-return preg_replace($pattern, $replace, $view);
-});
-
 View::addNamespace(Config::get('blog.theme'), __DIR__.'/../views/'.Config::get('blog.theme'));
 
 // set locale for dates

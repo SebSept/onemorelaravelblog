@@ -10,11 +10,6 @@
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('css/mine.css')}}" rel="stylesheet">
         
-        @includesafe('override.layout.head')
-        @section('override.layout.head')
-        @stop
-        @yield('override.layout.head')
-        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -43,13 +38,8 @@
         </div>
 
         <div id="footer-wrapper">
-            @includesafe('override.layout.footer')
-            @section('layout.footer')
-                <p>Powered by OneMoreLaravelBlog</p>
-            @stop
-
             <footer class="container">
-                @yield('layout.footer')
+                <p>Powered by OneMoreLaravelBlog</p>
             </footer>
         </div>
         

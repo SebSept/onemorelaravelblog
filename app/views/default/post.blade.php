@@ -45,8 +45,6 @@
     @endif
 
     <div class="container" id="post-form">
-        @includesafe('override.post.commentform')
-        @section('override.post.commentform')
             <h3>{{ trans('front.comment.header') }}</h3>
             {{ Form::open(['route' => ['comment.add', 'post_id' => $post->id], 'class' => 'form-horizontal', 'role' => 'form'  ]) }}
 
