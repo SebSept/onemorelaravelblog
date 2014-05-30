@@ -22,7 +22,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
         $unpublished_comments_count = Comment::wherePublished('0')->count();
         return View::make('admin.dashboard', compact('posts', 'unpublished_comments_count'));
     }]);
-
+    
     Route::group(['prefix' => 'post'], function() { 
 	    // edit/post
 	    // edit
@@ -86,7 +86,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	    }]);
 	});
 
-	Route::group(['prefix' => 'comment'], function() {
+    Route::group(['prefix' => 'comment'], function() {
 
 	    Route::get('/moderate', ['as' => 'admin.comment.moderate', function() {
 		    $unpublished_comments = Comment::wherePublished('0')->paginate(Config::get('blog.comments_per_page_admin', 20));
@@ -158,7 +158,10 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
 Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id) {
 	$comment = new Comment(Input::only(['title', 'author_name', 'author_site', 'content']));
 	$comment->post_id = (int) $post_id;
-	$comment->published = 0;
+        $comment->is_admin = (int) Auth::check();
+        if($comment->is_admin) {
+            $comment->published = 1;
+        }
 	if ($comment->save())
 	{
 	    return Redirect::back()
