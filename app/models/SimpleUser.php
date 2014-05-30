@@ -1,47 +1,78 @@
 <?php
-
+/**
+ * User (admin)
+ * @licence MIT  http://choosealicense.com/licenses/mit/
+ */
 use Illuminate\Auth\UserInterface;
 
-class SimpleUser implements UserInterface 
+/**
+ * @package onemorelaravelblog
+ */
+class SimpleUser implements UserInterface
 {
-	private $password;
-	private $id = 'seb';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password');
+    /**
+     * User password, hashed
+     * @var string 
+     */
+    private $password;
 
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
-	public function getAuthIdentifier()
-	{
-		return $this->id;
-	}
+    /**
+     * User id / user name
+     * @var string 
+     */
+    private $id;
 
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
-	public function getAuthPassword()
-	{
-		return Hash::make('pass');
-	}
+    public function __construct()
+    {
+        $this->password = Config::get('blog.password');
+        $this->id = Config::get('blog.user');
+        
+        if($this->password == '') {
+            throw new Exception('Admin password not set');
+        }
+    }
 
-	public function getRememberToken() {
-		return null;
-	}
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = array('password');
 
-	public function setRememberToken($value) {
-	}
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->id;
+    }
 
-	public function getRememberTokenName() {
-		return null;
-	}
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    public function getRememberToken()
+    {
+        return null;
+    }
+
+    public function setRememberToken($value)
+    {
+        
+    }
+
+    public function getRememberTokenName()
+    {
+        return null;
+    }
+
 }
