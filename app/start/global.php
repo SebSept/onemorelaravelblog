@@ -141,5 +141,7 @@ Blade::extend(function($view, $compiler)
 return preg_replace($pattern, $replace, $view);
 });
 
+View::addNamespace(Config::get('blog.theme'), __DIR__.'/../views/'.Config::get('blog.theme'));
+
 // set locale for dates
 setlocale(LC_TIME, Config::get('blog.locale'));

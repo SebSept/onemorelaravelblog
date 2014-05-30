@@ -20,7 +20,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
     Route::get('/', ['as' => 'admin.dashboard', function() {
         $posts = Post::orderBy('created_at', 'DESC')->paginate( Config::get('blog.posts_per_page_admin') );
         $unpublished_comments_count = Comment::wherePublished('0')->count();
-        return View::make('admin.dashboard', compact('posts', 'unpublished_comments_count'));
+        return View::make(Config::get('blog.theme').'::admin.dashboard', compact('posts', 'unpublished_comments_count'));
     }]);
     
     Route::group(['prefix' => 'post'], function() { 
@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
                 else  {
                     $post = new Post;
                 }             
-                return View::make('admin.edit', compact('post'));
+                return View::make(Config::get('blog.theme').'::admin.edit', compact('post'));
             }]);
             
 	    // post
@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	                ->first();
 	        if ($post)
 	        {
-	            return View::make('post', compact('post'));
+	            return View::make(Config::get('blog.theme').'::post', compact('post'));
 	        }
 	        app::abort(404);
 	    }]);
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 
 	    Route::get('/moderate', ['as' => 'admin.comment.moderate', function() {
 		    $unpublished_comments = Comment::wherePublished('0')->paginate(Config::get('blog.comments_per_page_admin', 20));
-		    return View::make('admin.comment_moderate', compact('unpublished_comments'));
+		    return View::make(Config::get('blog.theme').'::admin.comment_moderate', compact('unpublished_comments'));
 		}]);
 
 	    Route::get('/approuve/{comment_id}', ['as' => 'admin.comment.approuve', function($comment_id) {
@@ -119,7 +119,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function() {
     Route::get('/', ['as' => 'home', function() {
     $posts = Post::wherePublished('1')->orderBy('created_at', 'DESC')->paginate(Config::get('blog.posts_per_page'));
-    return View::make('home', compact('posts'))->render();
+    return View::make(Config::get('blog.theme').'::home', compact('posts'))->render();
 }
     ]);
 
@@ -133,7 +133,7 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
             }])
                 ->paginate(Config::get('blog.posts_per_page'));
         $list_title = Lang::get('front.list.header.posts tagged' , ['title' => $tag->title]);
-        return View::make('home', compact('posts', 'list_title'))->render();
+        return View::make(Config::get('blog.theme').'::home', compact('posts', 'list_title'))->render();
     }
     app::abort(404);
 }]);
@@ -147,7 +147,7 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
             ->first();
     if ($post)
     {
-        return View::make('post', compact('post'))->render();
+        return View::make(Config::get('blog.theme').'::post', compact('post'))->render();
     }
     app::abort(404);
 }

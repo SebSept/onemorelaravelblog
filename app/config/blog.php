@@ -22,4 +22,9 @@ return [
     // admin credentials
     'password' => '',
     'user' => '',
+    // theme
+    // changing theme name implies creating 
+    // - /app/view/theme-name dir
+    // - /public/theme-name dir
+    'theme' => 'default',
 ];
