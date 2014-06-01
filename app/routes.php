@@ -118,41 +118,27 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
  * */
 Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function() {
     Route::get('/', ['as' => 'home', function() {
-    $posts = Post::wherePublished('1')->orderBy('created_at', 'DESC')->paginate(Config::get('blog.posts_per_page'));
-    return View::make(Config::get('blog.theme').'::home', compact('posts'))->render();
-}
+        $posts = PostRepository::getAll();
+        return View::make(Config::get('blog.theme').'::home', compact('posts'))->render();
+    }
     ]);
 
     Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) {
-    $tag = Tag::whereTitle($tag)->first();
-    if ($tag)
-    {
-        $posts = Post::wherePublished('1')
-                ->with(['tags' => function($query) use ($tag) {
-                $query->whereId($tag->id);
-            }])
-                ->paginate(Config::get('blog.posts_per_page'));
-        $list_title = Lang::get('front.list.header.posts tagged' , ['title' => $tag->title]);
-        return View::make(Config::get('blog.theme').'::home', compact('posts', 'list_title'))->render();
-    }
-    app::abort(404);
+        if ($posts = PostRepository::getByTagName($tag)) {
+            $list_title = Lang::get('front.list.header.posts tagged' , ['title' => $tag]);
+            return View::make(Config::get('blog.theme').'::home', compact('posts', 'list_title'))->render();
+        }
+        app::abort(404);
 }]);
 
     Route::get('/{slug}', ['as' => 'post.view', function($slug) {
-    $post = Post::whereSlug($slug)
-            ->wherePublished('1')
-            ->with(['comments' => function($query) {
-            $query->wherePublished('1');
-        }, 'tags'])
-            ->first();
-    if ($post)
-    {
-        return View::make(Config::get('blog.theme').'::post', compact('post'))->render();
+        if ($post = PostRepository::getBySlug($slug))
+        {
+            return View::make(Config::get('blog.theme').'::post', compact('post'))->render();
+        }
+        app::abort(404);
     }
-    app::abort(404);
-}
-            ]
-    );
+    ]);
 });
 
 Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id) {

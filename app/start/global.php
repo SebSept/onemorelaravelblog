@@ -121,7 +121,6 @@ Event::listen('comment.approved', 'BlogCacheManager@commentApproved');
 /**
  * Extends blade
  * - @tag($tag)
- * - @includesafe
 */
 Blade::extend(function($view, $compiler)
 {
