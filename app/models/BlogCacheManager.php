@@ -109,18 +109,8 @@ class BlogCacheManager {
 		}
 
 		// delete cache of posts list filter by tag
-		foreach($post->tags AS $tag)
-		{ 
-			$nb_pages = ceil( 
-				Post::with(['tags' => function($query) use ($tag) {
-					$query->whereId($tag->id);}])
-					->count() / Config::get('blog.posts_per_page') )+1;
-
-			while($nb_pages--) {
-				Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
-				Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
-			}
-		}
+                // @todo : it must delete cache of post tags, removed tags needs also to be forgotten
+                static::forgetTags($post->tags->all());
 	}
 
 	/**
@@ -145,4 +135,26 @@ class BlogCacheManager {
 		Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
 		Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
 	}
+        
+        /**
+	* Forget Tags controller cache
+	* 
+	* @param mixed array|Collection Tags
+	* @return void
+	**/
+        protected static function forgetTags($tags) {
+            foreach($tags AS $tag)
+            { 
+                $nb_pages = ceil( 
+                    Post::with(['tags' => function($query) use ($tag) {
+                            $query->whereId($tag->id);}])
+                            ->count() / Config::get('blog.posts_per_page') )+1;
+
+                while($nb_pages--) {
+                    Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+                    Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+                }
+                Illuminate\Support\Collection::make($items);
+            }
+        }
 }
