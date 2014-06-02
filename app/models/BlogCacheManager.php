@@ -154,7 +154,6 @@ class BlogCacheManager {
                     Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
                     Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
                 }
-                Illuminate\Support\Collection::make($items);
             }
         }
 }
