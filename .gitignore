@@ -15,10 +15,10 @@ Thumbs.db
 ; ignore custom deployement files
 ; you have to remove that line in your personnal branch
 
+; production files - on personnal branch (branch in which your theme is)
 app/database/production.sqlite
 app/config/local/
-public/css/mine.css
-/app/views/override/layout/head.blade.php
-/app/views/override/post/commentform.blade.php
 todo
-app/database/production.sqlite
+
+; tests local config
+/app/tests/acceptance.suite.yml

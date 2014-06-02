@@ -36,6 +36,7 @@
 	"minimum-stability": "stable",
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "1.*",
-		"fzaninotto/faker": "dev-master"
+		"fzaninotto/faker": "dev-master",
+		"codeception/codeception": "*"
 	}
 }
