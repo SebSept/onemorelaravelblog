@@ -33,16 +33,10 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
             
 	    // post
 	    Route::post('/edit/{id?}', ['as' => 'admin.post.submit', function($id = null) {
-                $post = PostRepository::getByIdOrCreate($id);
-                
-                // @todo : next lines must be in PostRepo or Post (?)
-                $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
-                $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
-                
-                $post->fill($inputs);
-                if($post->save())
+                $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published', 'hidden-tags']);
+
+                if(PostRepository::save($id, $inputs))
                 {
-                    $post->setTagsFromString(Input::get('hidden-tags'));
                     return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
                 }
                 return Redirect::back()->withInput();

@@ -84,4 +84,23 @@ class PostRepository {
             }, 'tags'])
             ->first();
     }
+    
+    /**
+     * Save Post and associated tags
+     * 
+     * @param int $id
+     * @param array $inputs
+     * @return bool
+     */
+    public static function save($id, array $inputs)
+    {
+        $post = static::getById($id);
+        
+        $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
+        $post->setTagsFromString(Input::get('hidden-tags'));
+        unset( $inputs['hidden-tags'] );
+        $post->fill($inputs);
+        
+        return $post->save();
+    }
 }
