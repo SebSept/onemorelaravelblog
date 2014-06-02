@@ -143,5 +143,5 @@ Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id)
 // 404
 App::missing(function($exception)
 {
-    return Response::view('404', array(), 404);
+    return Response::view(Config::get('blog.theme').'::404', array(), 404);
 });

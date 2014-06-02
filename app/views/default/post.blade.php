@@ -5,7 +5,7 @@
     <div class="container" id="post-content">
         <h1>{{{ $post->title }}}</h1>
 
-        <p><?php echo Markdown::render($post->content); ?></p>
+        <?php echo Markdown::render($post->content); ?>
     </div>
 
     @if(count($post->tags))
