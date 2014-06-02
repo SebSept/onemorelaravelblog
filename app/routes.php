@@ -18,7 +18,7 @@
 Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
     
     Route::get('/', ['as' => 'admin.dashboard', function() {
-        $posts = PostRepository::getAll('admin');
+        $posts = PostRepository::make()->getAll('admin');
         $unpublished_comments_count = Comment::wherePublished('0')->count();
         return View::make(Config::get('blog.theme').'::admin.dashboard', compact('posts', 'unpublished_comments_count'));
     }]);
@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	    // edit/post
 	    // edit
 	    Route::get('/edit/{id?}', ['as' => 'admin.post.edit', function($id = null) {
-                $post = PostRepository::getByIdOrCreate($id);            
+                $post = PostRepository::make()->getByIdOrCreate($id);            
                 return View::make(Config::get('blog.theme').'::admin.edit', compact('post'));
             }]);
             
@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	    Route::post('/edit/{id?}', ['as' => 'admin.post.submit', function($id = null) {
                 $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published', 'hidden-tags']);
 
-                if(PostRepository::save($id, $inputs))
+                if(PostRepository::make()->save($id, $inputs))
                 {
                     return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
                 }
@@ -43,21 +43,21 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
             }]);
 
 	    Route::get('/togglePublished/{id}', ['as' => 'admin.post.togglePublished', function($id) {
-                $post = PostRepository::getById($id);
+                $post = PostRepository::make()->getById($id);
                 $post->published = abs($post->published - 1);
                 $post->save();
                 return Redirect::back()->with('message', $post->published ? 'published' : 'unpublished');
             }]);
 
 	    Route::post('/delete/{id}', ['as' => 'admin.post.delete', function($id) {
-                if(PostRepository::getById($id)->delete())    {
+                if(PostRepository::make()->getById($id)->delete())    {
                     return Redirect::back()->with('message', 'Suppression réussie');
                 }
                 return Redirect::back()->with('message', 'Suppression ratée');
             }]);
 
 	    Route::get('/preview/{slug}', ['as' => 'admin.post.preview',  function($slug) {
-	        $post = PostRepository::getBySlug($slug);
+	        $post = PostRepository::make()->getBySlug($slug);
 	        if ($post)
 	        {
 	            return View::make(Config::get('blog.theme').'::post', compact('post'));
@@ -98,13 +98,13 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
  * */
 Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function() {
     Route::get('/', ['as' => 'home', function() {
-        $posts = PostRepository::getAll();
+        $posts = PostRepository::make()->getAll();
         return View::make(Config::get('blog.theme').'::home', compact('posts'))->render();
     }
     ]);
 
     Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) {
-        if ($posts = PostRepository::getByTagName($tag)) {
+        if ($posts = PostRepository::make()->getByTagName($tag)) {
             $list_title = Lang::get('front.list.header.posts tagged' , ['title' => $tag]);
             return View::make(Config::get('blog.theme').'::home', compact('posts', 'list_title'))->render();
         }
@@ -112,7 +112,7 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
 }]);
 
     Route::get('/{slug}', ['as' => 'post.view', function($slug) {
-        if ($post = PostRepository::getBySlug($slug))
+        if ($post = PostRepository::make()->getBySlug($slug))
         {
             return View::make(Config::get('blog.theme').'::post', compact('post'))->render();
         }
