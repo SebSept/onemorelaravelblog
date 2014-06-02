@@ -17,11 +17,20 @@ class PostRepository {
      * 
      * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
      */
-    public static function getAll()
+    public static function getAll($context = 'front')
     {
-        return Post::wherePublished('1')
+        if($context == 'admin') {
+            return Post::
+                    orderBy('created_at', 'DESC')
+                    ->paginate( Config::get('blog.posts_per_page_admin') );
+        }
+        else {
+            return Post::
+                wherePublished('1')
                 ->orderBy('created_at', 'DESC')
                 ->paginate(Config::get('blog.posts_per_page'));
+        }
+        
     }
     
     /**
@@ -40,6 +49,26 @@ class PostRepository {
                     ->paginate(Config::get('blog.posts_per_page'));
     }
     
+    /**
+     * Get a post by id or get a new one
+     * 
+     * @param int $id
+     * @return Post
+     */
+    public static function getByIdOrCreate($id) {
+        return static::getById($id) ?: new Post;
+    }
+    
+    /**
+     * Get a post by id
+     * 
+     * @param int $id
+     * @return mixed Post | null
+     */
+    public static function getById($id) {
+        return Post::whereId($id)->first();
+    }
+
     /**
      * Get Post by slug
      * 

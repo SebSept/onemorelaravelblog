@@ -18,7 +18,7 @@
 Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
     
     Route::get('/', ['as' => 'admin.dashboard', function() {
-        $posts = Post::orderBy('created_at', 'DESC')->paginate( Config::get('blog.posts_per_page_admin') );
+        $posts = PostRepository::getAll('admin');
         $unpublished_comments_count = Comment::wherePublished('0')->count();
         return View::make(Config::get('blog.theme').'::admin.dashboard', compact('posts', 'unpublished_comments_count'));
     }]);
@@ -27,27 +27,18 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	    // edit/post
 	    // edit
 	    Route::get('/edit/{id?}', ['as' => 'admin.post.edit', function($id = null) {
-                if($id) {
-                    $post = Post::whereId($id)->first();                
-                }
-                else  {
-                    $post = new Post;
-                }             
+                $post = PostRepository::getByIdOrCreate($id);            
                 return View::make(Config::get('blog.theme').'::admin.edit', compact('post'));
             }]);
             
 	    // post
 	    Route::post('/edit/{id?}', ['as' => 'admin.post.submit', function($id = null) {
-                if($id) {
-                    $post = Post::whereId($id)->first();                
-                }
-                else  {
-                    $post = new Post;
-                }   
+                $post = PostRepository::getByIdOrCreate($id);
+                
+                // @todo : next lines must be in PostRepo or Post (?)
                 $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published']);
                 $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
                 
-                // dd( $post->setTagsFromString(Input::get('hidden-tags')) );
                 $post->fill($inputs);
                 if($post->save())
                 {
@@ -58,26 +49,21 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
             }]);
 
 	    Route::get('/togglePublished/{id}', ['as' => 'admin.post.togglePublished', function($id) {
-                $post = Post::whereId($id)->first();
+                $post = PostRepository::getById($id);
                 $post->published = abs($post->published - 1);
                 $post->save();
                 return Redirect::back()->with('message', $post->published ? 'published' : 'unpublished');
             }]);
 
 	    Route::post('/delete/{id}', ['as' => 'admin.post.delete', function($id) {
-                if(Post::whereId($id)->first()->delete())    {
+                if(PostRepository::getById($id)->delete())    {
                     return Redirect::back()->with('message', 'Suppression réussie');
                 }
                 return Redirect::back()->with('message', 'Suppression ratée');
             }]);
 
 	    Route::get('/preview/{slug}', ['as' => 'admin.post.preview',  function($slug) {
-	        $post = Post::whereSlug($slug)
-	//                ->wherePublished('1')
-	                ->with(['comments' => function($query) {
-	                $query->wherePublished('1');
-	            }, 'tags'])
-	                ->first();
+	        $post = PostRepository::getBySlug($slug);
 	        if ($post)
 	        {
 	            return View::make(Config::get('blog.theme').'::post', compact('post'));
