@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 
                 if(PostRepository::make()->save($id, $inputs))
                 {
-                    return Redirect::route('admin.dashboard')->with('message', 'Enregistré.');
+                    return Redirect::route('admin.dashboard')->with('message', Lang::get('admin.post.saved'));
                 }
                 return Redirect::back()->withInput();
             }]);

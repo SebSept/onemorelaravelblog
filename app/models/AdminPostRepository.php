@@ -71,7 +71,7 @@ class AdminPostRepository implements IPostRepository
      */
     public  function save($id, array $inputs)
     {
-        $post = $this->getById($id);
+        $post = $this->getByIdOrCreate($id);
         
         $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
         $post->setTagsFromString(Input::get('hidden-tags'));
