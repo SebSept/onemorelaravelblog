@@ -66,15 +66,6 @@ Avoid changing files in the default theme directories. You will have (git) probl
 *Lots of improvements* can be done.
 Behaviour testing, translations, a way to hook module, a base theme, or documentation, just to mention the most important points.
 
-See [open issues](https://github.com/SebSept/onemorelaravelblog/issues?state=open).
-
-
-## Faq
-
-### Problem with auth basic with fastCGI
-
-Here is a (dirty but efficient) solution : http://laravel.io/forum/05-10-2014-http-basic-auth-always-fails-on-ipage
-
 ----
 
 It's open source, pusblished under the [MIT Licence](http://choosealicense.com/licenses/mit/).
