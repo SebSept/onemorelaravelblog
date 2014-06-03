@@ -53,10 +53,18 @@ see (laravel configuration)[http://laravel.com/docs/configuration] for more info
 ./vendor/codeception/codeception/codecept run
 see [Codeception](http://codeception.com/docs/modules/Laravel4) for more informations
 
+## Themes
+
+Avoid changing files in the default theme directories. You will have (git) problems when updating app.
+
+- Copy ./app/views/default/ to ./app/views/your-theme/
+- Copy ./app/public/default/ to ./app/public/your-theme/
+- Change config value in ./app/config/your-env/blog.php : 'theme' => 'your-theme'
+
 ## Improvements
 
-*Lot of improvements* can be done.
-Behaviour testing, translations, a way to hook module, a base theme, documentation to mention the most important stuffs.
+*Lots of improvements* can be done.
+Behaviour testing, translations, a way to hook module, a base theme, or documentation, just to mention the most important points.
 
 ----
 
