@@ -20,14 +20,14 @@ div#footer-wrapper footer p  {
     min-height: 3em;
 }
 
-header p, 
+header p {
+    color:#ff7;
+}
+
 footer p  {
     color:#777;
 }
 
-div#footer-wrapper { 
-    margin-top:1em;
-}
 
 /* post */
 
