@@ -2,8 +2,7 @@
 
 return array(
 	'debug' => true,
-//	'url' => 'http://localhost:8000',
-        'url' => 'http://localhost/perso/lblog/public',
+	'url' => 'http://localhost:8000',
 	'timezone' => 'UTC',
 	'locale' => 'fr',
 	'fallback_locale' => 'en',
