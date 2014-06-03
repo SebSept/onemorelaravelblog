@@ -36,12 +36,3 @@ div#footer-wrapper {
     text-decoration: underline;
     cursor: pointer;
 }
-
-#post-comments ul {
-    list-style: none none;
-    padding:0;
-}
-#post-comments li.admin-comment {
-    background:lightsteelblue;
-    padding:15px; 
-}
