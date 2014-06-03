@@ -21,3 +21,4 @@ Thumbs.db
 ;/app/views/override/layout/head.blade.php
 ;/app/views/override/post/commentform.blade.php
 
+app/tests/acceptance.suite.yml

@@ -17,4 +17,6 @@ return [
     // admin credentials
     'password' => '$2y$10$BfiQeJ0wjNkCkFlK93t8s.iVGNVBapUxcmd8n/eQBrONEuHwjVxcy',
     'user' => 'seb',
+    // theme
+    'theme' => 'seb',
 ];
