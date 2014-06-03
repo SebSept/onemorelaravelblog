@@ -73,7 +73,8 @@ class Post extends \Eloquent
             $tags_ids_array[] = Tag::create(['title' => $tag])->id;
         }
 
-        // dd($tags_ids_array);
+        Event::fire('post.saving.tags', ['original' => $this->tags->lists('id') , 'new' => $tags_ids_array]);
+        
         // updated pivot table
         return $this->tags()->sync($tags_ids_array);
     }

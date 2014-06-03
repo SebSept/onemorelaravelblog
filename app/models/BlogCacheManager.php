@@ -107,10 +107,6 @@ class BlogCacheManager {
 			Cache::forget($identifier);
 			Log::info('cache manager : delete posts : '.$identifier);
 		}
-
-		// delete cache of posts list filter by tag
-                // @todo : it must delete cache of post tags, removed tags needs also to be forgotten
-                static::forgetTags($post->tags->all());
 	}
 
 	/**
@@ -124,6 +120,13 @@ class BlogCacheManager {
 	{
 		static::forgetPost($comment->post);
 	}
+        
+        public function postSavingTags($original_tags, $new_tags)
+        {
+            $tags_id = array_unique( array_merge($original_tags, $new_tags) );
+            $tags = Tag::find($tags_id);
+            static::forgetTags($tags);
+        }
 
 	/**
 	* Forget Post controller cache

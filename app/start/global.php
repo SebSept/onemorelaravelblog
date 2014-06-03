@@ -118,6 +118,8 @@ Post::saving( function($post) {
 **/
 Event::listen('comment.approved', 'BlogCacheManager@commentApproved');
 
+Event::listen('post.saving.tags', 'BlogCacheManager@postSavingTags');
+
 /**
  * Extends blade
  * - @tag($tag)
