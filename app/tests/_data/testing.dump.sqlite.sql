@@ -194,7 +194,6 @@ INSERT INTO "post_tag" VALUES(20,3);
 INSERT INTO "post_tag" VALUES(20,6);
 INSERT INTO "post_tag" VALUES(20,7);
 INSERT INTO "post_tag" VALUES(3,1);
-INSERT INTO "post_tag" VALUES(3,2);
 INSERT INTO "post_tag" VALUES(3,3);
 INSERT INTO "post_tag" VALUES(3,5);
 INSERT INTO "post_tag" VALUES(3,6);

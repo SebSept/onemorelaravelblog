@@ -26,22 +26,7 @@ class AdminPostRepository implements IPostRepository
                 orderBy('created_at', 'DESC')
                 ->paginate( Config::get('blog.posts_per_page_admin') );
     }
-    
-    /**
-     * Get posts with tag
-     * 
-     * @param  string requested tag title 
-     * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
-     */
-    public function getByTagName($tag_name)
-    {
-        $tag = Tag::whereTitle($tag_name)->first();
-        return Post::with(['tags' => function($query) use ($tag) {
-                        $query->whereId($tag->id);
-                    }])
-                    ->paginate(Config::get('blog.posts_per_page'));
-    }
-    
+        
     /**
      * Get a post by id or get a new one
      * 

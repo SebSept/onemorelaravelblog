@@ -36,11 +36,9 @@ class FrontPostRepository implements IPostRepository {
     public function getByTagName($tag_name)
     {
         $tag = Tag::whereTitle($tag_name)->first();
-        return Post::wherePublished('1')
-                    ->with(['tags' => function($query) use ($tag) {
-                        $query->whereId($tag->id);
-                    }])
-                    ->paginate(Config::get('blog.posts_per_page'));
+        return Post::whereHas('tags', function($q) use($tag) { $q->where('id', '=', $tag->id); })
+            ->wherePublished('1')
+            ->paginate(Config::get('blog.posts_per_page'));
     }
     
     /**

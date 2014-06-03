@@ -13,7 +13,7 @@ return [
     'title' => 'My blog name',
     'subtitle' => 'My blog subtitle - testing env',
     // Posts per page on home
-    'posts_per_page' => 5,
+    'posts_per_page' => 15,
     'comments_per_page_admin' => 25,
     'posts_per_page_admin' => 25,
     // locale for dates	
