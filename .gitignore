@@ -15,7 +15,10 @@ Thumbs.db
 ; ignore custom deployement files
 ; you have to remove that line in your personnal branch
 
-;app/database/production.sqlite
-;app/config/local/
+; production files - on personnal branch (branch in which your theme is)
+app/database/production.sqlite
+app/config/local/
+todo
 
-
+; tests local config
+/app/tests/acceptance.suite.yml
