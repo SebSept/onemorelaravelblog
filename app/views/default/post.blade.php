@@ -55,7 +55,5 @@
 
                     {{ Form::submit(trans('front.comment.submit'), ['class' => 'col-md-offset-2']) }}
             {{ Form::close() }}
-        @stop
-        @yield('override.post.commentform')
     </div>
 @stop
