@@ -26,6 +26,7 @@ So features are :
 [Laravel](http://laravel.com/ "Laravel framework website") is the framework I'm currently trying to adopt (for fast / simple projects at least). So it's laravel powered.
 
 For the moment, it does the job I want it to do.
+You can see it in action here [onemorelaravelblog](http://blog.seb7.fr) (fr).
 
 # Install
 
