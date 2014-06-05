@@ -6,18 +6,19 @@ What I need for my blog is :
 - lightweight (coded only what I need)
 - good code (for future improvements)
 - one user admin
-- comments
+- comments (moderated
 - tags
 
 That's all.
 
 So features are :
 
-- posts
+- posts (title/teaser/content/tags)
 - tags
 - comments (moderated)
-- markdown rendering
+- markdown rendering (no wysiwyg, you may add it using plugins later)
 - friendly urls
+
 - laravel powered
 - composer powered
 - sqlite powered (but can be configured to run on mysql or other database engine).
@@ -25,12 +26,16 @@ So features are :
 
 [Laravel](http://laravel.com/ "Laravel framework website") is the framework I'm currently trying to adopt (for fast / simple projects at least). So it's laravel powered.
 
-For the moment, it does the job I want it to do.
 You can see it in action here [onemorelaravelblog](http://blog.seb7.fr) (fr).
+
+# Plan
+
+- code as a laravel bundle
+- fire events so that you can plug anywhere in the blog : so you'll be able to add plugins/bundle in it
 
 # Install
 
-- download & unzip this project
+- git clone ( or download & unzip this project, not recommended, better git clone)
 - (install &) run `composer install` (see (getcomposer.org)[https://getcomposer.org/download/] for more informations)
 
 ## Configure
@@ -66,6 +71,7 @@ Avoid changing files in the default theme directories. You will have (git) probl
 
 *Lots of improvements* can be done.
 Behaviour testing, translations, a way to hook module, a base theme, or documentation, just to mention the most important points.
+[Issues](https://github.com/SebSept/onemorelaravelblog/issues?state=open)
 
 ----
 
