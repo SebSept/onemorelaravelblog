@@ -26,7 +26,7 @@ class BlogCacheManager {
 	public static function get() {
 		$identifier = static::getIdentifierFromCurrentRoute();
 		$exists = Cache::has($identifier);
-		Log::info('get : check cache : '. $identifier .' : '. ($exists ? 'existe' : 'existe pas'));
+                Config::get('app.debug') && Log::info('get : check cache : '. $identifier .' : '. ($exists ? 'exists' : 'doesnt exists'));
 
 		$cache = Cache::get(static::getIdentifierFromCurrentRoute(), null);
 		// dd($cache);
@@ -49,7 +49,7 @@ class BlogCacheManager {
 		if(!$cached) {
 			$identifier = static::getIdentifierFromCurrentRoute();
 			Cache::forever(static::getIdentifierFromCurrentRoute(), $response->original);
-			Log::info('put : '. $identifier .' - '.$response->headers->get('X-BlogCacheManager', 'not defined'));
+			Config::get('app.debug') && ('put : '. $identifier .' - '.$response->headers->get('X-BlogCacheManager', 'not defined'));
 		}
 	}
 
@@ -105,7 +105,7 @@ class BlogCacheManager {
 		while($nb_pages--) {
                         $identifier = static::getIdentifier('home', [], $nb_pages);
 			Cache::forget($identifier);
-			Log::info('cache manager : delete posts : '.$identifier);
+			Config::get('app.debug') && ('cache manager : delete posts : '.$identifier);
 		}
 	}
 
@@ -136,7 +136,7 @@ class BlogCacheManager {
 	**/
 	protected static function forgetPost(Post $post) {
 		Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
-		Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
+		Config::get('app.debug') && ('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
 	}
         
         /**
@@ -155,7 +155,7 @@ class BlogCacheManager {
 
                 while($nb_pages--) {
                     Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
-                    Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+                    Config::get('app.debug') && ('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
                 }
             }
         }
