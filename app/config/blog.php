@@ -27,4 +27,5 @@ return [
     // - /app/view/theme-name dir
     // - /public/theme-name dir
     'theme' => 'default',
+    'tag_class' => 'btn btn-default',
 ];
