@@ -22,3 +22,4 @@ todo
 
 ; tests local config
 /app/tests/acceptance.suite.yml
+docs_perso
