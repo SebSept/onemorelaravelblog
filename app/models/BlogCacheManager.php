@@ -4,12 +4,14 @@
 *
 * Forget (delete) controllers caches
 * Events are binded in app/start/global.php
+ * 
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
 */
 
 /**
  * BlogCacheManager
  *
- * @author seb
  */
 class BlogCacheManager {
     
@@ -49,7 +51,7 @@ class BlogCacheManager {
 		if(!$cached) {
 			$identifier = static::getIdentifierFromCurrentRoute();
 			Cache::forever(static::getIdentifierFromCurrentRoute(), $response->original);
-			Config::get('app.debug') && ('put : '. $identifier .' - '.$response->headers->get('X-BlogCacheManager', 'not defined'));
+			Config::get('app.debug') && Log::info('put : '. $identifier .' - '.$response->headers->get('X-BlogCacheManager', 'not defined'));
 		}
 	}
 
@@ -75,10 +77,6 @@ class BlogCacheManager {
          */
         protected static function getIdentifier($route_name, $parameters, $page = '0')
         {
-            // filter params
-//            $parameters = array_filter($parameters, function($element) {
-//                return in_array($element, BlogCacheManager::$allowed_identifier_parameters ) ;
-//            });
             $parameters = array_only($parameters, BlogCacheManager::$allowed_identifier_parameters);
             $parameters_flatten = '';
             foreach($parameters AS $key => $value) {
@@ -105,7 +103,7 @@ class BlogCacheManager {
 		while($nb_pages--) {
                         $identifier = static::getIdentifier('home', [], $nb_pages);
 			Cache::forget($identifier);
-			Config::get('app.debug') && ('cache manager : delete posts : '.$identifier);
+			Config::get('app.debug') && Log::info('cache manager : delete posts : '.$identifier);
 		}
 	}
 
@@ -136,7 +134,7 @@ class BlogCacheManager {
 	**/
 	protected static function forgetPost(Post $post) {
 		Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
-		Config::get('app.debug') && ('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
+		Config::get('app.debug') && Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
 	}
         
         /**
