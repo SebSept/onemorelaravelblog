@@ -90,6 +90,14 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	        }
 	    }]);
 	});
+        
+    Route::group(['prefix' => 'cache'], function() {
+    
+        Route::get('flush', ['as' => 'admin.cache.flush', function() {
+            BlogCacheManager::flush();
+            return Redirect::back()->with('message', Lang::get('admin.cache.flushed'));
+        }]);
+    });
 });
 
 

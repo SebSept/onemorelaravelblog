@@ -155,8 +155,19 @@ class BlogCacheManager {
 
                 while($nb_pages--) {
                     Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
-                    Config::get('app.debug') && ('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+                    Config::get('app.debug') && Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
                 }
             }
+        }
+        
+        /**
+         * Flush cache
+         * 
+         * @return void
+         */
+        public static function flush()
+        {
+            Config::get('app.debug') && Log::info('cache manager : cache flush requested');
+            Cache::flush();
         }
 }

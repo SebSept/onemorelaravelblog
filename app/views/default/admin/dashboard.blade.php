@@ -62,5 +62,8 @@
 	@endforeach
 	</tbody>
 	</table>
+
+    <p class="actions">{{ link_to_route('admin.cache.flush', Lang::get('admin.cache.flush'), [], ['class' => 'btn btn-warning']) }}</p>
+
 </div>
 @stop
