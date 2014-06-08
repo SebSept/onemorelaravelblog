@@ -33,8 +33,13 @@ class AdminPostRepository implements IPostRepository
      * @param int $id
      * @return Post
      */
-    public function getByIdOrCreate($id) {
-        return $this->getById($id) ?: new Post;
+    public function getByIdOrNew($id) {
+        if(!$post = $this->getById($id)) {
+            // instanciate new Post with givent $id OR autoincremented id
+            $post = new Post();
+            $post->id = $id ?: ((int)DB::table((new Post())->getTable())->max('id')+1);
+        }
+        return $post;
     }
     
     /**
@@ -71,7 +76,7 @@ class AdminPostRepository implements IPostRepository
      */
     public  function save($id, array $inputs)
     {
-        $post = $this->getByIdOrCreate($id);
+        $post = $this->getByIdOrNew($id);
         
         $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
         $post->setTagsFromString(Input::get('hidden-tags'));

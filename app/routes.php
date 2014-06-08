@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
 	    // edit/post
 	    // edit
 	    Route::get('/edit/{id?}', ['as' => 'admin.post.edit', function($id = null) {
-                $post = PostRepository::make()->getByIdOrCreate($id);            
+                $post = PostRepository::make()->getByIdOrNew($id);            
                 return View::make(Config::get('blog.theme').'::admin.edit', compact('post'));
             }]);
             
