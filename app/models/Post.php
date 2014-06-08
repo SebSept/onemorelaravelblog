@@ -52,6 +52,8 @@ class Post extends \Eloquent
 
     /**
      * Set Post tags from a commat separated list of tags
+     * 
+     * @todo this method must be in repository (related to storage)
      * @return void
      * */
     public function setTagsFromString($tags_string)
@@ -75,7 +77,7 @@ class Post extends \Eloquent
 
         Event::fire('post.saving.tags', ['original' => $this->tags->lists('id') , 'new' => $tags_ids_array]);
         
-        // updated pivot table
+        // update pivot table
         return $this->tags()->sync($tags_ids_array);
     }
 
