@@ -3,7 +3,7 @@
 @section('content')
         <div class="container" id="post-content">
 	{{ link_to_route('admin.dashboard', 'Retour Admin') }}
-	<h1>Moderate unpublished comments</h1>
+	<h1>{{ trans('admin.comment.moderate') }}</h1>
 
         @if( count($unpublished_comments) )
 	<table class="table">
