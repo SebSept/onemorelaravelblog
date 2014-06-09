@@ -5,10 +5,11 @@
 	{{ link_to_route('admin.dashboard', 'Retour Admin') }}
 	<h1>Moderate unpublished comments</h1>
 
+        @if( count($unpublished_comments) )
 	<table class="table">
 		<thead>
 			<tr>
-				<?php $comment = Comment::get()->first(); ?>
+                                <?php $comment = Comment::get()->first(); ?>
 				@foreach(array_keys($comment->getAttributes()) AS $attribute)
 					<th>{{{ $attribute }}}</th>
 				@endforeach
@@ -32,5 +33,8 @@
 	</table>
 
 	<?php echo $unpublished_comments->links(); ?>
+        @else
+            <p class="success">{{ trans('admin.comment.none_to_moderate') }}</p>
+        @endif
         </div>
 @stop
