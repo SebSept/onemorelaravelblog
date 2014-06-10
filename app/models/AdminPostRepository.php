@@ -1,31 +1,18 @@
 <?php
 /**
- * FrontPostRepository
+ * AdminPostRepository
  * 
- * Posts repository for front end
+ * Posts repository for backend
  * 
  * @author sebastienmonterisi@yahoo.fr
  * @package onemorelaravelblog
  */
 
 /**
- * FrontPostRepository
+ * AdminPostRepository
  *
  */
-class AdminPostRepository implements IPostRepository 
-{
-
-    /**
-     * Get posts (paginated)
-     * 
-     * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
-     */
-    public function getAll()
-    {
-        return Post::
-                orderBy('created_at', 'DESC')
-                ->paginate( Config::get('blog.posts_per_page_admin') );
-    }
+class AdminPostRepository extends PostRepository {
         
     /**
      * Get a post by id or get a new one
@@ -40,31 +27,6 @@ class AdminPostRepository implements IPostRepository
             $post->id = $id ?: ((int)DB::table((new Post())->getTable())->max('id')+1);
         }
         return $post;
-    }
-    
-    /**
-     * Get a post by id
-     * 
-     * @param int $id
-     * @return mixed Post | null
-     */
-    public  function getById($id) {
-        return Post::whereId($id)->first();
-    }
-
-    /**
-     * Get Post by slug
-     * 
-     * @param string $slug
-     * @return mixed Post|null
-     */
-    public  function getBySlug($slug)
-    {
-        return Post::whereSlug($slug)
-            ->with(['comments' => function($query) {
-                $query->wherePublished('1');
-            }, 'tags'])
-            ->first();
     }
     
     /**
@@ -85,5 +47,17 @@ class AdminPostRepository implements IPostRepository
         
         return $post->save();
     }
+    
+    /**
+     * Closure used to alter Post scope
+     * 
+     * This defines the scope for all Post request
+     * 
+     * @return Closure
+     */
+     protected function getDefaultScope() {
+         return function($query) { 
+            return $query->orderBy('created_at', 'DESC'); 
+         };
+    }
 }
-

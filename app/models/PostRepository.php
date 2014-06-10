@@ -7,50 +7,69 @@
  */
 
 /**
- * PostRepository Factory
+ * PostRepository
  *
+ * @author seb
  */
-class PostRepository {
+abstract class PostRepository implements IPostRepository {
+        
+    /**
+     * Get posts (paginated)
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
+     */
+    public function getAll()
+    {      
+        return Post::applyScope($this->getDefaultScope())
+            ->paginate(Config::get('blog.posts_per_page'));
+    }
     
     /**
-     * Available context strings
-     */
-    const CONTEXT_FRONT = 'front';
-    const CONTEXT_ADMIN = 'admin';
-
-
-    /**
-     * Post Repository Factory
+     * Get posts with tag
      * 
-     * @param type $context
-     * @return IPostRepository
+     * @param  string requested tag title 
+     * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
      */
-    public static function make($context = null)
+    public function getByTagName($tag_name)
     {
-        $context = is_null($context) ? static::findContext(): $context;
-        switch ($context) {
-            case (self::CONTEXT_ADMIN) :
-                return new AdminPostRepository();
-                break;
-            case (self::CONTEXT_FRONT) :
-                return new FrontPostRepository();                
-                break;
-            default :
-                throw new Illuminate\Exception('undefined context');
-        }
+        $tag = Tag::whereTitle($tag_name)->first();
+        return Post::applyScope($this->getDefaultScope())
+            ->whereHas('tags', function($q) use($tag) { $q->where('id', '=', $tag->id); })
+            ->paginate(Config::get('blog.posts_per_page'));
     }
     
     /**
-     * Find context by route & user authentification
+     * Get a post by id
      * 
-     * @return string front|admin
+     * @param int $id
+     * @return mixed Post | null
      */
-    protected static function findContext() {
-        if( starts_with(Route::current()->getPrefix(), 'admin')
-            && Auth::check()) {
-            return self::CONTEXT_ADMIN;
-        }
-        return self::CONTEXT_FRONT;
+    public  function getById($id) {
+        return Post::applyScope($this->getDefaultScope())
+                ->whereId($id)
+                ->first();
     }
-    
+
+    /**
+     * Get Post by slug
+     * 
+     * @param string $slug
+     * @return mixed Post|null
+     */
+    public function getBySlug($slug)
+    {
+        return Post::applyScope($this->getDefaultScope())
+            ->whereSlug($slug)
+            ->with(['comments' => function($query) {
+                $query->wherePublished('1');
+            }, 'tags'])
+            ->first();
+    }
+
+    /**
+     * Closure used to alter Post scope
+     * 
+     * @return Closure
+     */
+     abstract protected function getDefaultScope();
 }

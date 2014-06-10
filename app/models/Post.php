@@ -1,19 +1,18 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Blog Post
+ * 
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
  */
 
 /**
- * Description of Post
+ * Post
  *
- * @author seb
  */
-class Post extends \Eloquent
-{
 
+class Post extends \MyEloquent
+{   
     /**
      * Properties that must not be mass-assigned
      * */
@@ -80,5 +79,5 @@ class Post extends \Eloquent
         // update pivot table
         return $this->tags()->sync($tags_ids_array);
     }
-
+    
 }
