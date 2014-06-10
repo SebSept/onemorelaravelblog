@@ -41,7 +41,7 @@ class AdminPostRepository extends PostRepository {
         $post = $this->getByIdOrNew($id);
         
         $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
-        $post->setTagsFromString(Input::get('hidden-tags'));
+        $this->setTagsFromString(Input::get('hidden-tags'), $post);
         unset( $inputs['hidden-tags'] );
         $post->fill($inputs);
         
@@ -59,5 +59,35 @@ class AdminPostRepository extends PostRepository {
          return function($query) { 
             return $query->orderBy('created_at', 'DESC'); 
          };
+    }
+    
+    /**
+     * Set Post tags from a commat separated list of tags
+     * 
+     * @return void
+     * */
+    public function setTagsFromString($tags_string, Post $post)
+    {
+        // create array from string, delimiter is ','. empty and non unique values removed 
+        $input_tags_string_array = array_unique(array_filter(explode(',', $tags_string)));
+        $search_query = DB::table('tags')
+                ->select('id', 'title')
+                ->whereIn('title', $input_tags_string_array);
+
+        // store existing tags ids => $found_tags_ids_array
+        $tags_ids_array = $found_tags_ids_array = $search_query->lists('id');
+        $found_tags_title_array = $search_query->lists('title');
+
+        // create new tags
+        $not_found_tags_title_array = array_diff($input_tags_string_array, $found_tags_title_array);
+        foreach ($not_found_tags_title_array AS $tag)
+        {
+            $tags_ids_array[] = Tag::create(['title' => $tag])->id;
+        }
+
+        Event::fire('post.saving.tags', ['original' => $post->tags->lists('id') , 'new' => $tags_ids_array]);
+        
+        // update pivot table
+        return $post->tags()->sync($tags_ids_array);
     }
 }
