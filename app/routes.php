@@ -129,7 +129,7 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
     ]);
 });
 
-Route::post('/comment/add/{post_id}', ['as' => 'comment.add', function($post_id) {
+Route::post('/comment/add/{post_id}', ['as' => 'comment.add', 'before' => 'csrf', function($post_id) {
 	$comment = new Comment(Input::only(['title', 'author_name', 'author_site', 'content']));
 	$comment->post_id = (int) $post_id;
         $comment->is_admin = (int) Auth::check();
