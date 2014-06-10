@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin',  'before' => 'auth.basic'], function() {
                 {
                     return Redirect::route('admin.dashboard')->with('message', Lang::get('admin.post.saved'));
                 }
-                return Redirect::back()->withInput();
+                return Redirect::back()->withInput()->withErrors(Session::get('errors'));
             }]);
 
 	    Route::get('/togglePublished/{id}', ['as' => 'admin.post.togglePublished', function($id) {

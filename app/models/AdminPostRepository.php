@@ -36,15 +36,17 @@ class AdminPostRepository extends PostRepository {
      * @param array $inputs
      * @return bool
      */
-    public  function save($id, array $inputs)
+    public function save($id, array $inputs)
     {
         $post = $this->getByIdOrNew($id);
-        
         $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
-        $this->setTagsFromString(Input::get('hidden-tags'), $post);
         unset( $inputs['hidden-tags'] );
         $post->fill($inputs);
+        if(!$this->validate($post)) {
+            return false;
+        }
         
+        $this->setTagsFromString(Input::get('hidden-tags'), $post);
         return $post->save();
     }
     
@@ -89,5 +91,17 @@ class AdminPostRepository extends PostRepository {
         
         // update pivot table
         return $post->tags()->sync($tags_ids_array);
+    }
+    
+    /**
+     * Validate 
+     * 
+     * @return bool
+     */
+    protected function validate(Post $post) {
+        $validator = Validator::make($post->getAttributes(), 
+                [ 'slug' => 'required|unique:posts,slug,'.$post->id  ]);
+        Session::put('errors', $validator->errors());
+        return $validator->passes();
     }
 }
