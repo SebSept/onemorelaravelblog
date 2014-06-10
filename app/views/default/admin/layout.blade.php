@@ -36,6 +36,14 @@
         </div>
         @endif
         
+        @if(Session::has('errors'))
+        <div id="message-wrapper">
+            <div class="container bg-danger message">
+                {{ Session::get('errors')->first() }}
+            </div>
+        </div>
+        @endif
+        
         <div id="main-wrapper">
             @yield('content')
         </div>
