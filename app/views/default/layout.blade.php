@@ -8,7 +8,7 @@
             // @todo need to handle that in controler so $layout['meta_title'] is always defined
             // so we can just have {.{ $layout['meta_title'] }.} in this template
             if(isset($layout) && isset($layout['meta_title'])) {
-                echo $layout['meta_title'];
+                echo e($layout['meta_title']);
             }
             else
                 echo Config::get('blog.title'); 
