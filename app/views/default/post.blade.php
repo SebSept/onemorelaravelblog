@@ -1,5 +1,10 @@
 @extends(Config::get('blog.theme').'::layout')
 
+@section('head.meta')
+    <title>{{{ $post->title }}}</title>
+    <meta name="description" content="{{{ $post->teaser }}}" >
+@stop
+
 @section('content')
 
     <div class="container" id="post-content">

@@ -122,11 +122,7 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
     Route::get('/{slug}', ['as' => 'post.view', function($slug) {
         if ($post = PostRepositoryFactory::make()->getBySlug($slug))
         {
-            // @todo must be handled in controller - https://github.com/SebSept/onemorelaravelblog/issues/28
-            $layout = [];
-            $layout['meta_title'] = $post->title;
-            $layout['meta_description'] = $post->teaser;
-            return View::make(Config::get('blog.theme').'::post', compact('post', 'layout'))->render();
+            return View::make(Config::get('blog.theme').'::post', compact('post'))->render();
         }
         app::abort(404);
     }
