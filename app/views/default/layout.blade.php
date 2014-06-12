@@ -13,6 +13,9 @@
             else
                 echo Config::get('blog.title'); 
         ?></title>
+        @if (isset($layout) && isset($layout['meta_description']))
+            <meta name="description" content="<?php echo e($layout['meta_description']); ?>" >
+        @endif
 
         <!-- Bootstrap -->
         <link href="{{asset(Config::get('blog.theme').'/css/bootstrap.min.css')}}" rel="stylesheet">
