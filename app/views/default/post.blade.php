@@ -3,6 +3,13 @@
 @section('head.meta')
     <title>{{{ $post->title }}}</title>
     <meta name="description" content="{{{ $post->teaser }}}" >
+    
+    {{-- twitter summary card | https://dev.twitter.com/docs/cards/types/summary-card --}}
+    <meta name="twitter:card" content="summary">
+    {{-- <meta name="twitter:site" content="@nytimes"> --}}
+    {{-- <meta name="twitter:creator" content="@SarahMaslinNir"> --}}
+    <meta name="twitter:title" content="{{{ $post->title }}}">
+    <meta name="twitter:description" content="{{{ $post->teaser }}}">
 @stop
 
 @section('content')
