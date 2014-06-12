@@ -121,6 +121,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
                 'GrahamCampbell\Markdown\MarkdownServiceProvider',
+                'OMLB\Components\Cache\BlogCacheManagerServiceProvider',
 
 	),
 
@@ -188,7 +189,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
                 'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
-
+                'BlogCacheManager' => 'OMLB\Components\Cache\Facade\BlogCacheManager',
 	),
 
 );

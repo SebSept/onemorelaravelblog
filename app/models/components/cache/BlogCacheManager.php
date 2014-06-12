@@ -9,6 +9,8 @@
  * @package onemorelaravelblog
 */
 
+namespace OMLB\Components\Cache;
+
 /**
  * BlogCacheManager
  *
@@ -25,16 +27,16 @@ class BlogCacheManager {
          * 
          * @return mixed \Illuminate\Http\Response | null
          */
-	public static function get() {
+	public function get() {
 		$identifier = static::getIdentifierFromCurrentRoute();
-		$exists = Cache::has($identifier);
-                Config::get('app.debug') && Log::info('get : check cache : '. $identifier .' : '. ($exists ? 'exists' : 'doesnt exists'));
+		$exists = \Cache::has($identifier);
+                \Config::get('app.debug') && \Log::info('get : check cache : '. $identifier .' : '. ($exists ? 'exists' : 'doesnt exists'));
 
-		$cache = Cache::get(static::getIdentifierFromCurrentRoute(), null);
+		$cache = \Cache::get(static::getIdentifierFromCurrentRoute(), null);
 		// dd($cache);
 		if(!is_null($cache)) {
 			// add new header to response to evaluate if content needs to be cached by cache filter
-			$response = new Illuminate\Http\Response();
+			$response = new \Illuminate\Http\Response();
 			$response->setContent($cache);
 			$response->header('X-BlogCacheManager', 'cached', false);
 			return $response;
@@ -46,12 +48,12 @@ class BlogCacheManager {
          * 
          * @param \Illuminate\Http\Response $response Response rendered by route
          */
-	public static function put($response) {
+	public function put($response) {
 		$cached = (bool)$response->headers->get('X-BlogCacheManager', false);
 		if(!$cached) {
 			$identifier = static::getIdentifierFromCurrentRoute();
-			Cache::forever(static::getIdentifierFromCurrentRoute(), $response->original);
-			Config::get('app.debug') && Log::info('put : '. $identifier .' - '.$response->headers->get('X-BlogCacheManager', 'not defined'));
+			\Cache::forever(static::getIdentifierFromCurrentRoute(), $response->original);
+			\Config::get('app.debug') && \Log::info('put : '. $identifier .' - '.$response->headers->get('X-BlogCacheManager', 'not defined'));
 		}
 	}
 
@@ -61,8 +63,8 @@ class BlogCacheManager {
          * @return string
          */
 	protected static function getIdentifierFromCurrentRoute() {
-		$route = Route::getCurrentRoute();
-		$request = Route::getCurrentRequest();
+		$route = \Route::getCurrentRoute();
+		$request = \Route::getCurrentRequest();
 		$page = $request->input('page', '0');
 
 	  	return static::getIdentifier($route->getName(), $route->parameters(), $page);
@@ -92,18 +94,18 @@ class BlogCacheManager {
 	*
 	* @return void
 	**/
-	public static function postSaving(Post $post)
+	public function postSaving(\Post $post)
 	{
 		// forget post cache
 		static::forgetPost($post);
 
 		// delete cache of posts list on home
 		
-		$nb_pages = ceil( Post::wherePublished('1')->count() / Config::get('blog.posts_per_page') )+1;
+		$nb_pages = ceil( \Post::wherePublished('1')->count() / \Config::get('blog.posts_per_page') )+1;
 		while($nb_pages--) {
                         $identifier = static::getIdentifier('home', [], $nb_pages);
-			Cache::forget($identifier);
-			Config::get('app.debug') && Log::info('cache manager : delete posts : '.$identifier);
+			\Cache::forget($identifier);
+			\Config::get('app.debug') && \Log::info('cache manager : delete posts : '.$identifier);
 		}
 	}
 
@@ -114,7 +116,7 @@ class BlogCacheManager {
 	*
 	* @return void
 	**/
-	public function commentApproved(Comment $comment)
+	public function commentApproved(\Comment $comment)
 	{
 		static::forgetPost($comment->post);
 	}
@@ -122,7 +124,7 @@ class BlogCacheManager {
         public function postSavingTags($original_tags, $new_tags)
         {
             $tags_id = array_unique( array_merge($original_tags, $new_tags) );
-            $tags = Tag::find($tags_id);
+            $tags = \Tag::find($tags_id);
             static::forgetTags($tags);
         }
 
@@ -132,9 +134,9 @@ class BlogCacheManager {
 	* @param Post $post
 	* @return void
 	**/
-	protected static function forgetPost(Post $post) {
-		Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
-		Config::get('app.debug') && Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
+	protected static function forgetPost(\Post $post) {
+		\Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
+		\Config::get('app.debug') && \Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
 	}
         
         /**
@@ -147,13 +149,13 @@ class BlogCacheManager {
             foreach($tags AS $tag)
             { 
                 $nb_pages = ceil( 
-                    Post::with(['tags' => function($query) use ($tag) {
+                    \Post::with(['tags' => function($query) use ($tag) {
                             $query->whereId($tag->id);}])
-                            ->count() / Config::get('blog.posts_per_page') )+1;
+                            ->count() / \Config::get('blog.posts_per_page') )+1;
 
                 while($nb_pages--) {
-                    Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
-                    Config::get('app.debug') && Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+                    \Cache::forget(static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+                    \Config::get('app.debug') && \Log::info('cache manager : delete posts : taglist_'.static::getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
                 }
             }
         }
@@ -163,9 +165,9 @@ class BlogCacheManager {
          * 
          * @return void
          */
-        public static function flush()
+        public function flush()
         {
-            Config::get('app.debug') && Log::info('cache manager : cache flush requested');
-            Cache::flush();
+            \Config::get('app.debug') && \Log::info('cache manager : cache flush requested');
+            \Cache::flush();
         }
 }
