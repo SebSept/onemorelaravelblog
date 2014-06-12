@@ -20,6 +20,5 @@ app/database/production.sqlite
 app/config/local/
 todo
 
-; tests local config
-/app/tests/acceptance.suite.yml
-docs_perso
+docs_perso/
+.git-ftp-ignore
