@@ -4,7 +4,15 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ Config::get('blog.title') }}</title>
+        <title><?php
+            // @todo need to handle that in controler so $layout['meta_title'] is always defined
+            // so we can just have {.{ $layout['meta_title'] }.} in this template
+            if(isset($layout) && isset($layout['meta_title'])) {
+                echo $layout['meta_title'];
+            }
+            else
+                echo Config::get('blog.title'); 
+        ?></title>
 
         <!-- Bootstrap -->
         <link href="{{asset(Config::get('blog.theme').'/css/bootstrap.min.css')}}" rel="stylesheet">

@@ -122,7 +122,9 @@ Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function
     Route::get('/{slug}', ['as' => 'post.view', function($slug) {
         if ($post = PostRepositoryFactory::make()->getBySlug($slug))
         {
-            return View::make(Config::get('blog.theme').'::post', compact('post'))->render();
+            $layout = [];
+            $layout['meta_title'] = $post->title;
+            return View::make(Config::get('blog.theme').'::post', compact('post', 'layout'))->render();
         }
         app::abort(404);
     }
