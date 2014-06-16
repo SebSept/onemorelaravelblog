@@ -6,6 +6,8 @@
  * @package onemorelaravelblog
  */
 
+namespace OMLB\Models\Post\Repository;
+
 /**
  * PostRepository
  *

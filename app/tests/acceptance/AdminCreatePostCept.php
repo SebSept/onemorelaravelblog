@@ -1,5 +1,7 @@
 <?php
+use OMLB\Models\Tag\Tag;
 Route::enableFilters();
+
 $I = new WebGuy($scenario);
 $I->wantTo('Create a new post');
 

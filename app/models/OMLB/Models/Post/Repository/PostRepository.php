@@ -6,6 +6,11 @@
  * @package onemorelaravelblog
  */
 
+namespace OMLB\Models\Post\Repository;
+
+use OMLB\Models\Post\Post;
+use OMLB\Models\Tag\Tag;
+
 /**
  * PostRepository
  *
@@ -21,7 +26,7 @@ abstract class PostRepository implements IPostRepository {
     public function getAll()
     {      
         return Post::applyScope($this->getDefaultScope())
-            ->paginate(Config::get('blog.posts_per_page'));
+            ->paginate(\Config::get('blog.posts_per_page'));
     }
     
     /**
@@ -35,7 +40,7 @@ abstract class PostRepository implements IPostRepository {
         $tag = Tag::whereTitle($tag_name)->first();
         return Post::applyScope($this->getDefaultScope())
             ->whereHas('tags', function($q) use($tag) { $q->where('id', '=', $tag->id); })
-            ->paginate(Config::get('blog.posts_per_page'));
+            ->paginate(\Config::get('blog.posts_per_page'));
     }
     
     /**

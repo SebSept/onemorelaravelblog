@@ -8,6 +8,11 @@
  * @package onemorelaravelblog
  */
 
+namespace OMLB\Models\Post\Repository;
+
+use OMLB\Models\Post\Post;
+use OMLB\Models\Tag\Tag;
+
 /**
  * FrontPostRepository
  *

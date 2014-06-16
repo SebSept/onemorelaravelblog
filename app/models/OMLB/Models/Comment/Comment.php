@@ -1,12 +1,16 @@
 <?php
-/*
+/**
  * Comment for a Post
+ * 
+ * @licence MIT  http://choosealicense.com/licenses/mit/
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
  */
+
+namespace OMLB\Models\Comment;
 
 /**
  * Comment
- *
- * @author seb
  */
 class Comment extends \Eloquent {
 

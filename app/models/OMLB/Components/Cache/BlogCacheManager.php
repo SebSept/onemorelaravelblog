@@ -11,6 +11,9 @@
 
 namespace OMLB\Components\Cache;
 
+//use OMLB\ModelsPostPost;
+use OMLB\Models\Tag\Tag;
+
 /**
  * BlogCacheManager
  *
@@ -79,7 +82,7 @@ class BlogCacheManager {
          */
         protected static function getIdentifier($route_name, $parameters, $page = '0')
         {
-            $parameters = array_only($parameters, BlogCacheManager::$allowed_identifier_parameters);
+            $parameters = array_only($parameters, static::$allowed_identifier_parameters);
             $parameters_flatten = '';
             foreach($parameters AS $key => $value) {
                 $parameters_flatten = $key.':'.$value.'_';
@@ -94,14 +97,14 @@ class BlogCacheManager {
 	*
 	* @return void
 	**/
-	public function postSaving(\Post $post)
+	public function postSaving(\OMLB\Models\Post\Post $post)
 	{
 		// forget post cache
 		static::forgetPost($post);
 
 		// delete cache of posts list on home
 		
-		$nb_pages = ceil( \Post::wherePublished('1')->count() / \Config::get('blog.posts_per_page') )+1;
+		$nb_pages = ceil(\OMLB\Models\Post\Post::wherePublished('1')->count() / \Config::get('blog.posts_per_page') )+1;
 		while($nb_pages--) {
                         $identifier = static::getIdentifier('home', [], $nb_pages);
 			\Cache::forget($identifier);
@@ -116,7 +119,7 @@ class BlogCacheManager {
 	*
 	* @return void
 	**/
-	public function commentApproved(\Comment $comment)
+	public function commentApproved(\OMLB\Models\Comment $comment)
 	{
 		static::forgetPost($comment->post);
 	}
@@ -124,7 +127,7 @@ class BlogCacheManager {
         public function postSavingTags($original_tags, $new_tags)
         {
             $tags_id = array_unique( array_merge($original_tags, $new_tags) );
-            $tags = \Tag::find($tags_id);
+            $tags = Tag::find($tags_id);
             static::forgetTags($tags);
         }
 
@@ -134,7 +137,7 @@ class BlogCacheManager {
 	* @param Post $post
 	* @return void
 	**/
-	protected static function forgetPost(\Post $post) {
+	protected static function forgetPost(\OMLB\Models\Post\Post $post) {
 		\Cache::forget(static::getIdentifier('post.view', $post->getAttributes()));
 		\Config::get('app.debug') && \Log::info('cache manager : delete Post : '.static::getIdentifier('post.view', $post->getAttributes()));
 	}
@@ -149,7 +152,7 @@ class BlogCacheManager {
             foreach($tags AS $tag)
             { 
                 $nb_pages = ceil( 
-                    \Post::with(['tags' => function($query) use ($tag) {
+                        \OMLB\Models\Post\Post::with(['tags' => function($query) use ($tag) {
                             $query->whereId($tag->id);}])
                             ->count() / \Config::get('blog.posts_per_page') )+1;
 

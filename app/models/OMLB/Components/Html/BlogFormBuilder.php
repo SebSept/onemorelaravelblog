@@ -1,7 +1,21 @@
 <?php
+/**
+ * BlogFormBuilder
+ *
+ * Provides @tagsSelector to Blade
+ * 
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
+*/
+
+namespace OMLB\Components\Html;
 
 use Illuminate\Html\FormBuilder;
 
+/**
+ * BlogFormBuilder
+ * 
+ */
 class BlogFormBuilder extends FormBuilder {
 
 	public function tagsSelector($attribute, $label) {
@@ -12,7 +26,7 @@ class BlogFormBuilder extends FormBuilder {
 		$return .= $this->label('tags', $label, ['class' => 'col-sm-2 control-label', 'for' => $attribute]);
 		$return .= '<div class="col-sm-10">';
 		$id = 'tm-input-'.$attribute;
-		$return .= Form::text($attribute, 'default', ['id' => $id, 'class' => 'tm-input-info']);
+		$return .= \Form::text($attribute, 'default', ['id' => $id, 'class' => 'tm-input-info']);
 		$return .= '</div>';
 		$return .= '</div>';
 
@@ -31,7 +45,7 @@ class BlogFormBuilder extends FormBuilder {
 			);</script>';
 		
 		// tags chooser (all available tags selector)
-		$available_tags = Tag::all()->lists('title');
+		$available_tags = \OMLB\Models\Tag\Tag::all()->lists('title');
 
 		$return .= '<div class="form-group">';
 		$return .= '<div class="col-sm-10 col-sm-offset-2">';

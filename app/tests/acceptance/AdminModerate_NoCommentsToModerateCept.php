@@ -1,4 +1,6 @@
 <?php
+use OMLB\Models\Comment\Comment;
+
 Route::enableFilters();
 $I = new WebGuy($scenario);
 //DB::update('UPDATE '.(new Comment)->getTable().' SET `published`=1');

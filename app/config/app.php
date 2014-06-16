@@ -104,7 +104,6 @@ return array(
 		'Illuminate\Encryption\EncryptionServiceProvider',
 		'Illuminate\Filesystem\FilesystemServiceProvider',
 		'Illuminate\Hashing\HashServiceProvider',
-		'BlogHtmlServiceProvider',
 		'Illuminate\Log\LogServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
 		'Illuminate\Database\MigrationServiceProvider',
@@ -121,6 +120,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
                 'GrahamCampbell\Markdown\MarkdownServiceProvider',
+                'OMLB\Components\Html\BlogHtmlServiceProvider',
                 'OMLB\Components\Cache\BlogCacheManagerServiceProvider',
 
 	),

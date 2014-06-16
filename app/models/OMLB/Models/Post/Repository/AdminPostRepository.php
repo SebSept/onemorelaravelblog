@@ -8,6 +8,11 @@
  * @package onemorelaravelblog
  */
 
+namespace OMLB\Models\Post\Repository;
+
+use OMLB\Models\Post\Post;
+use OMLB\Models\Tag\Tag;
+
 /**
  * AdminPostRepository
  *
@@ -24,7 +29,7 @@ class AdminPostRepository extends PostRepository {
         if(!$post = $this->getById($id)) {
             // instanciate new Post with givent $id OR autoincremented id
             $post = new Post();
-            $post->id = $id ?: ((int)DB::table((new Post())->getTable())->max('id')+1);
+            $post->id = $id ?: ((int)\DB::table((new Post())->getTable())->max('id')+1);
         }
         return $post;
     }
@@ -46,7 +51,7 @@ class AdminPostRepository extends PostRepository {
             return false;
         }
         
-        $this->setTagsFromString(Input::get('hidden-tags'), $post);
+        $this->setTagsFromString(\Input::get('hidden-tags'), $post);
         return $post->save();
     }
     
@@ -72,7 +77,7 @@ class AdminPostRepository extends PostRepository {
     {
         // create array from string, delimiter is ','. empty and non unique values removed 
         $input_tags_string_array = array_unique(array_filter(explode(',', $tags_string)));
-        $search_query = DB::table('tags')
+        $search_query = \DB::table('tags')
                 ->select('id', 'title')
                 ->whereIn('title', $input_tags_string_array);
 
@@ -87,7 +92,7 @@ class AdminPostRepository extends PostRepository {
             $tags_ids_array[] = Tag::create(['title' => $tag])->id;
         }
 
-        Event::fire('post.saving.tags', ['original' => $post->tags->lists('id') , 'new' => $tags_ids_array]);
+        \Event::fire('post.saving.tags', ['original' => $post->tags->lists('id') , 'new' => $tags_ids_array]);
         
         // update pivot table
         return $post->tags()->sync($tags_ids_array);
@@ -99,9 +104,9 @@ class AdminPostRepository extends PostRepository {
      * @return bool
      */
     protected function validate(Post $post) {
-        $validator = Validator::make($post->getAttributes(), 
+        $validator = \Validator::make($post->getAttributes(), 
                 [ 'slug' => 'required|unique:posts,slug,'.$post->id  ]);
-        Session::put('errors', $validator->errors());
+        \Session::put('errors', $validator->errors());
         return $validator->passes();
     }
 }

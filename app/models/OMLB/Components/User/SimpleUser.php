@@ -1,12 +1,18 @@
 <?php
 /**
  * User (admin)
+ * 
  * @licence MIT  http://choosealicense.com/licenses/mit/
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
  */
+
+namespace OMLB\Components\User;
+
 use Illuminate\Auth\UserInterface;
 
 /**
- * @package onemorelaravelblog
+ * SimpleUser
  */
 class SimpleUser implements UserInterface
 {
@@ -25,8 +31,8 @@ class SimpleUser implements UserInterface
 
     public function __construct()
     {
-        $this->password = Config::get('blog.password');
-        $this->id = Config::get('blog.user');
+        $this->password = \Config::get('blog.password');
+        $this->id = \Config::get('blog.user');
         
         if($this->password == '') {
             throw new Exception('Admin password not set');

@@ -1,15 +1,16 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Tag for a Post
+ * 
+ * @licence MIT  http://choosealicense.com/licenses/mit/
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
  */
 
+namespace OMLB\Models\Tag;
+
 /**
- * Description of Post
- *
- * @author seb
+ * Tag
  */
 class Tag extends \Eloquent {
 

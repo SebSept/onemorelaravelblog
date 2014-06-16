@@ -1,4 +1,8 @@
-@extends(Config::get('blog.theme').'::layout')
+@extends(\Config::get('blog.theme').'::layout')
+
+<?php
+use OMLB\Models\Comment\Comment;
+?>
 
 @section('head.meta')
     <title>{{{ $post->title }}}</title>
@@ -48,7 +52,7 @@
                             @elseif($comment->author_name)
                                 {{ $comment->author_name }}
                             @endif
-                            {{ trans('front.comment.on') }} {{ $comment->created_at->formatLocalized( Config::get('blog.dateformat') ); }}
+                            {{ trans('front.comment.on') }} {{ $comment->created_at->formatLocalized( \Config::get('blog.dateformat') ); }}
                         </p>
                 </li>
         @endforeach

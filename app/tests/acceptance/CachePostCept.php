@@ -7,7 +7,7 @@
 $I = new WebGuy($scenario);
 $I->wantTo('Cache works on Post view');
 
-Config::set('cache.driver', 'file');
+\Config::set('cache.driver', 'file');
 ////Cache::flush(); // does not always delete files
 $cache_dir = Cache::driver()->getDirectory();
 //dd($cache_dir);

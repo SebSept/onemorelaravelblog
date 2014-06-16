@@ -12,8 +12,9 @@
 namespace OMLB\Components\Cache;
 
 /**
- * BlogCacheManager
+ * BlogCacheManagerServiceProvider
  *
+ * Register BlogCacheManager instance in $app
  */
 class BlogCacheManagerServiceProvider extends \Illuminate\Support\ServiceProvider {
     

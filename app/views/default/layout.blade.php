@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="{{ Config::get('app.locale') }}">
+<html lang="{{ \Config::get('app.locale') }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         @section('head.meta')
-            <title>{{{ Config::get('blog.title') }}}</title>
+            <title>{{{ \Config::get('blog.title') }}}</title>
         @stop
         @yield('head.meta')
         
         <!-- Bootstrap -->
-        <link href="{{asset(Config::get('blog.theme').'/css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset(Config::get('blog.theme').'/css/mine.css')}}" rel="stylesheet">
+        <link href="{{asset(\Config::get('blog.theme').'/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset(\Config::get('blog.theme').'/css/mine.css')}}" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,8 +24,8 @@
     <body>
         <div id="header-wrapper">
             <header class="container">
-                <h1>{{ link_to_route('home', Config::get('blog.title')) }}</h1>
-                <p>{{ Config::get('blog.subtitle') }}</p>
+                <h1>{{ link_to_route('home', \Config::get('blog.title')) }}</h1>
+                <p>{{ \Config::get('blog.subtitle') }}</p>
             </header>
         </div>
 

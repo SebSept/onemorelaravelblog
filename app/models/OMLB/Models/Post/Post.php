@@ -6,11 +6,13 @@
  * @package onemorelaravelblog
  */
 
+namespace OMLB\Models\Post;
+
 /**
  * Post
  *
  */
-class Post extends \MyEloquent
+class Post extends \OMLB\Models\MyEloquent
 { 
     /**
      * Properties that must not be mass-assigned
@@ -32,7 +34,7 @@ class Post extends \MyEloquent
      */
     public function tags()
     {
-        return $this->belongsToMany('Tag');
+        return $this->belongsToMany('\OMLB\Models\Tag\Tag');
     }
 
     /**
@@ -40,7 +42,7 @@ class Post extends \MyEloquent
      * */
     public function comments()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('\OMLB\Models\Comment\Comment');
     }
     
 }

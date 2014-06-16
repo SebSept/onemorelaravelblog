@@ -2,13 +2,15 @@
 /**
  * PostRepositoryFactory
  * 
+ * @licence MIT  http://choosealicense.com/licenses/mit/
  * @author sebastienmonterisi@yahoo.fr
  * @package onemorelaravelblog
  */
 
+namespace OMLB\Models\Post\Repository;
+
 /**
  * PostRepository Factory
- *
  */
 class PostRepositoryFactory {
     
@@ -46,8 +48,8 @@ class PostRepositoryFactory {
      * @return string front|admin
      */
     protected static function findContext() {
-        if( starts_with(Route::current()->getPrefix(), 'admin')
-            && Auth::check()) {
+        if( starts_with(\Route::current()->getPrefix(), 'admin')
+            && \Auth::check()) {
             return self::CONTEXT_ADMIN;
         }
         return self::CONTEXT_FRONT;

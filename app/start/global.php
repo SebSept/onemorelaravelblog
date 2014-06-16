@@ -15,7 +15,7 @@ ClassLoader::addDirectories(array(
 
 	app_path().'/commands',
 	app_path().'/controllers',
-	app_path().'/models',
+//	app_path().'/models',
 	app_path().'/database/seeds',
 
 ));
@@ -72,8 +72,8 @@ App::down(function()
 * My simple Auth driver
 */
 
-Auth::extend('simple', function() {
-	return new SimpleAuth;
+\Auth::extend('simple', function() {
+	return new \OMLB\Components\User\SimpleAuth;
 });
 
 /*
@@ -109,7 +109,7 @@ Form::macro('myInput', function($attribute, $type, $label)
 /*
 * Events before saving post
 **/
-Post::saving( function($post) {
+OMLB\Models\Post\Post::saving( function($post) {
 	BlogCacheManager::postSaving($post);
 });
 

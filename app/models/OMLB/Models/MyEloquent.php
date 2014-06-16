@@ -1,15 +1,18 @@
 <?php
 /**
- * Extended MyEloquent
+ * Extended Eloquent
+ * 
+ * @licence MIT  http://choosealicense.com/licenses/mit/
  * @author sebastienmonterisi@yahoo.fr
  * @package onemorelaravelblog 
  */
 
+namespace OMLB\Models;
+
 /**
  * MyEloquent
- *
  */
-class MyEloquent extends Eloquent{
+class MyEloquent extends \Eloquent{
     
     /**
      * Apply a scope to the model query
@@ -17,7 +20,7 @@ class MyEloquent extends Eloquent{
      * @param Closure $scope
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
-    public static function applyScope(Closure $scope)
+    public static function applyScope(\Closure $scope)
     {
         return $scope(with(new static)->newQuery());
     }
