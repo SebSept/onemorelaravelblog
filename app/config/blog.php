@@ -20,8 +20,8 @@ return [
     'locale' => 'en_US',
     'dateformat' => '%B %d, %Y',
     // admin credentials
-    'password' => Hash::make('test'),
-    'user' => 'seb',
+    'password' => '',
+    'user' => '',
     // theme
     // changing theme name implies creating 
     // - /app/view/theme-name dir
