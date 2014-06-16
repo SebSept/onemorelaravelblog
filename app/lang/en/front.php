@@ -14,6 +14,8 @@ return [
     'comment.url' => 'website',
     'comment.content' => 'Comment',
     'comment.submit' =>  'Send',
+    'comment.submited' => 'Comment sent, awaiting validation...',
+    'comment.submission_failled' => 'Comment submission failled!',
     
     // lists of posts filtered by tag
     // home.blade.php + route.php
