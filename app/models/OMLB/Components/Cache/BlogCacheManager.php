@@ -119,7 +119,7 @@ class BlogCacheManager {
 	*
 	* @return void
 	**/
-	public function commentApproved(\OMLB\Models\Comment $comment)
+	public function commentApproved(\OMLB\Models\Comment\Comment $comment)
 	{
 		static::forgetPost($comment->post);
 	}

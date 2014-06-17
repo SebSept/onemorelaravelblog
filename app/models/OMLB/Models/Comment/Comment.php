@@ -29,7 +29,7 @@ class Comment extends \Eloquent {
 	public function approve() {
 		$this->published = 1;
 		if($this->update()) {
-			Event::fire('comment.approved', [$this]);
+			\Event::fire('comment.approved', [$this]);
 			return true;
 		};
 		return false;
@@ -38,11 +38,11 @@ class Comment extends \Eloquent {
 	/**
 	* Post this comments belongs to
 	*
-	* @return Post
+	* @return \OMLB\Models\Post\Post
 	**/
 	public function post()
 	{
-		return $this->belongsTo('Post');
+		return $this->belongsTo('\OMLB\Models\Post\Post');
 	}
    
 }

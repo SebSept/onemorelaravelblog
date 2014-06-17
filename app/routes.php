@@ -77,7 +77,7 @@ use OMLB\Models\Comment\Comment;
 
 	    \Route::get('/approuve/{comment_id}', ['as' => 'admin.comment.approuve', function($comment_id) {
 		    $comment = Comment::whereId($comment_id)->first();
-		    if ($comment->approve())
+		    if ($comment && $comment->approve())
 		    {
 		        return Redirect::back()->with('message', trans('admin.comment.approved') );
 		    }
