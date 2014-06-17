@@ -1,5 +1,7 @@
 <?php
 use OMLB\Models\Tag\Tag;
+DB::beginTransaction();
+
 Route::enableFilters();
 
 $I = new WebGuy($scenario);
@@ -20,3 +22,5 @@ $I->submitForm('form', [
 ]);
 
 $I->see(trans('admin.post.saved'));
+
+DB::rollBack();

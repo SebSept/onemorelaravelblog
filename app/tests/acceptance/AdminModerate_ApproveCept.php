@@ -1,9 +1,9 @@
 <?php
 use OMLB\Models\Comment\Comment;
-
+DB::beginTransaction();
 Route::enableFilters();
+
 $I = new WebGuy($scenario);
-//DB::update('UPDATE '.(new Comment)->getTable().' SET `published`=1');
 $I->wantTo('Approve a comment');
 
 $I->amHttpAuthenticated('testguy', 'pass');
@@ -17,4 +17,7 @@ $I->see(trans('admin.comment.approved'));
 $I->dontSee(trans('admin.comment.approved_failled'));
 
 // comment 7 is not to moderate anymore
+$I->seeInCurrentUrl('/admin/comment/moderate');
 $I->dontSee('Exercitationem voluptas ducimus quas modi.'); // comment 7
+
+DB::rollBack();
