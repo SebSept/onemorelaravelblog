@@ -5,7 +5,8 @@
 	<h1>Dashboard</h1>
 
 	@if($unpublished_comments_count)
-			<p>{{ $unpublished_comments_count }} comments to moderate : {{ link_to_route('admin.comment.moderate', 'Moderate') }}</p>
+        <p class="well well-sm">{{ trans('admin.comment.x_comments_to_moderate', ['comments_count' => $unpublished_comments_count]) }} : {{ link_to_route('admin.comment.moderate', trans('admin.comment.moderate')) }}
+        </p>
 	@endif
 
         <p class="actions">{{ link_to_route('admin.post.edit', trans('admin.post.new'), [], ['class' => 'btn btn-primary']) }}</p>
