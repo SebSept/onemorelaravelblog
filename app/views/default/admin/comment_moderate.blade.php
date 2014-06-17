@@ -1,4 +1,7 @@
 @extends(\Config::get('blog.theme').'::admin.layout')
+<?php 
+use OMLB\Models\Comment\Comment;
+?>
 
 @section('content')
         <div class="container" id="post-content">
