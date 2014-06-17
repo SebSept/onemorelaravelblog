@@ -19,3 +19,5 @@ modules:
     config:
         PhpBrowser:
             url: 'http://localhost/perso/lblog/public/'
+        Laravel4:
+            cleanup: true
