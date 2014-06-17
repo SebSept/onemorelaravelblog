@@ -14,4 +14,20 @@ return [
     'comment.approved' => 'Comment approved',
     'comment.approved_failled' => 'Failled to approve comment!',
     'comment.deleted' => 'Comment deleted',
+    
+    'comment.actions' => 'Actions',
+    'comment.field.id' => 'id',
+    'comment.field.title' => 'Title',
+    'comment.field.author_name' => 'Author',
+    'comment.field.author_site' => 'website',
+    'comment.field.content' => 'comment',
+    'comment.field.published' => 'published',
+    'comment.field.post_id' => 'post (id)',
+    'comment.field.created_at' => 'created at',
+    'comment.field.updated_at' => 'updated at',
+    'comment.field.is_admin' => 'by be',
+    'comment.delete' => 'delete',
+    'comment.approve' => 'approve',
+    
+    'back_to_dashboard' => 'Back to dashboard',
 ];

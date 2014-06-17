@@ -14,4 +14,20 @@ return [
     'comment.approved' => 'Commentaire approuvé',
     'comment.approved_failled' => 'Echec approbation commentaire !',
     'comment.deleted' => 'Commentaire supprimé.',
+    
+    'comment.actions' => 'Actions',
+    'comment.field.id' => 'id',
+    'comment.field.title' => 'Titre',
+    'comment.field.author_name' => 'auteur',
+    'comment.field.author_site' => 'site',
+    'comment.field.content' => 'commentaire',
+    'comment.field.published' => 'publié',
+    'comment.field.post_id' => 'billet (id)',
+    'comment.field.created_at' => 'création',
+    'comment.field.updated_at' => 'mis à jour',
+    'comment.field.is_admin' => 'par moi',
+    'comment.delete' => 'supprimer',
+    'comment.approve' => 'approuver',
+      
+    'back_to_dashboard' => 'Retour au tableau de bord',
 ];
