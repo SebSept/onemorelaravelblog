@@ -39,7 +39,7 @@ use OMLB\Models\Comment\Comment;
 
                 if(PostRepositoryFactory::make()->save($id, $inputs))
                 {
-                    return Redirect::route('admin.dashboard')->with('message', Lang::get('admin.post.saved'));
+                    return Redirect::route('admin.dashboard')->with('message', trans('admin.post.saved'));
                 }
                 return Redirect::back()->withInput()->withErrors(Session::get('errors'));
             }]);
@@ -79,16 +79,16 @@ use OMLB\Models\Comment\Comment;
 		    $comment = Comment::whereId($comment_id)->first();
 		    if ($comment->approve())
 		    {
-		        return Redirect::back()->with('message', 'admin.comment.approved');
+		        return Redirect::back()->with('message', trans('admin.comment.approved') );
 		    }
-		    return Redirect::back()->with('error', 'admin.comment.approved_failled');
+		    return Redirect::back()->with('error', trans('admin.comment.approved_failled') );
 		}]);
 
 	    \Route::get('/delete/{comment_id}', ['as' => 'admin.comment.delete', function($comment_id) {
 	        $comment = Comment::whereId($comment_id)->first();
 	        if ($comment->delete())
 	        {
-	            return Redirect::back()->with('message', 'admin.comment.deleted');
+	            return Redirect::back()->with('message', trans('admin.comment.deleted'));
 	        }
 	    }]);
 	});
@@ -97,7 +97,7 @@ use OMLB\Models\Comment\Comment;
     
         \Route::get('flush', ['as' => 'admin.cache.flush', function() {
             BlogCacheManager::flush();
-            return Redirect::back()->with('message', Lang::get('admin.cache.flushed'));
+            return Redirect::back()->with('message', trans('admin.cache.flushed'));
         }]);
     });
 });
