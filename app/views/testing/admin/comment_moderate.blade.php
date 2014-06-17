@@ -29,7 +29,7 @@ use OMLB\Models\Comment\Comment;
 						</td>
 					@endforeach
 					<td>{{ link_to_route('admin.comment.delete', 'Delete', ['comment_id' => $comment->id], ['class' => 'btn btn-warning']) }}</td>
-					<td>{{ link_to_route('admin.comment.approuve', 'Approuve', ['comment_id' => $comment->id], ['class' => 'btn btn-success']) }}</td>
+					<td>{{ link_to_route('admin.comment.approuve', 'Approuve', ['comment_id' => $comment->id], ['class' => 'btn btn-success', 'id' => 'approve_'.$comment->id]) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
