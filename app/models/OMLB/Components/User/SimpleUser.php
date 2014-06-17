@@ -35,7 +35,7 @@ class SimpleUser implements UserInterface
         $this->id = \Config::get('blog.user');
         
         if($this->password == '') {
-            throw new Exception('Admin password not set');
+            throw new \Exception('Admin password not set');
         }
     }
 
