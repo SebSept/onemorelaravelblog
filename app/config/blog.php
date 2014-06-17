@@ -17,6 +17,7 @@ return [
     'comments_per_page_admin' => 25,
     'posts_per_page_admin' => 25,
     // locale for dates	
+    // this is just for date, you also have to change 'locale' in app/configi/app.php
     'locale' => 'en_US',
     'dateformat' => '%B %d, %Y',
     // admin credentials
