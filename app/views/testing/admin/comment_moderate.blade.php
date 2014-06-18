@@ -5,7 +5,7 @@ use OMLB\Models\Comment\Comment;
 
 @section('content')
         <div class="container" id="post-content">
-	{{ link_to_route('admin.dashboard', 'Retour Admin') }}
+	{{ link_to_route('admin.dashboard', trans('admin.back_to_dashboard')) }}
 	<h1>{{ trans('admin.comment.moderate') }}</h1>
 
         @if( count($unpublished_comments) )
@@ -14,9 +14,9 @@ use OMLB\Models\Comment\Comment;
 			<tr>
                                 <?php $comment = Comment::get()->first(); ?>
 				@foreach(array_keys($comment->getAttributes()) AS $attribute)
-					<th>{{{ $attribute }}}</th>
+					<th>{{{ trans('admin.comment.field.'.$attribute) }}}</th>
 				@endforeach
-				<th colspan="2">Action</th>
+				<th colspan="2">{{ trans('admin.comment.actions') }}</th>
 			</tr>
 		</thead>
 	
@@ -28,8 +28,8 @@ use OMLB\Models\Comment\Comment;
 							{{{ $value }}}
 						</td>
 					@endforeach
-					<td>{{ link_to_route('admin.comment.delete', 'Delete', ['comment_id' => $comment->id], ['class' => 'btn btn-warning']) }}</td>
-					<td>{{ link_to_route('admin.comment.approuve', 'Approuve', ['comment_id' => $comment->id], ['class' => 'btn btn-success', 'id' => 'approve_'.$comment->id]) }}</td>
+					<td>{{ link_to_route('admin.comment.delete', trans('admin.comment.delete'), ['comment_id' => $comment->id], ['class' => 'btn btn-warning']) }}</td>
+					<td>{{ link_to_route('admin.comment.approuve', trans('admin.comment.approve'), ['comment_id' => $comment->id], ['class' => 'btn btn-success', 'id' => 'approve_'.$comment->id]) }}</td>
 				</tr>
 			@endforeach
 		</tbody>

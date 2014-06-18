@@ -4,8 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ \Config::get('blog.title') }}</title>
-
+        
+        @section('head.meta')
+            <title>{{{ \Config::get('blog.title') }}}</title>
+        @stop
+        @yield('head.meta')
+        
         <!-- Bootstrap -->
         <!--<link href="{{asset(\Config::get('blog.theme').'/css/bootstrap.min.css')}}" rel="stylesheet">-->
         <!--<link href="{{asset(\Config::get('blog.theme').'/css/mine.css')}}" rel="stylesheet">-->
