@@ -6,13 +6,13 @@
 
 	{{ Form::model($post, ['route'=> [ 'admin.post.submit', 'id'=> $post->id ], 'class' => 'form-horizontal', 'role' => 'form' ]) }}
 
-		{{ Form::myInput('title', 'text', 'Titre') }}
-		{{ Form::myInput('slug', 'text', 'URL') }}
-		{{ Form::myInput('teaser', 'textarea', 'Résumé') }}
-		{{ Form::myInput('content', 'textarea', 'Contenu') }}
-		{{ Form::myInput('published', 'checkbox', 'Publié') }}
+		{{ Form::myInput('title', 'text', trans('admin.post.field.title')) }}
+		{{ Form::myInput('slug', 'text', trans('admin.post.field.slug')) }}
+		{{ Form::myInput('teaser', 'textarea', trans('admin.post.field.teaser')) }}
+		{{ Form::myInput('content', 'textarea', trans('admin.post.field.content')) }}
+		{{ Form::myInput('published', 'checkbox', trans('admin.post.field.published')) }}
 
-		{{ Form::tagsSelector('tags', 'Tags') }}
+		{{ Form::tagsSelector('tags', trans('admin.post.field.tags')) }}
 		
 		{{ Form::submit() }}
 

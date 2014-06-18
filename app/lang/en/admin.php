@@ -39,6 +39,9 @@ return [
     'post.field.created_at' => 'created at',
     'post.field.updated_at' => 'updated at',
     'post.actions' => 'Actions',
+    'post.field.content' => 'content',
+    'post.field.tags' => 'tags',
+    'post.field.teaser' => 'Teaser',
     
     'post.unpublished' => 'unpublished',
     'post.published' => 'published',

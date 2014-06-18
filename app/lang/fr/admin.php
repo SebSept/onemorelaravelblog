@@ -39,6 +39,9 @@ return [
     'post.field.created_at' => 'création',
     'post.field.updated_at' => 'mis à jour',
     'post.actions' => 'Actions',
+    'post.field.content' => 'contenu',
+    'post.field.tags' => 'tags',
+    'post.field.teaser' => 'accroche',
     
     'post.unpublished' => 'dépublié',
     'post.published' => 'publié',
