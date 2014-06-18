@@ -28,6 +28,7 @@ return [
     'comment.field.is_admin' => 'par moi',
     'comment.delete' => 'supprimer',
     'comment.approve' => 'approuver',
+    'comment.x_comments_to_moderate' => ':comments_count commentaires à moderer',
       
     'back_to_dashboard' => 'Retour au tableau de bord',
 ];

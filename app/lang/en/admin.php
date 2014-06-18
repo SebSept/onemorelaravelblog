@@ -28,6 +28,7 @@ return [
     'comment.field.is_admin' => 'by be',
     'comment.delete' => 'delete',
     'comment.approve' => 'approve',
+    'comment.x_comments_to_moderate' => ':comments_count comments to moderate',
     
     'back_to_dashboard' => 'Back to dashboard',
 ];
