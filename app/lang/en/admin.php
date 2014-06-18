@@ -31,4 +31,20 @@ return [
     'comment.x_comments_to_moderate' => ':comments_count comments to moderate',
     
     'back_to_dashboard' => 'Back to dashboard',
+    'dashboard' => 'Dashboard',
+    'post.field.id' => 'id',
+    'post.field.title' => 'Title',
+    'post.field.slug' => 'url/slug',
+    'post.field.published' => 'published',
+    'post.field.created_at' => 'created at',
+    'post.field.updated_at' => 'updated at',
+    'post.actions' => 'Actions',
+    
+    'post.unpublished' => 'unpublished',
+    'post.published' => 'published',
+    'post.update' => 'update',
+    'post.publish' => 'publish',
+    'post.unpublish' => 'unpublish',
+    'post.preview' => 'preview',
+    'post.delete' => 'delete',
 ];

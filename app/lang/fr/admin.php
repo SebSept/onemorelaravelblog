@@ -3,9 +3,9 @@
 return [
     'post.new' => 'Nouveau',
     'post.saved' => 'Billet enregistré.',
-    'post.deleted' =>  'Suppression réussie.',
+    'post.deleted' => 'Suppression réussie.',
     'post.deletion_failled' => 'Supression ratée!',
-        
+    
     'cache.flush' => 'Vider le cache',
     'cache.flushed' => 'Cache vidé.',
     
@@ -29,6 +29,22 @@ return [
     'comment.delete' => 'supprimer',
     'comment.approve' => 'approuver',
     'comment.x_comments_to_moderate' => ':comments_count commentaires à moderer',
-      
+    
     'back_to_dashboard' => 'Retour au tableau de bord',
+    'dashboard' => 'Tableau de bord',
+    'post.field.id' => 'id',
+    'post.field.title' => 'Titre',
+    'post.field.slug' => 'url/lien',
+    'post.field.published' => 'publié',
+    'post.field.created_at' => 'création',
+    'post.field.updated_at' => 'mis à jour',
+    'post.actions' => 'Actions',
+    
+    'post.unpublished' => 'dépublié',
+    'post.published' => 'publié',
+    'post.update' => 'modifier',
+    'post.publish' => 'publier',
+    'post.unpublish' => 'dépublier',
+    'post.preview' => 'pré-visualiser',
+    'post.delete' => 'supprimer',
 ];
