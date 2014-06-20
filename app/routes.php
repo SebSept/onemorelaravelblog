@@ -132,18 +132,13 @@ use OMLB\Models\Comment\Comment;
 });
 
 \Route::post('/comment/add/{post_id}', ['as' => 'comment.add', 'before' => 'csrf', function($post_id) {
-	$comment = new Comment(Input::only(['title', 'author_name', 'author_site', 'content']));
-	$comment->post_id = (int) $post_id;
-        $comment->is_admin = (int) Auth::check();
-        if($comment->is_admin) {
-            $comment->published = 1;
-        }
-	if ($comment->save())
-	{
+        $commentRepository = CommentFactory::make();
+        $success = $commentRepository->add( array_merge(['post_id'=> $post_id], Input::only(['title', 'author_name', 'author_site', 'content'])));
+	if ($success) {
 	    return Redirect::back()
 	                    ->with('message', 'front.comment.submited');
-	} else
-	{
+	} 
+        else {
 	    return Redirect::back()
 	                    ->with('error', 'front.comment.submission_failled')
 	                    ->withInput();
