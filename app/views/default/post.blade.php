@@ -18,6 +18,17 @@ use OMLB\Models\Comment\Comment;
 
 @section('content')
 
+    <div id="post-message-wrapper" class="hidden">
+        <script type="text/javascript">
+            if(document.location.hash == '#comment_submitted') {
+                document.getElementById('post-message-wrapper').setAttribute('class','');
+            }
+        </script>
+        <div class="container bg-success message">
+            {{ trans('front.comment.submited') }}
+        </div>
+    </div>
+
     <div class="container" id="post-content">
         <h1>{{{ $post->title }}}</h1>
 

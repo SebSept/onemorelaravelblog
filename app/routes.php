@@ -138,11 +138,12 @@ use OMLB\Models\Comment\Comment;
         $commentRepository = \OMLB\Models\Comment\Factory::make();
         $success = $commentRepository->add( array_merge(['post_id'=> $post_id], Input::only(['title', 'author_name', 'author_site', 'content'])));
 	if ($success) {
-	    return Redirect::back()
-	                    ->with('message', 'front.comment.submited');
+	    return Redirect::route('post.view', 
+                        ['slug' => PostRepositoryFactory::make()->getById($post_id)->slug, 
+                         '#comment_submitted']);
 	} 
         else {
-	    return Redirect::back()
+            return Redirect::back()
 	                    ->with('error', 'front.comment.submission_failled')
 	                    ->withInput();
 	}
