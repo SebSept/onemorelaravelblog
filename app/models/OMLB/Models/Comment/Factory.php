@@ -32,10 +32,10 @@ class Factory {
         $context = is_null($context) ? static::findContext(): $context;
         switch ($context) {
             case (self::CONTEXT_ADMIN) :
-                return new AdminCommentRepository();
+                return new Repository\AdminCommentRepository();
                 break;
             case (self::CONTEXT_GUEST) :
-                return new GuestCommentRepository();                
+                return new Repository\GuestCommentRepository();                
                 break;
             default :
                 throw new Illuminate\Exception('undefined context <em>'.$context.'</em>');
@@ -48,7 +48,7 @@ class Factory {
      * @return string self::CONTEXT_ADMIN|self::CONTEXT_GUEST
      */
     protected static function findContext() {
-        return Auth::check() ? self::CONTEXT_ADMIN : self::CONTEXT_GUEST;
+        return \Auth::check() ? self::CONTEXT_ADMIN : self::CONTEXT_GUEST;
     }
     
 }

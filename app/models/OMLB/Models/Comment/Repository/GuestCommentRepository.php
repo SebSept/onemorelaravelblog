@@ -23,6 +23,7 @@ class GuestCommentRepository extends Repository {
      * @return bool
      */
     public function add(array $values) {
+        $comment = new \OMLB\Models\Comment\Comment($values);
 //        $values['is_admin'] = 0;
 //        $values['published'] = 0;
         $comment = new OMLB\Models\Comment\Comment($values);
