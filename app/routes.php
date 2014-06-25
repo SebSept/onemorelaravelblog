@@ -71,11 +71,13 @@ use OMLB\Models\Comment\Comment;
     \Route::group(['prefix' => 'comment'], function() {
 
 	    \Route::get('/moderate', ['as' => 'admin.comment.moderate', function() {
+                    // @todo use repository
 		    $unpublished_comments = Comment::wherePublished('0')->paginate(\Config::get('blog.comments_per_page_admin', 20));
 		    return View::make(\Config::get('blog.theme').'::admin.comment_moderate', compact('unpublished_comments'));
 		}]);
 
 	    \Route::get('/approuve/{comment_id}', ['as' => 'admin.comment.approuve', function($comment_id) {
+                    // @todo use repository
 		    $comment = Comment::whereId($comment_id)->first();
 		    if ($comment && $comment->approve())
 		    {
@@ -85,6 +87,7 @@ use OMLB\Models\Comment\Comment;
 		}]);
 
 	    \Route::get('/delete/{comment_id}', ['as' => 'admin.comment.delete', function($comment_id) {
+                // @todo use repository
 	        $comment = Comment::whereId($comment_id)->first();
 	        if ($comment->delete())
 	        {
