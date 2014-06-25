@@ -26,7 +26,10 @@ class AdminCommentRepository extends Repository {
         $values['is_admin'] = 1;
         $values['published'] = 1;
         $comment = new OMLB\Models\Comment\Comment($values);
-        return $comment->save();
+        if($comment->save()) {
+            \Event::fire('comment.added_by_admin', [$comment]);
+        }
+        return false;
     }
     
 }

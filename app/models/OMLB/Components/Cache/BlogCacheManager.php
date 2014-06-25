@@ -11,12 +11,12 @@
 
 namespace OMLB\Components\Cache;
 
-//use OMLB\ModelsPostPost;
 use OMLB\Models\Tag\Tag;
 
 /**
  * BlogCacheManager
  *
+ * @todo replace static:: by $this->
  */
 class BlogCacheManager {
     
@@ -113,13 +113,13 @@ class BlogCacheManager {
 	}
 
 	/**
-	* Comment Approved
+	* Comment Published
 	*
 	* Forget related Post controller cache
 	*
 	* @return void
 	**/
-	public function commentApproved(\OMLB\Models\Comment\Comment $comment)
+	public function commentPublished(\OMLB\Models\Comment\Comment $comment)
 	{
 		static::forgetPost($comment->post);
 	}

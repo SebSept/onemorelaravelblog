@@ -116,7 +116,8 @@ OMLB\Models\Post\Post::saving( function($post) {
 /**
 * Comment added to post
 **/
-Event::listen('comment.approved', 'BlogCacheManager@commentApproved');
+Event::listen('comment.approved', 'BlogCacheManager@commentPublished');
+Event::listen('comment.added_by_admin', 'BlogCacheManager@commentPublished');
 
 Event::listen('post.saving.tags', 'BlogCacheManager@postSavingTags');
 
