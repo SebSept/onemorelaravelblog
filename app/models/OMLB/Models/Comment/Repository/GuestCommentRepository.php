@@ -24,9 +24,7 @@ class GuestCommentRepository extends Repository {
      */
     public function add(array $values) {
         $comment = new \OMLB\Models\Comment\Comment($values);
-//        $values['is_admin'] = 0;
-//        $values['published'] = 0;
-        $comment = new OMLB\Models\Comment\Comment($values);
+        $comment->post_id = $values['post_id'];
         return $comment->save();
     }
 }
