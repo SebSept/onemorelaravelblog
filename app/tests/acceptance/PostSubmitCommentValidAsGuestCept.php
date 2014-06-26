@@ -5,7 +5,7 @@
  */
 DB::beginTransaction();
 
-//Route::enableFilters();
+Route::disableFilters();
 
 $I = new WebGuy($scenario);
 $I->wantTo('submit valid comment as guest');

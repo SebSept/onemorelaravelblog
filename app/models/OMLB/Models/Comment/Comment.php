@@ -17,7 +17,7 @@ class Comment extends \Eloquent {
 	/**
 	* Properties that must not be mass-assigned
 	**/
-	protected $guarded = array('id', 'published', 'created_at', 'updated_at', 'post_id');
+	protected $guarded = array('id', 'published', 'is_admin', 'created_at', 'updated_at', 'post_id');
 
 	/**
 	* Comment approved
