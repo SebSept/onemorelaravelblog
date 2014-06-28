@@ -1,6 +1,6 @@
 <?php
 /**
- * FrontPostRepository
+ * GuestPostRepository
  * 
  * Posts repository for front end
  * 
@@ -14,10 +14,10 @@ use \SebSept\OMLB\Models\Post\Post;
 use \SebSept\OMLB\Models\Tag\Tag;
 
 /**
- * FrontPostRepository
+ * GuestPostRepository
  *
  */
-class FrontPostRepository extends PostRepository {
+class GuestPostRepository extends PostRepository {
 
     /**
      * Closure used to alter Post scope

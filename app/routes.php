@@ -11,7 +11,7 @@
   |
  */
 
-use \SebSept\OMLB\Models\Post\Repository\PostRepositoryFactory;
+use \SebSept\OMLB\Models\Post\Factory As PostRepositoryFactory;
 use \SebSept\OMLB\Models\Comment\Comment;
 
 /**

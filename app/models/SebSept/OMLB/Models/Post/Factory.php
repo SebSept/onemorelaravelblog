@@ -1,18 +1,18 @@
 <?php
 /**
- * PostRepositoryFactory
+ * Factory
  * 
  * @licence MIT  http://choosealicense.com/licenses/mit/
  * @author sebastienmonterisi@yahoo.fr
  * @package onemorelaravelblog
  */
 
-namespace SebSept\OMLB\Models\Post\Repository;
+namespace SebSept\OMLB\Models\Post;
 
 /**
  * PostRepository Factory
  */
-class PostRepositoryFactory {
+class Factory {
     
     /**
      * Available context strings
@@ -32,10 +32,10 @@ class PostRepositoryFactory {
         $context = is_null($context) ? static::findContext(): $context;
         switch ($context) {
             case (self::CONTEXT_ADMIN) :
-                return new AdminPostRepository();
+                return new Repository\AdminPostRepository();
                 break;
             case (self::CONTEXT_FRONT) :
-                return new FrontPostRepository();                
+                return new Repository\GuestPostRepository();                
                 break;
             default :
                 throw new Illuminate\Exception('undefined context');

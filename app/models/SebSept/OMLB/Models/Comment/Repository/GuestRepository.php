@@ -1,6 +1,6 @@
 <?php
 /**
- * GuestCommentRepository
+ * GuestRepository
  * 
  * Comments repository for guests
  * 
@@ -11,10 +11,10 @@
 namespace SebSept\OMLB\Models\Comment\Repository;
 
 /**
- * Description of GuestCommentRepository
+ * Description of GuestRepository
  *
  */
-class GuestCommentRepository extends Repository {
+class GuestRepository extends Repository {
     
     /**
      * Save new Comment in storage

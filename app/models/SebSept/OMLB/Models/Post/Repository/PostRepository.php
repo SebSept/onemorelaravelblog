@@ -14,9 +14,8 @@ use \SebSept\OMLB\Models\Tag\Tag;
 /**
  * PostRepository
  *
- * @author seb
  */
-abstract class PostRepository implements IPostRepository {
+abstract class PostRepository {
         
     /**
      * Get posts (paginated)

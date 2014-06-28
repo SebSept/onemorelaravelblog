@@ -1,6 +1,6 @@
 <?php
 /**
- * AdminCommentRepository
+ * AdminRepository
  * 
  * Comments repository for admins
  * 
@@ -11,10 +11,10 @@
 namespace SebSept\OMLB\Models\Comment\Repository;
 
 /**
- * AdminCommentRepository
+ * AdminRepository
  *
  */
-class AdminCommentRepository extends Repository {
+class AdminRepository extends Repository {
     
     /**
      * Save new Comment in storage

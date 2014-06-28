@@ -9,7 +9,7 @@
 namespace SebSept\OMLB\Models\Comment\Repository;
 
 /**
- * AdminCommentRepository
+ * AdminRepository
  *
  */
 abstract class Repository {
