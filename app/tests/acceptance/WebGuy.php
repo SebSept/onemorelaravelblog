@@ -2099,6 +2099,27 @@ class WebGuy extends \Codeception\AbstractGuy
      * Documentation taken from corresponding module.
      * ----------------------------------------------
      *
+     * user is not a logged admin
+     * 
+     * mock Auth::check() to return false;
+     * @see Codeception\Module\WebHelper::amGuest()
+     * @return \Codeception\Maybe
+     */
+    public function amGuest() {
+        $this->scenario->addStep(new \Codeception\Step\Condition('amGuest', func_get_args()));
+        if ($this->scenario->running()) {
+            $result = $this->scenario->runStep();
+            return new Maybe($result);
+        }
+        return new Maybe();
+    }
+
+ 
+    /**
+     * This method is generated.
+     * Documentation taken from corresponding module.
+     * ----------------------------------------------
+     *
      * Assert that the session has a given list of values.
      *
      * @param  string|array $key

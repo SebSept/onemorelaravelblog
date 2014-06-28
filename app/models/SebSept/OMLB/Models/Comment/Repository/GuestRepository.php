@@ -25,6 +25,7 @@ class GuestRepository extends Repository {
     public function add(array $values) {
         $comment = new \SebSept\OMLB\Models\Comment\Comment($values);
         $comment->post_id = $values['post_id'];
+        \Config::get('app.debug') && \Log::debug(__CLASS__);
         return $comment->save();
     }
 }

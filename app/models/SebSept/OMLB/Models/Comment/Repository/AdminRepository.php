@@ -28,6 +28,7 @@ class AdminRepository extends Repository {
         $comment->post_id = $values['post_id'];
         $comment->published = 1;
         $comment->is_admin = 1;
+        \Config::get('app.debug') && \Log::debug(__CLASS__);
         
         if($comment->save()) {
             \Event::fire('comment.added_by_admin', [$comment]);

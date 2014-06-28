@@ -5,9 +5,12 @@
  */
 DB::beginTransaction();
 
+// we do not test csrf filter, we can rely on laravel
+// just be sure, filter is set for the route
 Route::disableFilters();
 
 $I = new WebGuy($scenario);
+$I->amGuest();
 $I->wantTo('submit valid comment as guest');
 $I->amOnPage('aut-ex-accusantium-quo-tenetur-harum');
 

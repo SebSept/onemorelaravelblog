@@ -39,6 +39,7 @@
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "1.*",
 		"fzaninotto/faker": "dev-master",
-		"codeception/codeception": "*"
+		"codeception/codeception": "*",
+		"mockery/mockery": "dev-master"
 	}
 }
