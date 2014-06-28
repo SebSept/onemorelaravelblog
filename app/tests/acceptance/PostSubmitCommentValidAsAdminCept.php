@@ -3,10 +3,6 @@
  * @todo enable filter / check csrf
  * @todo check urls contains "#comment_submitted"
  */
-
-$faker = Faker\Factory::create('fr_FR');
-$submited_content = $faker->text;
-
 DB::beginTransaction();
 
 // we do not test csrf filter, we can rely on laravel
@@ -16,18 +12,26 @@ Route::disableFilters();
 $I = new WebGuy($scenario);
 $I->amGuest();
 $I->wantTo('submit valid comment as guest');
-
-// step 1 : submit comment
 $I->amOnPage('aut-ex-accusantium-quo-tenetur-harum');
+
+echo  $I->grabValueFrom('input[name=_token]');
+echo  $I->grabValueFrom('input[name=title]');
 
 $I->submitForm( '#post-form form', [  'title'=> 'my comment title' ,
                                 'author_name' => 'Jacky kio',
                                 'author_site' => 'http://google.fr',
-                                'content' => $submited_content,
+                                'content' => 'bla bla. Fake contetnt',
 //                                '_token' => $I->grabValueFrom('input[name="_token"]')
         ]);
+//$I->canSeeCurrentUrlEquals($uri)
+//if($I->seeCurrentUrlEquals('/aut-ex-accusantium-quo-tenetur-harum?#comment_submitted')) {
+//    echo 'oki';
+//}
+//else
+//    echo 'notOki';
 
-// step 2 : check comment is not published
-$I->dontSee($submited_content);
+//echo $I->grabFromCurrentUrl('~/aut-ex-accusantium-quo-tenetur-harum(.+)~');
+//$I->
+//$I->seeCurrentUrlEquals('/aut-ex-accusantium-quo-tenetur-harum?#comment_submitted');
 
 DB::rollBack();
