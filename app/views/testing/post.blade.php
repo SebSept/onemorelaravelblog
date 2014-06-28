@@ -1,7 +1,7 @@
 @extends(\Config::get('blog.theme').'::layout')
 
 <?php
-use OMLB\Models\Comment\Comment;
+use \SebSept\OMLB\Models\Comment\Comment;
 ?>
 
 @section('head.meta')

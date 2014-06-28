@@ -1,5 +1,5 @@
 <?php
-use OMLB\Models\Tag\Tag;
+use \SebSept\OMLB\Models\Tag\Tag;
 DB::beginTransaction();
 
 Route::enableFilters();

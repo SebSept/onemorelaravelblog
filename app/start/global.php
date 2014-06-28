@@ -73,7 +73,7 @@ App::down(function()
 */
 
 \Auth::extend('simple', function() {
-	return new \OMLB\Components\User\SimpleAuth;
+	return new \SebSept\OMLB\Components\User\SimpleAuth;
 });
 
 /*
@@ -109,7 +109,7 @@ Form::macro('myInput', function($attribute, $type, $label)
 /*
 * Events before saving post
 **/
-OMLB\Models\Post\Post::saving( function($post) {
+\SebSept\OMLB\Models\Post\Post::saving( function($post) {
 	BlogCacheManager::postSaving($post);
 });
 

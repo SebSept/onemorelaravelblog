@@ -120,8 +120,11 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
                 'GrahamCampbell\Markdown\MarkdownServiceProvider',
-                'OMLB\Components\Html\BlogHtmlServiceProvider',
-                'OMLB\Components\Cache\BlogCacheManagerServiceProvider',
+                '\SebSept\OMLB\Components\Html\BlogHtmlServiceProvider',
+                '\SebSept\OMLB\Components\Cache\BlogCacheManagerServiceProvider',
+            
+                // test plugins
+                'SebSept\TestPlugin\TestPluginServiceProvider',
 
 	),
 
@@ -189,7 +192,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
                 'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
-                'BlogCacheManager' => 'OMLB\Components\Cache\Facade\BlogCacheManager',
+                'BlogCacheManager' => '\SebSept\OMLB\Components\Cache\Facade\BlogCacheManager',
 	),
 
 );

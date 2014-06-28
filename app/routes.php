@@ -11,8 +11,8 @@
   |
  */
 
-use OMLB\Models\Post\Repository\PostRepositoryFactory;
-use OMLB\Models\Comment\Comment;
+use \SebSept\OMLB\Models\Post\Repository\PostRepositoryFactory;
+use \SebSept\OMLB\Models\Comment\Comment;
 
 /**
  * Backoffice routes
@@ -135,7 +135,7 @@ use OMLB\Models\Comment\Comment;
 });
 
 \Route::post('/comment/add/{post_id}', ['as' => 'comment.add', 'before' => 'csrf', function($post_id) {
-        $commentRepository = \OMLB\Models\Comment\Factory::make();
+        $commentRepository = \SebSept\OMLB\Models\Comment\Factory::make();
         $success = $commentRepository->add( array_merge(['post_id'=> $post_id], Input::only(['title', 'author_name', 'author_site', 'content'])));
 	if ($success) {
 	    return Redirect::route('post.view', 

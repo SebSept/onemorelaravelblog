@@ -1,5 +1,5 @@
 <?php
-use OMLB\Models\Comment\Comment;
+use \SebSept\OMLB\Models\Comment\Comment;
 
 Route::enableFilters();
 $I = new WebGuy($scenario);

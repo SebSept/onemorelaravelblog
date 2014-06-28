@@ -1,6 +1,6 @@
 @extends(\Config::get('blog.theme').'::admin.layout')
 <?php 
-use OMLB\Models\Comment\Comment;
+use \SebSept\OMLB\Models\Comment\Comment;
 ?>
 
 @section('content')
