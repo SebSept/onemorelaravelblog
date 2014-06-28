@@ -2120,6 +2120,27 @@ class WebGuy extends \Codeception\AbstractGuy
      * Documentation taken from corresponding module.
      * ----------------------------------------------
      *
+     * user is a logged admin
+     * 
+     * mock Auth::check() to return true;
+     * @see Codeception\Module\WebHelper::amAdmin()
+     * @return \Codeception\Maybe
+     */
+    public function amAdmin() {
+        $this->scenario->addStep(new \Codeception\Step\Condition('amAdmin', func_get_args()));
+        if ($this->scenario->running()) {
+            $result = $this->scenario->runStep();
+            return new Maybe($result);
+        }
+        return new Maybe();
+    }
+
+ 
+    /**
+     * This method is generated.
+     * Documentation taken from corresponding module.
+     * ----------------------------------------------
+     *
      * Assert that the session has a given list of values.
      *
      * @param  string|array $key
