@@ -122,9 +122,6 @@ return array(
                 'GrahamCampbell\Markdown\MarkdownServiceProvider',
                 '\SebSept\OMLB\Components\Html\BlogHtmlServiceProvider',
                 '\SebSept\OMLB\Components\Cache\BlogCacheManagerServiceProvider',
-            
-                // test plugins
-                'SebSept\TestPlugin\TestPluginServiceProvider',
 
 	),
 
