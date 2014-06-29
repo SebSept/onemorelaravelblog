@@ -79,3 +79,6 @@ It's open source, pusblished under the [MIT Licence](http://choosealicense.com/l
 
 Source code & issue tracker is here. I'll be happy to accept pull requests, so go fork it !
 
+----
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/eedbee2c-cfb3-4642-a8e3-eb319b909987/small.png)](https://insight.sensiolabs.com/projects/eedbee2c-cfb3-4642-a8e3-eb319b909987)
