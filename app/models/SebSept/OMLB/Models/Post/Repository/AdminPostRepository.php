@@ -47,12 +47,15 @@ class AdminPostRepository extends PostRepository {
         $inputs['published'] = is_null($inputs['published']) ? 0 : 1;
         unset( $inputs['hidden-tags'] );
         $post->fill($inputs);
-        if(!$this->validate($post)) {
-            return false;
-        }
         
-        $this->setTagsFromString(\Input::get('hidden-tags'), $post);
-        return $post->save();
+        if($this->validate($post)) {
+            $this->setTagsFromString(\Input::get('hidden-tags'), $post);
+            if($post->save()) {
+                \Event::fire('post.saved', ['post' => $post]);
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
