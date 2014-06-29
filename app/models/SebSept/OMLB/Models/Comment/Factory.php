@@ -38,7 +38,7 @@ class Factory {
                 return new Repository\GuestRepository();                
                 break;
             default :
-                throw new Illuminate\Exception('undefined context <em>'.$context.'</em>');
+                throw new \Illuminate\Exception('undefined context <em>'.$context.'</em>');
         }
     }
     

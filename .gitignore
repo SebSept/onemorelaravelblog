@@ -6,8 +6,6 @@ composer.lock
 ; ignore system files
 .env.*.php
 .env.php
-.DS_Store
-Thumbs.db
 
 ; ignore ide files
 /nbproject/
@@ -24,3 +22,4 @@ docs_perso/
 .git-ftp-ignore
 app/tests/acceptance.suite.yml
 workbench/
+_ide_helper.php
