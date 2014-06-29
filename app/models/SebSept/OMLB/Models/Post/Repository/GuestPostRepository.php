@@ -10,9 +10,6 @@
 
 namespace SebSept\OMLB\Models\Post\Repository;
 
-use \SebSept\OMLB\Models\Post\Post;
-use \SebSept\OMLB\Models\Tag\Tag;
-
 /**
  * GuestPostRepository
  *
