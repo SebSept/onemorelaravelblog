@@ -1,6 +1,6 @@
 <?php
 /**
- * GuestPostRepository
+ * GuestRepository
  * 
  * Posts repository for front end
  * 
@@ -11,10 +11,10 @@
 namespace SebSept\OMLB\Models\Post\Repository;
 
 /**
- * GuestPostRepository
+ * GuestRepository
  *
  */
-class GuestPostRepository extends PostRepository {
+class GuestRepository extends PostRepository {
 
     /**
      * Closure used to alter Post scope

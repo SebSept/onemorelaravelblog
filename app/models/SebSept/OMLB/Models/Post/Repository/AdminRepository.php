@@ -1,6 +1,6 @@
 <?php
 /**
- * AdminPostRepository
+ * AdminRepository
  * 
  * Posts repository for backend
  * 
@@ -14,10 +14,10 @@ use \SebSept\OMLB\Models\Post\Post;
 use \SebSept\OMLB\Models\Tag\Tag;
 
 /**
- * AdminPostRepository
+ * AdminRepository
  *
  */
-class AdminPostRepository extends PostRepository {
+class AdminRepository extends PostRepository {
         
     /**
      * Get a post by id or get a new one
