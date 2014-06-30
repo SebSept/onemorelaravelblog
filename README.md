@@ -1,37 +1,22 @@
-# Features & requirements
+A blog engine made with @laravel framework.
 
-What I need for my blog is :
+It is made to be extended using laravel packages (via composer) & laravel events.
+
+# Features
 
 - fast rendering (suited for not powerfull shared hosting)
-- lightweight (coded only what I need)
-- good code (for future improvements)
+- lightweight
 - one user admin
-- comments (moderated
-- tags
-
-That's all.
-
-So features are :
-
-- posts (title/teaser/content/tags)
-- tags
 - comments (moderated)
-- markdown rendering (no wysiwyg, you may add it using plugins later)
+- tags
 - friendly urls
-
 - laravel powered
 - composer powered
 - sqlite powered (but can be configured to run on mysql or other database engine).
-- i18n
 
-[Laravel](http://laravel.com/ "Laravel framework website") is the framework I'm currently trying to adopt (for fast / simple projects at least). So it's laravel powered.
+It currently use Markdown to render posts content (will be removed from core when plugin implemented)
 
-You can see it in action here [onemorelaravelblog](http://blog.seb7.fr) (fr).
-
-# Plan
-
-- code as a laravel bundle
-- fire events so that you can plug anywhere in the blog : so you'll be able to add plugins/bundle in it
+You can see it in action here [onemorelaravelblog](http://blog.seb7.fr) (fr). on a [small shared hosting](http://www.phpnet.org/mutualise.php) (_perso starter_) 
 
 # Install
 
@@ -52,6 +37,7 @@ see (laravel configuration)[http://laravel.com/docs/configuration] for more info
 ### Configure
 
 - copy ./app/tests/acceptance.suite.yml.example to ./app/tests/acceptance.suite.yml
+- run `./codecept build` to run the tests.
 - configure url
 
 ### Run
@@ -73,6 +59,9 @@ Avoid changing files in the default theme directories. You will have (git) probl
 Behaviour testing, translations, a way to hook module, a base theme, or documentation, just to mention the most important points.
 [Issues](https://github.com/SebSept/onemorelaravelblog/issues?state=open)
 
+# Wiki - Documentations
+
+How to will be on [wiki](https://github.com/SebSept/onemorelaravelblog/wiki).
 ----
 
 It's open source, pusblished under the [MIT Licence](http://choosealicense.com/licenses/mit/).
