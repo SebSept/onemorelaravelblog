@@ -85,7 +85,7 @@ class AdminPostRepository extends PostRepository {
                 ->whereIn('title', $input_tags_string_array);
 
         // store existing tags ids => $found_tags_ids_array
-        $tags_ids_array = $found_tags_ids_array = $search_query->lists('id');
+        $tags_ids_array = $search_query->lists('id');
         $found_tags_title_array = $search_query->lists('title');
 
         // create new tags
