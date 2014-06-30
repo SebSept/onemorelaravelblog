@@ -36,7 +36,6 @@ class BlogCacheManager {
                 \Config::get('app.debug') && \Log::info('get : check cache : '. $identifier .' : '. ($exists ? 'exists' : 'doesnt exists'));
 
 		$cache = \Cache::get(static::getIdentifierFromCurrentRoute(), null);
-		// dd($cache);
 		if(!is_null($cache)) {
 			// add new header to response to evaluate if content needs to be cached by cache filter
 			$response = new \Illuminate\Http\Response();
