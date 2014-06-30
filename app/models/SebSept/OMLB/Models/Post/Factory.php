@@ -38,7 +38,7 @@ class Factory {
                 return new Repository\GuestPostRepository();                
                 break;
             default :
-                throw new Illuminate\Exception('undefined context');
+                throw new \Illuminate\Exception('undefined context');
         }
     }
     
