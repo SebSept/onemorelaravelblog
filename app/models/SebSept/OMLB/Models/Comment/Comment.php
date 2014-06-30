@@ -12,7 +12,7 @@ namespace SebSept\OMLB\Models\Comment;
 /**
  * Comment
  */
-class Comment extends \Eloquent {
+class Comment extends \SebSept\OMLB\Models\MyEloquent {
 
 	/**
 	* Properties that must not be mass-assigned

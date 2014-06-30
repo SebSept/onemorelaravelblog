@@ -24,6 +24,7 @@ abstract class Repository {
      */
     public function getAll()
     {      
+        // @todo use a dedicated config value
         return Post::applyScope($this->getDefaultScope())
             ->paginate(\Config::get('blog.posts_per_page'));
     }

@@ -13,12 +13,11 @@ namespace SebSept\OMLB\Models\Comment\Repository;
  *
  */
 abstract class Repository {
-    
+
     /**
-     * Save new Comment in storage
+     * Closure used to alter Post scope
      * 
-     * @param array attributes $values
-     * @return bool
+     * @return Closure
      */
-    abstract public function add(array $values);
+     abstract protected function getDefaultScope();
 }

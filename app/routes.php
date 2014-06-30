@@ -1,18 +1,13 @@
 <?php
-
-/*
-  |--------------------------------------------------------------------------
-  | Application \Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register all of the routes for an application.
-  | It's a breeze. Simply tell Laravel the URIs it should respond to
-  | and give it the Closure to execute when that URI is requested.
-  |
+/**
+ * Application Routes
+ * 
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
  */
 
 use \SebSept\OMLB\Models\Post\Factory As PostRepositoryFactory;
-use \SebSept\OMLB\Models\Comment\Comment;
+use \SebSept\OMLB\Models\Comment\Factory As CommentRepositoryFactory;
 
 /**
  * Backoffice routes
@@ -21,7 +16,7 @@ use \SebSept\OMLB\Models\Comment\Comment;
     
     \Route::get('/', ['as' => 'admin.dashboard', function() {
         $posts = PostRepositoryFactory::make()->getAll('admin');
-        $unpublished_comments_count = Comment::wherePublished('0')->count();
+        $unpublished_comments_count = CommentRepositoryFactory::make()->count();
         return View::make(\Config::get('blog.theme').'::admin.dashboard', compact('posts', 'unpublished_comments_count'));
     }]);
     
@@ -71,14 +66,12 @@ use \SebSept\OMLB\Models\Comment\Comment;
     \Route::group(['prefix' => 'comment'], function() {
 
 	    \Route::get('/moderate', ['as' => 'admin.comment.moderate', function() {
-                    // @todo use repository
-		    $unpublished_comments = Comment::wherePublished('0')->paginate(\Config::get('blog.comments_per_page_admin', 20));
+		    $unpublished_comments = CommentRepositoryFactory::make()->getUnmoderated();
 		    return View::make(\Config::get('blog.theme').'::admin.comment_moderate', compact('unpublished_comments'));
 		}]);
 
 	    \Route::get('/approuve/{comment_id}', ['as' => 'admin.comment.approuve', function($comment_id) {
-                    // @todo use repository
-		    $comment = Comment::whereId($comment_id)->first();
+		    $comment = CommentRepositoryFactory::make()->getById($comment_id);
 		    if ($comment && $comment->approve())
 		    {
 		        return Redirect::back()->with('message', trans('admin.comment.approved') );
@@ -87,8 +80,7 @@ use \SebSept\OMLB\Models\Comment\Comment;
 		}]);
 
 	    \Route::get('/delete/{comment_id}', ['as' => 'admin.comment.delete', function($comment_id) {
-                // @todo use repository
-	        $comment = Comment::whereId($comment_id)->first();
+	        $comment = CommentRepositoryFactory::make()->getById($comment_id);
 	        if ($comment->delete())
 	        {
 	            return Redirect::back()->with('message', trans('admin.comment.deleted'));
@@ -135,7 +127,7 @@ use \SebSept\OMLB\Models\Comment\Comment;
 });
 
 \Route::post('/comment/add/{post_id}', ['as' => 'comment.add', 'before' => 'csrf', function($post_id) {
-        $commentRepository = \SebSept\OMLB\Models\Comment\Factory::make();
+        $commentRepository = CommentRepositoryFactory::make();
         $success = $commentRepository->add( array_merge(['post_id'=> $post_id], Input::only(['title', 'author_name', 'author_site', 'content'])));
 	if ($success) {
 	    return Redirect::route('post.view', 
