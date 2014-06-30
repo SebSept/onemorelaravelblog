@@ -21,14 +21,14 @@ You can see it in action here [onemorelaravelblog](http://blog.seb7.fr) (fr). on
 # Install
 
 - git clone ( or download & unzip this project, not recommended, better git clone)
-- (install &) run `composer install` (see (getcomposer.org)[https://getcomposer.org/download/] for more informations)
+- (install &) run `composer install` - see [getcomposer.org](https://getcomposer.org/download/) for more informations.
 
 ## Configure
 
 - copy ./config/blog.php to ./config/local/blog.php
 - change needed values (admin user & login at least)
-see (laravel configuration)[http://laravel.com/docs/configuration] for more informations.
-- configure `$app->detectEnvironment` in ./bootstrap/start.php (should not be versionned) (see [laravel environment config](http://laravel.com/docs/configuration#environment-configuration) )
+see [laravel configuration](http://laravel.com/docs/configuration) for more informations.
+- configure `$app->detectEnvironment` in ./bootstrap/start.php (should not be versionned) ( see [laravel environment config](http://laravel.com/docs/configuration#environment-configuration) )
 
 # Developpement
 
