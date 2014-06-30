@@ -1,6 +1,6 @@
 <?php
 /**
- * PostRepository
+ * Repository
  * 
  * @author sebastienmonterisi@yahoo.fr
  * @package onemorelaravelblog
@@ -12,10 +12,10 @@ use \SebSept\OMLB\Models\Post\Post;
 use \SebSept\OMLB\Models\Tag\Tag;
 
 /**
- * PostRepository
+ * Repository
  *
  */
-abstract class PostRepository {
+abstract class Repository {
         
     /**
      * Get posts (paginated)

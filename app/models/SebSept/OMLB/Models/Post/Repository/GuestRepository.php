@@ -14,7 +14,7 @@ namespace SebSept\OMLB\Models\Post\Repository;
  * GuestRepository
  *
  */
-class GuestRepository extends PostRepository {
+class GuestRepository extends Repository {
 
     /**
      * Closure used to alter Post scope

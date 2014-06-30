@@ -17,7 +17,7 @@ use \SebSept\OMLB\Models\Tag\Tag;
  * AdminRepository
  *
  */
-class AdminRepository extends PostRepository {
+class AdminRepository extends Repository {
         
     /**
      * Get a post by id or get a new one
