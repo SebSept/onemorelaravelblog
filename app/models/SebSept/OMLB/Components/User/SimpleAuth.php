@@ -1,12 +1,15 @@
 <?php
 /**
- * @todo doc
+ * Authentification driver
+ * 
+ * @author sebastienmonterisi@yahoo.fr
+ * @package onemorelaravelblog
  */
 
 namespace SebSept\OMLB\Components\User;
 
 /**
- * @todo doc
+ * Authentification driver
  */
 class SimpleAuth implements \Illuminate\Auth\UserProviderInterface {
 
