@@ -1,9 +1,5 @@
 @extends(\Config::get('blog.theme').'::layout')
 
-<?php
-use \SebSept\OMLB\Models\Comment\Comment;
-?>
-
 @section('head.meta')
     <title>{{{ $post->title }}}</title>
     <meta name="description" content="{{{ $post->teaser }}}" >
