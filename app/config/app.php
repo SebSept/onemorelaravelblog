@@ -188,8 +188,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-                'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
-                'BlogCacheManager' => '\SebSept\OMLB\Components\Cache\Facade\BlogCacheManager',
+                'Markdown'        => 'GrahamCampbell\Markdown\Facades\Markdown',
 	),
 
 );
