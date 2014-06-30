@@ -23,3 +23,6 @@ docs_perso/
 app/tests/acceptance.suite.yml
 workbench/
 _ide_helper.php
+app/tests/functional/TestGuy.php
+app/tests/acceptance/WebGuy.php
+app/tests/unit/CodeGuy.php
