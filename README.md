@@ -4,7 +4,7 @@ It is made to be extended using laravel packages (via composer) & laravel events
 
 # Features
 
-- fast rendering (suited for not powerfull shared hosting)
+- fast rendering - built in caching (suited for not powerfull shared hosting)
 - lightweight
 - one user admin
 - comments (moderated)
