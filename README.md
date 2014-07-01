@@ -5,11 +5,14 @@ It is made to be extended using laravel packages (via composer) & laravel events
 # Features
 
 - fast rendering - built in caching (suited for not powerfull shared hosting)
-- lightweight
 - one user admin
-- comments (moderated)
+- posts (view / list by date / list by tags)
+- comments (with moderation)
 - tags
 - friendly urls
+ 
+## Powered by 
+
 - laravel powered
 - composer powered
 - sqlite powered (but can be configured to run on mysql or other database engine).
