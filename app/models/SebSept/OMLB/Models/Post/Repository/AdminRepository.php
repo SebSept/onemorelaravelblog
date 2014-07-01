@@ -19,6 +19,18 @@ use \SebSept\OMLB\Models\Tag\Tag;
  */
 class AdminRepository extends Repository {
         
+            
+    /**
+     * Get posts (paginated)
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
+     */
+    public function getAll()
+    {
+        return Post::applyScope($this->getDefaultScope())
+            ->paginate(\Config::get('blog.posts_per_page_admin'));
+    }
+    
     /**
      * Get a post by id or get a new one
      * 

@@ -16,18 +16,13 @@ use \SebSept\OMLB\Models\Tag\Tag;
  *
  */
 abstract class Repository {
-        
+
     /**
      * Get posts (paginated)
      * 
      * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
      */
-    public function getAll()
-    {      
-        // @todo use a dedicated config value
-        return Post::applyScope($this->getDefaultScope())
-            ->paginate(\Config::get('blog.posts_per_page'));
-    }
+    abstract function getAll();
     
     /**
      * Get posts with tag

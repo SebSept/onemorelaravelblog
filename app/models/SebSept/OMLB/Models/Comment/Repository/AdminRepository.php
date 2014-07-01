@@ -46,11 +46,10 @@ class AdminRepository extends Repository {
      * @return \Illuminate\Database\Eloquent\Collection Collection of Posts
      */
     public function getUnmoderated()
-    {      
-        // @todo use a dedicated config value
+    {
         return Comment::applyScope($this->getDefaultScope())
             ->wherePublished('0')
-            ->paginate(\Config::get('blog.posts_per_page'));
+            ->paginate(\Config::get('blog.comments_per_page_admin'));
     }
     
     /**
