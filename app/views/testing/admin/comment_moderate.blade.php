@@ -28,7 +28,7 @@ use \SebSept\OMLB\Models\Comment\Comment;
 							{{{ $value }}}
 						</td>
 					@endforeach
-					<td>{{ link_to_route('admin.comment.delete', trans('admin.comment.delete'), ['comment_id' => $comment->id], ['class' => 'btn btn-warning']) }}</td>
+					<td>{{ link_to_route('admin.comment.delete', trans('admin.comment.delete'), ['comment_id' => $comment->id], ['class' => 'btn btn-warning', 'id' => 'delete_'.$comment->id]) }}</td>
 					<td>{{ link_to_route('admin.comment.approuve', trans('admin.comment.approve'), ['comment_id' => $comment->id], ['class' => 'btn btn-success', 'id' => 'approve_'.$comment->id]) }}</td>
 				</tr>
 			@endforeach
