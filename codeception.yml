@@ -9,12 +9,16 @@ settings:
     colors: true
     memory_limit: 1024M
     log: true
-modules:
-    config:
-        Laravel4:
-            cleanup: true
+#modules:
+#    config:
+#        Laravel4:
+#            cleanup: true
         #Db:
         #    dsn: ''
         #    user: ''
         #    password: ''
         #    dump: app/tests/_data/testing.dump.sqlite.sql
+#coverage:
+#    enabled: true
+#    exclude: [ vendor/* ]
+        
