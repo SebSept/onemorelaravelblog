@@ -16,7 +16,7 @@
 			"app/tests/TestCase.php"
 		],
                 "psr-4" : {
-                    "SebSept\\OMLB\\": "app/models/SebSept/OMLB/"
+                    "SebSept\\OMLB\\": "src/"
                 }
 	},
 	"scripts": {
