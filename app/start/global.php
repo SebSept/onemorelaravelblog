@@ -131,7 +131,7 @@ Blade::extend(function($view, $compiler)
 
     return preg_replace($pattern, '$1<?php 
     	$_tag = $2;
-    	echo link_to_route("tag.view", $_tag->title, ["tag" => $_tag->title], ["class" => Config::get("blog.tag_class")]) ; ?>', $view);
+    	echo link_to_route("post.index.bytag", $_tag->title, ["tag" => $_tag->title], ["class" => Config::get("blog.tag_class")]) ; ?>', $view);
 });
 
 View::addNamespace(Config::get('blog.theme'), __DIR__.'/../views/'.Config::get('blog.theme'));

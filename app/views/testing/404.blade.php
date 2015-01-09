@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		<div>
-			<a href="{{ route('home') }}" title="{{ trans('main.backhome') }}" >
+			<a href="{{ route('post.index') }}" title="{{ trans('main.backpost.index') }}" >
 				<img src="{{ asset(\Config::get('blog.theme').'/img/404.png')}}" style="height:100%;" />
 			</a>
 		</div>

@@ -7,9 +7,9 @@
     @endif
 
     @foreach($posts AS $post)
-        <h2>{{ link_to_route('post.view', $post->title, ['slug' => $post->slug]) }}</h2>
+        <h2>{{ link_to_route('post.show', $post->title, ['slug' => $post->slug]) }}</h2>
         <p>{{{ $post->teaser }}}</p>
-        <p>{{ link_to_route('post.view', $post->title, ['slug' => $post->slug]) }}</p>
+        <p>{{ link_to_route('post.show', $post->title, ['slug' => $post->slug]) }}</p>
     @endforeach
 
     <?php echo $posts->links(); ?>

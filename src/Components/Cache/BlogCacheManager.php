@@ -104,7 +104,7 @@ class BlogCacheManager {
 		
 		$nb_pages = ceil(\SebSept\OMLB\Models\Post\Post::wherePublished('1')->count() / \Config::get('blog.posts_per_page') )+1;
 		while($nb_pages--) {
-                        $identifier = $this->getIdentifier('home', [], $nb_pages);
+                        $identifier = $this->getIdentifier('post.index', [], $nb_pages);
 			\Cache::forget($identifier);
 			\Config::get('app.debug') && \Log::info('cache manager : delete posts : '.$identifier);
 		}
@@ -136,8 +136,8 @@ class BlogCacheManager {
 	* @return void
 	**/
 	protected function forgetPost(\SebSept\OMLB\Models\Post\Post $post) {
-		\Cache::forget($this->getIdentifier('post.view', $post->getAttributes()));
-		\Config::get('app.debug') && \Log::info('cache manager : delete Post : '.$this->getIdentifier('post.view', $post->getAttributes()));
+		\Cache::forget($this->getIdentifier('post.show', $post->getAttributes()));
+		\Config::get('app.debug') && \Log::info('cache manager : delete Post : '.$this->getIdentifier('post.show', $post->getAttributes()));
 	}
         
         /**
@@ -155,8 +155,8 @@ class BlogCacheManager {
                             ->count() / \Config::get('blog.posts_per_page') )+1;
 
                 while($nb_pages--) {
-                    \Cache::forget($this->getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
-                    \Config::get('app.debug') && \Log::info('cache manager : delete posts : taglist_'.$this->getIdentifier('tag.view', ['tag' => $tag->title], $nb_pages));
+                    \Cache::forget($this->getIdentifier('post.index.bytag', ['tag' => $tag->title], $nb_pages));
+                    \Config::get('app.debug') && \Log::info('cache manager : delete posts : taglist_'.$this->getIdentifier('post.index.bytag', ['tag' => $tag->title], $nb_pages));
                 }
             }
         }

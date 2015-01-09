@@ -101,45 +101,16 @@ use \SebSept\OMLB\Models\Comment\Factory As CommentRepositoryFactory;
 /**
  * Front office routes
  * */
+
+// cached routes
 \Route::group(['before' => 'cache_retrieve', 'after' => 'cache_create'], function() {
-    \Route::get('/', ['as' => 'home', function() {
-        $posts = PostRepositoryFactory::make()->getAll();
-        return View::make(\Config::get('blog.theme').'::home', compact('posts'))->render();
-    }
-    ]);
-
-    \Route::get('/tag/{tag}', ['as' => 'tag.view', function($tag) {
-        if ($posts = PostRepositoryFactory::make()->getByTagName($tag)) {
-            $list_title = Lang::get('front.list.header.posts tagged' , ['title' => $tag]);
-            return View::make(\Config::get('blog.theme').'::home', compact('posts', 'list_title'))->render();
-        }
-        app::abort(404);
-}]);
-
-    \Route::get('/{slug}', ['as' => 'post.view', function($slug) {
-        if ($post = PostRepositoryFactory::make()->getBySlug($slug))
-        {
-            return View::make(\Config::get('blog.theme').'::post', compact('post'))->render();
-        }
-        app::abort(404);
-    }
-    ]);
+    \Route::get('/',            ['as' => 'post.index',        'uses' => 'SebSept\OMLB\Controllers\Post@index' ]);
+    \Route::get('/tag/{tag}',   ['as' => 'post.index.bytag',  'uses' => 'SebSept\OMLB\Controllers\Post@indexByTag' ]); 
+    \Route::get('/{slug}',      ['as' => 'post.show',         'uses' => 'SebSept\OMLB\Controllers\Post@show' ]);
 });
 
-\Route::post('/comment/add/{post_id}', ['as' => 'comment.add', /*'before' => 'csrf',*/ function($post_id) {
-        $commentRepository = CommentRepositoryFactory::make();
-        $success = $commentRepository->add( array_merge(['post_id'=> $post_id], Input::only(['title', 'author_name', 'author_site', 'content'])));
-	if ($success) {
-	    return Redirect::route('post.view', 
-                        ['slug' => PostRepositoryFactory::make()->getById($post_id)->slug, 
-                         '#comment_submitted']);
-	} 
-        else {
-            return Redirect::back()
-	                    ->with('error', 'front.comment.submission_failled')
-	                    ->withInput();
-	}
-}]);
+// comment posting
+\Route::post('/comment/add/{post_id}', ['as' => 'comment.add', 'uses' => 'SebSept\OMLB\Controllers\Post@postComment']);
 
 // 404
 App::missing(function($exception)
