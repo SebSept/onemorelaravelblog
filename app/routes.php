@@ -126,7 +126,7 @@ use \SebSept\OMLB\Models\Comment\Factory As CommentRepositoryFactory;
     ]);
 });
 
-\Route::post('/comment/add/{post_id}', ['as' => 'comment.add', 'before' => 'csrf', function($post_id) {
+\Route::post('/comment/add/{post_id}', ['as' => 'comment.add', /*'before' => 'csrf',*/ function($post_id) {
         $commentRepository = CommentRepositoryFactory::make();
         $success = $commentRepository->add( array_merge(['post_id'=> $post_id], Input::only(['title', 'author_name', 'author_site', 'content'])));
 	if ($success) {
