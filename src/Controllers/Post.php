@@ -40,7 +40,7 @@ trait front {
     public function index()
     {
         $posts = PostRepositoryFactory::make()->getAll();
-        return View::make(Config::get('blog.theme') . '::post_index', compact('posts'))->render();
+        return View::make('post_index', compact('posts'))->render();
     }
 
     /**
@@ -53,7 +53,7 @@ trait front {
         if ($posts = PostRepositoryFactory::make()->getByTagName($tag))
         {
             $list_title = \Lang::get('front.list.header.posts tagged', ['title' => $tag]);
-            return View::make(Config::get('blog.theme') . '::post_index', compact('posts', 'list_title'))->render();
+            return View::make('post_index', compact('posts', 'list_title'))->render();
         }
         \app::abort(404);
     }
@@ -68,7 +68,7 @@ trait front {
     {
         if ($post = PostRepositoryFactory::make()->getBySlug($slug))
         {
-            return View::make(Config::get('blog.theme') . '::post', compact('post'))->render();
+            return View::make('post', compact('post'))->render();
         }
         \app::abort(404);
     }
@@ -124,7 +124,7 @@ trait adminPosts
     {
         $posts = PostRepositoryFactory::make()->getAll('admin');
         $unpublished_comments_count = CommentRepositoryFactory::make()->count();
-        return View::make(Config::get('blog.theme') . '::admin.dashboard', compact('posts', 'unpublished_comments_count'));
+        return View::make('admin.dashboard', compact('posts', 'unpublished_comments_count'));
     }
 
     /**
@@ -136,7 +136,7 @@ trait adminPosts
     public function edit($id = null)
     {
         $post = PostRepositoryFactory::make()->getByIdOrNew($id);
-        return View::make(Config::get('blog.theme') . '::admin.edit', compact('post'));
+        return View::make('admin.edit', compact('post'));
     }
 
     /**
@@ -180,7 +180,7 @@ trait adminPosts
         $post = PostRepositoryFactory::make()->getBySlug($slug);
         if ($post)
         {
-            return View::make(\Config::get('blog.theme') . '::post', compact('post'));
+            return View::make('post', compact('post'));
         }
         app::abort(404);
     }
@@ -204,7 +204,7 @@ trait adminComments
     public function indexUnmoderatedComments()
     {
         $unpublished_comments = CommentRepositoryFactory::make()->getUnmoderated();
-        return View::make(\Config::get('blog.theme') . '::admin.comment_moderate', compact('unpublished_comments'));
+        return View::make('admin.comment_moderate', compact('unpublished_comments'));
     }
 
     /**

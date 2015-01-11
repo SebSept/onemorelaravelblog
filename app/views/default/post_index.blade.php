@@ -1,4 +1,4 @@
-@extends(\Config::get('blog.theme').'::layout')
+@extends('layout')
 
 @section('content')
 <div class="container" id="list">

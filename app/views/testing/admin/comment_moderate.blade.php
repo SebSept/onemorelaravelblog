@@ -1,4 +1,4 @@
-@extends(\Config::get('blog.theme').'::admin.layout')
+@extends('admin.layout')
 <?php 
 use \SebSept\OMLB\Models\Comment\Comment;
 ?>
