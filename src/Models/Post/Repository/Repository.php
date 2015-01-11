@@ -32,7 +32,7 @@ abstract class Repository {
      */
     public function getByTagName($tag_name)
     {
-        $tag = Tag::whereTitle($tag_name)->first();
+        $tag = Tag::whereTitle($tag_name)->firstOrFail();
         return Post::applyScope($this->getDefaultScope())
             ->whereHas('tags', function($q) use($tag) { $q->where('id', '=', $tag->id); })
             ->paginate(\Config::get('blog.posts_per_page'));
@@ -63,7 +63,7 @@ abstract class Repository {
             ->with(['comments' => function($query) {
                 $query->wherePublished('1');
             }, 'tags'])
-            ->first();
+            ->firstOrFail();
     }
 
     /**

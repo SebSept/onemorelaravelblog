@@ -26,8 +26,8 @@ class Post extends BaseController
     use front;
 }
 
-trait front {
-    
+trait front
+{
     /**
      * Front methods
      */
@@ -50,12 +50,9 @@ trait front {
      */
     public function indexByTag($tag)
     {
-        if ($posts = PostRepositoryFactory::make()->getByTagName($tag))
-        {
-            $list_title = \Lang::get('front.list.header.posts tagged', ['title' => $tag]);
-            return View::make('post_index', compact('posts', 'list_title'))->render();
-        }
-        \app::abort(404);
+        $posts = PostRepositoryFactory::make()->getByTagName($tag);
+        $list_title = \Lang::get('front.list.header.posts tagged', ['title' => $tag]);
+        return View::make('post_index', compact('posts', 'list_title'))->render();
     }
 
     /**
@@ -66,11 +63,8 @@ trait front {
      */
     public function show($slug)
     {
-        if ($post = PostRepositoryFactory::make()->getBySlug($slug))
-        {
-            return View::make('post', compact('post'))->render();
-        }
-        \app::abort(404);
+        $post = PostRepositoryFactory::make()->getBySlug($slug);
+        return View::make('post', compact('post'))->render();
     }
 
     /**
@@ -178,11 +172,7 @@ trait adminPosts
     public function preview($slug)
     {
         $post = PostRepositoryFactory::make()->getBySlug($slug);
-        if ($post)
-        {
-            return View::make('post', compact('post'));
-        }
-        app::abort(404);
+        return View::make('post', compact('post'));
     }
 
     public function flushCache()

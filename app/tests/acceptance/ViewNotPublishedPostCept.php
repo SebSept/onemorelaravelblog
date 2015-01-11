@@ -9,7 +9,8 @@ try{
     $I->see('Page supposed not to be found but no NotFoundHttpException throw :/');
     $I->dontSee('Page supposed not to be found but no NotFoundHttpException throw :/');
 }
-catch(Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e )
+//catch(Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e )
+catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
 {
     // test is ok
     

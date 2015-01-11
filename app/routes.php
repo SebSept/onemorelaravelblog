@@ -53,7 +53,8 @@ use \SebSept\OMLB\Models\Comment\Factory As CommentRepositoryFactory;
 \Route::post('/comment/add/{post_id}', ['as' => 'comment.add', 'uses' => 'SebSept\OMLB\Controllers\Post@postComment']);
 
 // 404
-App::missing(function($exception)
+App::missing(function(\Exception $exception)
 {
-    return Response::view(\Config::get('blog.theme') . '::404', array(), 404);
+    Log::notice('404 - Handled : '.\Request::fullUrl());
+    return \Response::view('404', array(), 404);
 });
