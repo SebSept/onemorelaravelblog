@@ -134,7 +134,5 @@ Blade::extend(function($view, $compiler)
     	echo link_to_route("post.index.bytag", $_tag->title, ["tag" => $_tag->title], ["class" => Config::get("blog.tag_class")]) ; ?>', $view);
 });
 
-View::addNamespace(Config::get('blog.theme'), __DIR__.'/../views/'.Config::get('blog.theme'));
-
 // set locale for dates
 setlocale(LC_TIME, Config::get('blog.locale'));
