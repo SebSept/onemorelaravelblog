@@ -13,7 +13,7 @@ $I->amOnPage('/admin/comment/moderate');
 $I->see('Exercitationem voluptas ducimus quas modi.'); // comment 7
 
 $I->click('#delete_7');
-$I->see(trans('admin.comment.deleted'));
+$I->see(trans('admin.comment.destroyed'));
 
 // comment 7 is not to moderate anymore
 $I->seeInCurrentUrl('/admin/comment/moderate');
