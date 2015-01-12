@@ -15,6 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'array',
+	'driver' => 'file',
+        'path' => '/tmp/cache',
 
 );

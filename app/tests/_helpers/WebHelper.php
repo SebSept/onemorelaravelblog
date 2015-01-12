@@ -28,4 +28,34 @@ class WebHelper extends \Codeception\Module
         ->once()
         ->andReturn(true);
     }
+    
+    public function prepareEmptyCache()
+    {
+        // assert using a file cache
+        $this->assertEquals('Illuminate\Cache\FileStore', get_class(\Cache::getStore()), 'You must config testing cache to be "file"');
+        // create dir if not exists
+        file_exists($this->cacheDir()) || mkdir($this->cacheDir());
+        
+        // flush cache dir
+        \BlogCacheManager::flush();
+
+        $this->seeEmptyCacheDir();
+    }
+    
+    public function seeEmptyCacheDir($debug = false)
+    {
+//        if($debug)
+//            dd(glob( $this->cacheDir().'/*'));
+        $this->assertEmpty(glob( $this->cacheDir().'/*/*/*'));
+    }
+    
+    public function seeNewCache()
+    {
+        $this->assertNotEmpty(glob( $this->cacheDir().'/*/*/*'));
+    }
+
+    private function cacheDir()
+    {
+        return \Config::get('cache.path');
+    }
 }

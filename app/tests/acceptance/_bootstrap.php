@@ -4,3 +4,6 @@
 // "ErrorException: ob_end_clean(): failed to delete buffer. No buffer to delete"
 // triggered by ./vendor/phpunit/phpunit/PHPUnit/Framework/TestCase.php line 897 ( PHPUnit 3.7.37 )
 ob_start();
+
+$h = new \Codeception\Module\WebHelper();
+$h->prepareEmptyCache();
