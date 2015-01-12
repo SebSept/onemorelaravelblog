@@ -1,6 +1,15 @@
 <?php
 /**
  * Blog Post
+ *
+ * @property integer  $id 
+ * @property string   $title
+ * @property string   $slug
+ * @property string   $teaser
+ * @property string   $content
+ * @property bool     $published
+ * @property datetime $updated_at
+ * @property datetime $created_at
  * 
  * @author sebastienmonterisi@yahoo.fr
  * @package onemorelaravelblog
