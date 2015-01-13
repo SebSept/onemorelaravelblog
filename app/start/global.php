@@ -112,12 +112,6 @@ Form::macro('myInput', function($attribute, $type, $label)
 	return  $return;
 });
 
-/*
-* Events before saving post
-**/
-\SebSept\OMLB\Models\Post\Post::saving( function($post) {
-	BlogCacheManager::postSaving($post);
-});
 
 /**
 * Comment added to post

@@ -63,6 +63,8 @@ class AdminRepository extends Repository {
         if($this->validate($post)) {
             $this->setTagsFromString(\Input::get('hidden-tags'), $post);
             if($post->save()) {
+                // this event is fired for consistancy
+                // to avoid \SebSept\OMLB\Models\Post\Post::saving(callback);
                 \Event::fire('post.saved', ['post' => $post]);
                 return true;
             }
