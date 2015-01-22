@@ -1,4 +1,5 @@
 <?php
+// @todo test list/indexes also
 $post_slug = 'aut-ex-accusantium-quo-tenetur-harum';
 
 // enable filters, cache is managed using filters

@@ -44,8 +44,13 @@ class BlogCacheManagerServiceProvider extends \Illuminate\Support\ServiceProvide
         {
             \BlogCacheManager::postSaving($post);
         });
+
+        // post tags changed
+//        \Event::listen('post.saving.tags', 'BlogCacheManager@postSavingTags');
         
-        
+        // comments approved, added by admin 
+//        Event::listen('comment.approved', 'BlogCacheManager@commentPublished');
+//        Event::listen('comment.added_by_admin', 'BlogCacheManager@commentPublished');
     }
 
 }
