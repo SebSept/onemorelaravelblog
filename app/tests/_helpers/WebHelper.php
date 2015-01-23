@@ -54,6 +54,11 @@ class WebHelper extends \Codeception\Module
         $this->assertNotEmpty(glob( $this->cacheDir().'/*/*/*'));
     }
 
+    public function seeCacheCommentTag()
+    {
+        $this->getModule('Laravel4')->see('<!-- retrieved from cache -->');
+    }
+    
     private function cacheDir()
     {
         return \Config::get('cache.path');

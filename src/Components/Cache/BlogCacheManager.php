@@ -38,9 +38,10 @@ class BlogCacheManager {
 		if(!is_null($cache)) {
 			// add new header to response to evaluate if content needs to be cached by cache filter
 			$response = new \Illuminate\Http\Response();
-			$response->setContent($cache);
+			$response->setContent($cache.'<!-- retrieved from cache -->');
 			$response->header('X-BlogCacheManager', 'cached', false);
-			return $response;
+			$response->header('cache-control', 'cache, public', false);
+                        return $response;
 		}
 	}
 
