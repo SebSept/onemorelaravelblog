@@ -2,6 +2,8 @@ A blog engine made with @laravel framework.
 
 It is made to be extended using laravel packages (via composer) & laravel events.
 
+It is beta version, development is in `wip` branch.
+
 # Features
 
 - fast rendering - built in caching (suited for not powerfull shared hosting)
