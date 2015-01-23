@@ -39,6 +39,7 @@
 		"barryvdh/laravel-ide-helper": "1.*",
 		"fzaninotto/faker": "dev-master",
 		"codeception/codeception": "*",
-		"mockery/mockery": "dev-master"
+		"mockery/mockery": "dev-master",
+		"laracasts/testdummy": "~2.0"
 	}
 }
