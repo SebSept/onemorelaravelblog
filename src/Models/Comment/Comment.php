@@ -2,6 +2,15 @@
 /**
  * Comment for a Post
  * 
+ * @property string   $title
+ * @property string   $author_name
+ * @property string   $author_site
+ * @property string   $content
+ * @property boolean  $published
+ * @property integer  $post_id
+ * @property datetime $updated_at
+ * @property datetime $created_at
+ * 
  * @licence MIT  http://choosealicense.com/licenses/mit/
  * @author sebastienmonterisi@yahoo.fr
  * @package onemorelaravelblog

@@ -11,6 +11,10 @@
 
 namespace SebSept\OMLB\Components\Cache;
 
+
+use Event;
+use \SebSept\OMLB\Models\Post\Post;
+
 /**
  * BlogCacheManagerServiceProvider
  *
@@ -40,7 +44,7 @@ class BlogCacheManagerServiceProvider extends \Illuminate\Support\ServiceProvide
     private function listenToEvents()
     {
         // post saving
-        \SebSept\OMLB\Models\Post\Post::saving(function($post)
+        Post::saving(function($post)
         {
             \BlogCacheManager::postSaving($post);
         });

@@ -7,7 +7,7 @@
  * @property string   $slug
  * @property string   $teaser
  * @property string   $content
- * @property bool     $published
+ * @property boolean  $published
  * @property datetime $updated_at
  * @property datetime $created_at
  * 

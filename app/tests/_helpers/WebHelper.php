@@ -44,8 +44,11 @@ class WebHelper extends \Codeception\Module
     
     public function seeEmptyCacheDir($debug = false)
     {
-//        if($debug)
-//            dd(glob( $this->cacheDir().'/*'));
+        if($debug)
+        {
+            dd(glob( $this->cacheDir().'/*/*/*'));
+        }
+        
         $this->assertEmpty(glob( $this->cacheDir().'/*/*/*'));
     }
     
