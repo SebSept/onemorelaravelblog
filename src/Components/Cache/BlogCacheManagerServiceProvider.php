@@ -54,7 +54,7 @@ class BlogCacheManagerServiceProvider extends \Illuminate\Support\ServiceProvide
         
         // comments approved, added by admin 
         Event::listen('comment.approved', 'BlogCacheManager@commentPublished');
-//        Event::listen('comment.added_by_admin', 'BlogCacheManager@commentPublished');
+        Event::listen('comment.added_by_admin', 'BlogCacheManager@commentPublished');
     }
 
 }

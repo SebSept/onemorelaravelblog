@@ -116,7 +116,6 @@ Form::macro('myInput', function($attribute, $type, $label)
 /**
 * Comment added to post
 **/
-Event::listen('comment.added_by_admin', 'BlogCacheManager@commentPublished');
 Event::listen('post.saving.tags', 'BlogCacheManager@postSavingTags');
 
 /**
