@@ -1,11 +1,16 @@
 <?php
+
+use Laracasts\TestDummy\Factory;
+
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
+$comment = Factory::create('SebSept\OMLB\Models\Comment\Comment', ['published' => 1, 'post_id' => $post->id]);
+
 $I = new WebGuy($scenario);
-$I->wantTo('Published comment can be viewed');
-$I->amOnPage('itaque-veritatis-eligendi-molestias-eaque'); // post 2
-
-// comment 8 title
-$I->see('Ratione harum voluptatem optio explicabo.'); 
-// comment 8 content
-$I->see('Au bas de leur jupon, et les papillons de nuit tournoyaient autour de lui faire remettre au presbytère dans la prairie, où elle vivait encore, il adopta ses prédilections, ses idées; il.');
+$I->wantTo('see published comment');
 
 
+$I->amOnPostPage($post);
+
+// post published but not comment
+$I->see($post->title);
+$I->see($comment->title);

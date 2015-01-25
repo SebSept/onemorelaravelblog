@@ -2,7 +2,8 @@
 /**
  * Tag for a Post
  * 
- * @property string $title tag title
+ * @property integer $id
+ * @property string  $title tag title
  * 
  * @licence MIT  http://choosealicense.com/licenses/mit/
  * @author sebastienmonterisi@yahoo.fr

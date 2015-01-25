@@ -1,26 +1,25 @@
 <?php
-use \SebSept\OMLB\Models\Comment\Comment;
-DB::beginTransaction();
-Route::enableFilters();
+use SebSept\OMLB\Models\Comment\Comment;
+use Laracasts\TestDummy\Factory;
+
+// prepare data
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
+$comment = Laracasts\TestDummy\Factory::create('SebSept\OMLB\Models\Comment\Comment', ['post_id' => $post->id]);
 
 $I = new WebGuy($scenario);
 $I->wantTo('delete a comment');
-
-$I->amHttpAuthenticated('testguy', 'pass');
+$I->amAdmin();
 
 // comment to moderate listed
 $I->amOnPage('/admin/comment/moderate');
-$I->see('Exercitationem voluptas ducimus quas modi.'); // comment 7
+$I->see($comment->title);
 
-$I->click('#delete_7');
+$I->click('#delete_'.$comment->id);
 $I->see(trans('admin.comment.destroyed'));
 
-// comment 7 is not to moderate anymore
 $I->seeInCurrentUrl('/admin/comment/moderate');
-$I->dontSee('Exercitationem voluptas ducimus quas modi.'); // comment 7
+$I->dontSee($comment->title);
 
 // neither published on post page (post->id = 5)
-$I->amOnPage('/sit-et-sunt-dolorem-suscipit-vel-labore');
-$I->dontSee('Exercitationem voluptas ducimus quas modi.');
-
-DB::rollBack();
+$I->amOnPostPage($post);
+$I->dontSee($comment->title);

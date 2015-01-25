@@ -1,26 +1,30 @@
 <?php
-use \SebSept\OMLB\Models\Tag\Tag;
-use \SebSept\OMLB\Models\Post\Post;
+use SebSept\OMLB\Models\Tag\Tag;
+use SebSept\OMLB\Models\Post\Post;
+use Laracasts\TestDummy\Factory;
 
-DB::beginTransaction();
 
-Route::enableFilters();
+
+// prepare existing tags
+Factory::times(4)->create('SebSept\OMLB\Models\Tag\Tag');
+// & post
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['title' => 'orginal title']);
 
 $I = new WebGuy($scenario);
 $I->wantTo('Edit a post');
+$I->amAdmin();
 
-$I->amHttpAuthenticated('testguy', 'pass');
-$I->amOnPage('/admin/post/edit/6');
+$I->amOnPage('/admin/post/edit/'.$post->id);
 
 // post title displayed (we are editing a post)
-$current_title = Post::find(6)->title;
-$new_title = $current_title.' MOD';
-
+$current_title = $post->title;
 $I->see($current_title);
 
+// edit post & submit form
+$new_title = $current_title.' MOD';
 $I->submitForm('form', [
     'title' => $new_title,
-    'slug' => Post::find(6)->slug,
+    'slug' => $post->slug,
     'teaser' => 'The post summary.',
     'content' => '#This is content',
     'hidden-tags' =>  Tag::all()->get(0)->title.','.
@@ -29,8 +33,7 @@ $I->submitForm('form', [
                     'newone'
 ]);
 
+// back on posts list
 $I->see(trans('admin.post.saved'));
 // new title for post, in listed posts
 $I->see($new_title);
-
-DB::rollBack();

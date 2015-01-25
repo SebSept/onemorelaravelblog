@@ -24,9 +24,28 @@ class WebHelper extends \Codeception\Module
      */
     public function amAdmin() 
     {        
+        // enable filter to check if admin
+        \Route::enableFilters();
+        // auth user
+        $this->getModule('Laravel4')->amHttpAuthenticated('testguy', 'pass');
+    }
+    
+    public function amAdminWithMock()
+    {
+        $this->amAdmin();
         \Illuminate\Support\Facades\Auth::shouldReceive('check')
-        ->once()
-        ->andReturn(true);
+            ->once()
+            ->andReturn(true);
+    }
+    
+    /**
+     * be on the page that display a specified post
+     * 
+     * @param Post $post
+     */
+    public function amOnPostPage($post)
+    {
+        $this->getModule('Laravel4')->amOnPage('/'.$post->slug);
     }
     
     public function prepareEmptyCache()

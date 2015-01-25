@@ -1,8 +1,6 @@
 <?php
 // Here you can initialize variables that will for your tests
-
 use Laracasts\TestDummy\Factory;
-
 
 // this ob_start() is needed to avoid 
 // "ErrorException: ob_end_clean(): failed to delete buffer. No buffer to delete"
@@ -12,6 +10,5 @@ ob_start();
 $h = new \Codeception\Module\WebHelper();
 $h->prepareEmptyCache();
 
-//throw new Exception('vider base de test + migrations');
 Artisan::call('migrate');
 Factory::$factoriesPath = 'app/tests/factories';

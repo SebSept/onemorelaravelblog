@@ -1,13 +1,14 @@
 <?php
-use \SebSept\OMLB\Models\Tag\Tag;
-DB::beginTransaction();
+use SebSept\OMLB\Models\Tag\Tag;
+use Laracasts\TestDummy\Factory;
 
-Route::enableFilters();
+// prepare existing tags
+Factory::times(4)->create('SebSept\OMLB\Models\Tag\Tag');
 
 $I = new WebGuy($scenario);
 $I->wantTo('Create a new post');
+$I->amAdmin();
 
-$I->amHttpAuthenticated('testguy', 'pass');
 $I->amOnPage('/admin/post/edit');
 
 $I->submitForm('form', [
@@ -22,5 +23,3 @@ $I->submitForm('form', [
 ]);
 
 $I->see(trans('admin.post.saved'));
-
-DB::rollBack();

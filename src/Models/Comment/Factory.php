@@ -48,6 +48,7 @@ class Factory {
      * @return string self::CONTEXT_ADMIN|self::CONTEXT_GUEST
      */
     protected static function findContext() {
+//        dd(\Auth::user());
         return \Auth::check() ? self::CONTEXT_ADMIN : self::CONTEXT_GUEST;
     }
     

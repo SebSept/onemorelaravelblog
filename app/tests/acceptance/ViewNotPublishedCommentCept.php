@@ -1,11 +1,17 @@
 <?php
-$I = new WebGuy($scenario);
-$I->wantTo('Unpublished comment can\'t be viewed');
-$I->amOnPage('itaque-veritatis-eligendi-molestias-eaque'); // post 2
 
-// comment 20 title
-$I->dontSee('Sed ipsam deleniti ratione voluptate optio.'); 
-// comment 20 content
-$I->dontSee('Et puis ils mangèrent et trinquèrent, tout en sueur, mais sans prendre garde aux cahots, accrochant par-ci par- là, ne s\'en souciant, démoralisé, et presque commettre un sacrilège. Mais un.');
+use Laracasts\TestDummy\Factory;
+
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
+$comment = Factory::create('SebSept\OMLB\Models\Comment\Comment', ['published' => 0, 'post_id' => $post->id]);
+
+$I = new WebGuy($scenario);
+$I->wantTo('not see unpublished comment');
+//$I->amOnPostPage($post);
+$I->amOnPostPage($post);
+
+// post published but not comment
+$I->see($post->title); 
+$I->dontSee($comment->title); 
 
 

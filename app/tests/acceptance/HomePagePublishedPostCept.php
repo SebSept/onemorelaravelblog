@@ -1,5 +1,12 @@
 <?php
+use Laracasts\TestDummy\Factory;
+
+$posts = Factory::times(3)->create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
+
 $I = new WebGuy($scenario);
 $I->wantTo('Published post appears on home');
 $I->amOnPage('/');
-$I->see('Nobis sint qui aut nisi aut id eum quia molestiae.');
+foreach($posts as $post)
+{
+    $I->see($post->title);
+}

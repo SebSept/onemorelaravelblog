@@ -1,21 +1,22 @@
 <?php
-$post_slug = 'aut-ex-accusantium-quo-tenetur-harum';
+use Laracasts\TestDummy\Factory;
+
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
 
 // enable filters, cache is managed using filters
 Route::enableFilters();
 
 $I = new WebGuy($scenario);
 $I->wantTo('Check that Post cache is delete after post modified');
-$I->prepareEmptyCache();
+//$I->prepareEmptyCache();
 
 // view a post
-$I->amOnPage($post_slug);
-//$I->seeCacheCommentTag(); // fails : test is ok
+$I->amOnPostPage($post);
 
 // check cache is created - cache is working
 $I->seeNewCache();
 
 // request page once again - retrieved from cache
-$I->amOnPage($post_slug);
+$I->amOnPostPage($post);
 
 $I->seeCacheCommentTag();

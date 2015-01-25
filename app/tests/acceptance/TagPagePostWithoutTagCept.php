@@ -1,9 +1,12 @@
 <?php
+use Laracasts\TestDummy\Factory;
+
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
+$tags =  Factory::times(2)->create('SebSept\OMLB\Models\Tag\Tag');
+$post->tags()->attach($tags[0]);
+
 $I = new WebGuy($scenario);
-$I->wantTo('Post with specified tag does not appears on tag page');
+$I->wantTo('Post without specified tag appears on another tag page');
+$I->amOnPage('tag/'.$tags[1]->title);
 
-// just to be sure that the item is not published but visible on another page.
-Config::set('blog.posts_per_page', 2000);
-
-$I->amOnPage('tag/accusamus'); // tag->id = 2
-$I->dontSee('Qui amet ipsum sunt.');
+$I->dontSee($post->title);

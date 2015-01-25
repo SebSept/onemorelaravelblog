@@ -18,5 +18,9 @@ $factory('SebSept\OMLB\Models\Comment\Comment', [
     'published' => 0,
     'updated_at' => '2015-01-01 15:26:00',
     'created_at' => '2015-02-01 15:26:00',
-    'post_id' => null
+    'post_id' => 'factory:SebSept\OMLB\Models\Post\Post'
+]);
+
+$factory('SebSept\OMLB\Models\Tag\Tag', [
+    'title' => $faker->word
 ]);

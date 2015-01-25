@@ -1,11 +1,11 @@
 <?php
-use \SebSept\OMLB\Models\Comment\Comment;
+use Laracasts\TestDummy\Factory;
 
-Route::enableFilters();
+Factory::times(5)->create('SebSept\OMLB\Models\Comment\Comment');
+
 $I = new WebGuy($scenario);
-$I->wantTo('Be on comment list (admin) - with comments');
+$I->wantTo('See comments to moderate list - with comments');
+$I->amAdmin();
 
-$I->amHttpAuthenticated('testguy', 'pass');
 $I->amOnPage('/admin/comment/moderate');
-
 $I->see(trans('admin.comment.moderate'));

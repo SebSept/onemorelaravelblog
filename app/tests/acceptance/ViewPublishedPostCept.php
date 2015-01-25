@@ -1,8 +1,14 @@
 <?php
+
+use Laracasts\TestDummy\Factory;
+
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
+
+$I = new WebGuy($scenario);
+$I->wantTo('View published post');
+
 $I = new WebGuy($scenario);
 $I->wantTo('Published post can be viewed');
-$I->amOnPage('aut-ex-accusantium-quo-tenetur-harum');
+$I->amOnPostPage($post);
 // post title
-$I->see('In libero qui ut.'); 
-// post content (piece)
-$I->see('Officiis perspiciatis error ut et officiis quia voluptatem voluptatem');
+$I->see($post->title); 

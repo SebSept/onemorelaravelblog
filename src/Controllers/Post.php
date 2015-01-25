@@ -9,12 +9,12 @@
 
 namespace SebSept\OMLB\Controllers;
 
-use \SebSept\OMLB\Models\Post\Factory As PostRepositoryFactory;
-use \SebSept\OMLB\Models\Comment\Factory As CommentRepositoryFactory;
-use Input,
-    Redirect,
-    View,
-    Config;
+use SebSept\OMLB\Models\Post\Factory As PostRepositoryFactory;
+use SebSept\OMLB\Models\Comment\Factory As CommentRepositoryFactory;
+use Input;
+use Redirect;
+use View;
+use Session;
 
 /**
  * @todo implement 2/3 Controllers ?
@@ -142,7 +142,7 @@ trait adminPosts
     public function update($id = null)
     {
         $inputs = Input::only(['title', 'slug', 'teaser', 'content', 'published', 'hidden-tags']);
-        if (PostRepositoryFactory::make()->save($id, $inputs))
+        if(PostRepositoryFactory::make()->save($id, $inputs))
         {
             return Redirect::route('admin.dashboard')->with('message', trans('admin.post.saved'));
         }

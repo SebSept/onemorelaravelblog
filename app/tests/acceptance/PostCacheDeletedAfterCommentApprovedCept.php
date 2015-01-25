@@ -17,7 +17,7 @@ $I->wantTo('Check that Post cache is delete after a post comment was approved.')
 $I->seeEmptyCacheDir();
 
 // view a post
-$I->amOnPage($post->slug);
+$I->amOnPostPage($post);
 
 // check cache is created
 $I->seeNewCache();

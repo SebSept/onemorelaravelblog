@@ -1,8 +1,14 @@
 <?php
+use Laracasts\TestDummy\Factory;
+
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 0]);
+
 $I = new WebGuy($scenario);
 $I->wantTo('Not published post can\'t be viewed');
+
+
 try{
-    $I->amOnPage('/neque-aut-culpa-ex-sunt-incidunt-officiis-dolores');
+    $I->amOnPostPage($post);
     // exception is throw on previous line so the rest of this block is not supposed to be executed
 
     // if it is : be sure to fail in the next lines :

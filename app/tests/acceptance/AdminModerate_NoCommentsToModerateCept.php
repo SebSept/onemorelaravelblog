@@ -1,17 +1,10 @@
 <?php
-use \SebSept\OMLB\Models\Comment\Comment;
-
-Route::enableFilters();
 $I = new WebGuy($scenario);
+$I->amAdmin();
 
-DB::beginTransaction();
+$I->wantTo('See comments to moderate list - without comments');
 
-DB::delete('DELETE FROM '.(new Comment)->getTable());
-$I->wantTo('Be on comment list (admin) - without comments');
-
-$I->amHttpAuthenticated('testguy', 'pass');
 $I->amOnPage('/admin/comment/moderate');
 
 $I->see(trans('admin.comment.moderate'));
 
-DB::rollBack();

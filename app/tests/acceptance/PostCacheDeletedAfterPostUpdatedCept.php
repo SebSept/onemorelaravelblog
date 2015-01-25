@@ -1,22 +1,23 @@
 <?php
-// @todo test list/indexes also
-$post_slug = 'aut-ex-accusantium-quo-tenetur-harum';
+use Laracasts\TestDummy\Factory;
+
+// prepare existing post
+$post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
 
 // enable filters, cache is managed using filters
 Route::enableFilters();
 
 $I = new WebGuy($scenario);
 $I->wantTo('Check that Post cache is delete after post modified');
-//$I->prepareEmptyCache();
 
 // view a post
-$I->amOnPage($post_slug);
+$I->amOnPostPage($post);
 
 // check cache is created
 $I->seeNewCache();
 
 // update post
-SebSept\OMLB\Models\Post\Factory::make('front')->getBySlug($post_slug)->save();
+SebSept\OMLB\Models\Post\Factory::make('front')->getBySlug($post->slug)->save();
 
 $I->seeEmptyCacheDir();
 

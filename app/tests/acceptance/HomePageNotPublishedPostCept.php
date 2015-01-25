@@ -1,10 +1,14 @@
 <?php
-$I = new WebGuy($scenario);
-$I->wantTo('Not published post does not appears on home');
+use Laracasts\TestDummy\Factory;
 
-// just to be sure that the item is not published but visible on another page.
-Config::set('blog.posts_per_page', 2000);
+$posts = Factory::times(3)->create('SebSept\OMLB\Models\Post\Post', ['published' => 0]);
+
+$I = new WebGuy($scenario);
+$I->wantToTest('Not published post does not appears on home');
 
 $I->amOnPage('/');
-$I->dontSee('Quo eos natus unde cum occaecati.');
+foreach($posts as $post)
+{
+    $I->dontSee($post->title);
+}
 
