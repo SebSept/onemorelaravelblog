@@ -10,7 +10,7 @@ $comment = Factory::create('SebSept\OMLB\Models\Comment\Comment', ['slug' => 'my
 
 
 
-$I = new Guest($scenario);
+$I = new GuestCache($scenario);
 $I->wantTo('Check that Post cache is delete after a post comment was approved.');
 
 // cache must be empty on start
@@ -20,7 +20,7 @@ $I->seeEmptyCacheDir();
 $I->amOnPostPage($post);
 
 // check cache is created
-$I->seeNewCache();
+$I->seeSomeCache();
 
 // approve comment
 $comment->approve();

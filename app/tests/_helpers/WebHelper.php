@@ -48,6 +48,16 @@ class WebHelper extends \Codeception\Module
         $this->getModule('Laravel4')->amOnPage('/'.$post->slug);
     }
     
+    /**
+     * be on the page that display list of post with a specified tag
+     * 
+     * @param Tag $tag
+     */
+    public function amOnTagPage($tag)
+    {
+        $this->getModule('Laravel4')->amOnPage('/tag/'.$tag->title);
+    }
+    
     public function prepareEmptyCache()
     {
         // assert using a file cache
@@ -71,7 +81,7 @@ class WebHelper extends \Codeception\Module
         $this->assertEmpty(glob( $this->cacheDir().'/*/*/*'));
     }
     
-    public function seeNewCache()
+    public function seeSomeCache()
     {
         $this->assertNotEmpty(glob( $this->cacheDir().'/*/*/*'));
     }
