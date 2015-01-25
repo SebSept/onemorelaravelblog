@@ -1,5 +1,5 @@
 <?php
-$I = new WebGuy($scenario);
+$I = new Guest($scenario);
 $I->wantTo('View tag page for non existing tag');
 
 // just to be sure that the item is not published but visible on another page.

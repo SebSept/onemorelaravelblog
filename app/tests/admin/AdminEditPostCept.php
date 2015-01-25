@@ -10,7 +10,7 @@ Factory::times(4)->create('SebSept\OMLB\Models\Tag\Tag');
 // & post
 $post = Factory::create('SebSept\OMLB\Models\Post\Post', ['title' => 'orginal title']);
 
-$I = new WebGuy($scenario);
+$I = new Admin($scenario);
 $I->wantTo('Edit a post');
 $I->amAdmin();
 

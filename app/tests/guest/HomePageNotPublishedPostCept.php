@@ -3,7 +3,7 @@ use Laracasts\TestDummy\Factory;
 
 $posts = Factory::times(3)->create('SebSept\OMLB\Models\Post\Post', ['published' => 0]);
 
-$I = new WebGuy($scenario);
+$I = new Guest($scenario);
 $I->wantToTest('Not published post does not appears on home');
 
 $I->amOnPage('/');

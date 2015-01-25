@@ -3,7 +3,7 @@ use Laracasts\TestDummy\Factory;
 
 $post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 0]);
 
-$I = new WebGuy($scenario);
+$I = new Guest($scenario);
 $I->wantTo('Not published post can\'t be viewed');
 
 

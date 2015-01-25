@@ -4,13 +4,12 @@
  */
 use Laracasts\TestDummy\Factory;
 
-// create post & comment content
 $post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
 $comment_content = Faker\Factory::create('fr_FR')->text;
 
-$I = new WebGuy($scenario);
-$I->wantTo('submit valid comment as admin');
-$I->amAdminWithMock();
+$I = new Guest($scenario);
+$I->wantTo('submit valid comment as guest');
+$I->amGuest();
 
 // submit comment
 $I->amOnPostPage($post);
@@ -23,5 +22,4 @@ $I->submitForm( '#post-form form', [
         ]);
 
 // check comment is published
-$I->see($comment_content);
-
+$I->dontSee($comment_content);

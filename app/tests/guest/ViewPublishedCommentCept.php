@@ -5,7 +5,7 @@ use Laracasts\TestDummy\Factory;
 $post = Factory::create('SebSept\OMLB\Models\Post\Post', ['published' => 1]);
 $comment = Factory::create('SebSept\OMLB\Models\Comment\Comment', ['published' => 1, 'post_id' => $post->id]);
 
-$I = new WebGuy($scenario);
+$I = new Guest($scenario);
 $I->wantTo('see published comment');
 
 

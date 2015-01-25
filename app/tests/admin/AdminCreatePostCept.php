@@ -5,7 +5,7 @@ use Laracasts\TestDummy\Factory;
 // prepare existing tags
 Factory::times(4)->create('SebSept\OMLB\Models\Tag\Tag');
 
-$I = new WebGuy($scenario);
+$I = new Admin($scenario);
 $I->wantTo('Create a new post');
 $I->amAdmin();
 

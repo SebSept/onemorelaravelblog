@@ -1,5 +1,5 @@
 <?php
-$I = new WebGuy($scenario);
+$I = new Admin($scenario);
 $I->amAdmin();
 
 $I->wantTo('See comments to moderate list - without comments');

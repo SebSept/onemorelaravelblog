@@ -10,7 +10,7 @@ $comment = Factory::create('SebSept\OMLB\Models\Comment\Comment', ['slug' => 'my
 
 
 
-$I = new WebGuy($scenario);
+$I = new Guest($scenario);
 $I->wantTo('Check that Post cache is delete after a post comment was approved.');
 
 // cache must be empty on start
