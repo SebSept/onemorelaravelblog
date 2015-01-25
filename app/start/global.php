@@ -112,12 +112,6 @@ Form::macro('myInput', function($attribute, $type, $label)
 	return  $return;
 });
 
-
-/**
-* Comment added to post
-**/
-Event::listen('post.saving.tags', 'BlogCacheManager@postSavingTags');
-
 /**
  * Extends blade
  * - @tag($tag)

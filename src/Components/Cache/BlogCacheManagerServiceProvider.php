@@ -50,7 +50,7 @@ class BlogCacheManagerServiceProvider extends \Illuminate\Support\ServiceProvide
         });
 
         // post tags changed
-//        \Event::listen('post.saving.tags', 'BlogCacheManager@postSavingTags');
+        \Event::listen('post.saving.tags', 'BlogCacheManager@postSavingTags');
         
         // comments approved, added by admin 
         Event::listen('comment.approved', 'BlogCacheManager@commentPublished');
