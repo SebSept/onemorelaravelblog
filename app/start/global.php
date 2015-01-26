@@ -12,12 +12,8 @@
 */
 
 ClassLoader::addDirectories(array(
-
 	app_path().'/commands',
-//	app_path().'/controllers',
-//	app_path().'/models',
 	app_path().'/database/seeds',
-
 ));
 
 /*
@@ -94,36 +90,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
-
-/**
-* custom input for forms
-*/ 
-Form::macro('myInput', function($attribute, $type, $label)
-{
-	$return = '';
-
-	$return .= '<div class="form-group">';
-	$return .= Form::label($attribute, $label, ['class' => 'col-sm-2 control-label', 'for' => $attribute]);
-	$return .= '<div class="col-sm-10">';
-	$return .= Form::$type($attribute);
-	$return .= '</div>';
-	$return .= '</div>';
-
-	return  $return;
-});
-
-/**
- * Extends blade
- * - @tag($tag)
-*/
-Blade::extend(function($view, $compiler)
-{
-    $pattern = $compiler->createMatcher('tag');
-
-    return preg_replace($pattern, '$1<?php 
-    	$_tag = $2;
-    	echo link_to_route("post.index.bytag", $_tag->title, ["tag" => $_tag->title], ["class" => Config::get("blog.tag_class")]) ; ?>', $view);
-});
 
 // set locale for dates
 setlocale(LC_TIME, Config::get('blog.locale'));
