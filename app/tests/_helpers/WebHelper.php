@@ -67,28 +67,22 @@ class WebHelper extends \Codeception\Module
         
         // flush cache dir
         \BlogCacheManager::flush();
-
-        $this->seeEmptyCacheDir();
-    }
-    
-    public function seeEmptyCacheDir($debug = false)
-    {
-        if($debug)
-        {
-            dd(glob( $this->cacheDir().'/*/*/*'));
-        }
-        
-        $this->assertEmpty(glob( $this->cacheDir().'/*/*/*'));
-    }
-    
-    public function seeSomeCache()
-    {
-        $this->assertNotEmpty(glob( $this->cacheDir().'/*/*/*'));
     }
 
-    public function seeCacheCommentTag()
+    /**
+     * content is retrived from cache
+     */
+    public function contentIsFromCache()
     {
         $this->getModule('Laravel4')->see('<!-- retrieved from cache -->');
+    }
+    
+    /**
+     * Content is not retrieved from cache
+     */
+    public function contentIsNotFromCache()
+    {
+        $this->getModule('Laravel4')->dontSee('<!-- retrieved from cache -->');
     }
     
     private function cacheDir()

@@ -13,11 +13,9 @@ $I->wantTo('Check that Post cache is delete after post modified');
 // view a post
 $I->amOnPostPage($post);
 
-// check cache is created
-$I->seeSomeCache();
-
-// update post
+// update post : cache deleted
 SebSept\OMLB\Models\Post\Factory::make('front')->getBySlug($post->slug)->save();
 
-$I->seeEmptyCacheDir();
+$I->amOnPostPage($post);
+$I->contentIsNotFromCache();
 

@@ -14,44 +14,40 @@ Route::enableFilters();
 $I = new GuestCache($scenario);
 $I->wantTo('Check that Tag cache is delete after post modified');
 
-
 // --- test 1 : tag page cache deleted : tag removed from post
 
 // view a tag
-$I->amOnPage('/tag/'.$tags[0]->title);
-
-// check cache is created
-$I->seeSomeCache();
+$I->amOnTagPage($tags[0]);
 
 // update post tags
 $tags_str = $tags[1]->title.','.$tags[2]->title;
-//SebSept\OMLB\Models\Post\Factory::make('admin')->getById($post->id);
 SebSept\OMLB\Models\Post\Factory::make('admin')->setTagsFromString($tags_str, $post);
 
-$I->seeEmptyCacheDir();
+$I->amOnTagPage($tags[0]);
+$I->contentIsNotFromCache();
 
 // --- test 2 : tag page cache deleted : tag added to post
 $I->prepareEmptyCache();
 
 // see a page with other posts
 $I->amOnTagPage($tags[3]);
-$I->seeSomeCache();
 
 // save the post with a new tag
 $tags_str = $tags[1]->title.','.$tags[3]->title;
 SebSept\OMLB\Models\Post\Factory::make('admin')->setTagsFromString($tags_str, $post);
 
-$I->seeEmptyCacheDir();
+$I->amOnTagPage($tags[3]);
+$I->contentIsNotFromCache();
 
 // --- test 3 : tag page cache not deleted : tag nor removed neither added
 $I->prepareEmptyCache();
 
 // see a page with other posts
 $I->amOnTagPage($tags[4]);
-$I->seeSomeCache();
 
 // save the post with a new tag
 $tags_str = $tags[1]->title.','.$tags[3]->title;
 SebSept\OMLB\Models\Post\Factory::make('admin')->setTagsFromString($tags_str, $post);
 
-$I->seeSomeCache();
+$I->amOnTagPage($tags[4]);
+$I->contentIsFromCache();
