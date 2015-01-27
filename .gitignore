@@ -20,9 +20,14 @@ todo
 
 docs_perso/
 .git-ftp-ignore
-app/tests/acceptance.suite.yml
 workbench/
 _ide_helper.php
-app/tests/functional/TestGuy.php
-app/tests/acceptance/WebGuy.php
-app/tests/unit/CodeGuy.php
+
+; tests
+/app/tests/admin/Admin.php
+/app/tests/guest/Guest.php
+/app/tests/guest_cache/GuestCache.php
+/app/tests/guest.suite.yml
+/app/tests/guest_cache.suite.yml
+/app/tests/admin.suite.yml
+

@@ -10,13 +10,12 @@
 	"autoload": {
 		"classmap": [
 			"app/commands",
-			"app/controllers",
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
 		],
                 "psr-4" : {
-                    "SebSept\\OMLB\\": "app/models/SebSept/OMLB/"
+                    "SebSept\\OMLB\\": "src/"
                 }
 	},
 	"scripts": {
@@ -40,6 +39,7 @@
 		"barryvdh/laravel-ide-helper": "1.*",
 		"fzaninotto/faker": "dev-master",
 		"codeception/codeception": "*",
-		"mockery/mockery": "dev-master"
+		"mockery/mockery": "dev-master",
+		"laracasts/testdummy": "~2.0"
 	}
 }

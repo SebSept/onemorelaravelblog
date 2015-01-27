@@ -1,4 +1,4 @@
-@extends(\Config::get('blog.theme').'::layout')
+@extends('layout')
 
 @section('head.meta')
     <title>{{{ $post->title }}}</title>

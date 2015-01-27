@@ -120,6 +120,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
                 'GrahamCampbell\Markdown\MarkdownServiceProvider',
+                'Illuminate\Html\HtmlServiceProvider',
                 '\SebSept\OMLB\Components\Html\BlogHtmlServiceProvider',
                 '\SebSept\OMLB\Components\Cache\BlogCacheManagerServiceProvider',
 

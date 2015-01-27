@@ -1,4 +1,4 @@
-@extends(\Config::get('blog.theme').'::admin.layout')
+@extends('admin.layout')
 
 @section('content')
 <div class="container">
@@ -54,9 +54,9 @@
                         </td>
                         
                         {{-- delete --}}
-			<td>{{ Form::open([ 'route' => ['admin.post.delete', 'id' => $post->id ], 'id' => 'delete_btn_'.$post->id ]) }}
+			<td>{{ Form::open([ 'route' => ['admin.post.destroy', 'id' => $post->id ], 'id' => 'delete_btn_'.$post->id ]) }}
                             {{ Form::close() }}
-                            <span class="glyphicon glyphicon-trash" title="{{ trans('admin.post.delete') }}" 
+                            <span class="glyphicon glyphicon-trash" title="{{ trans('admin.post.destroy') }}" 
                                   onclick="document.getElementById('delete_btn_{{$post->id}}').submit(); return false;"></span>
                         </td>
 		</tr>

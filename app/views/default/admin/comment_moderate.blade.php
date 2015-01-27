@@ -1,4 +1,4 @@
-@extends(\Config::get('blog.theme').'::admin.layout')
+@extends('admin.layout')
 <?php 
 use \SebSept\OMLB\Models\Comment\Comment;
 ?>
@@ -28,7 +28,7 @@ use \SebSept\OMLB\Models\Comment\Comment;
 							{{{ $value }}}
 						</td>
 					@endforeach
-					<td>{{ link_to_route('admin.comment.delete', trans('admin.comment.delete'), ['comment_id' => $comment->id], ['class' => 'btn btn-warning']) }}</td>
+					<td>{{ link_to_route('admin.comment.destroy', trans('admin.comment.destroy'), ['comment_id' => $comment->id], ['class' => 'btn btn-warning']) }}</td>
 					<td>{{ link_to_route('admin.comment.approuve', trans('admin.comment.approve'), ['comment_id' => $comment->id], ['class' => 'btn btn-success']) }}</td>
 				</tr>
 			@endforeach
